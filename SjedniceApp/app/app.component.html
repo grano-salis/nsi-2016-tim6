@@ -1,0 +1,57 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+		</div>
+		<div class="navbar-collapse collapse">
+
+			<ul class="nav navbar-nav">
+				<li><a routerLink='home'>Početna</a> </li>
+				<li><a routerLink='sjednice'>Sjednice</a> </li>
+				<li><a routerLink='trenutna'>Trenutna sjednica</a> </li>
+
+				<li> <a (click) ="isCollapsed1 = !isCollapsed1">Šifrarnici <span class="caret"></span></a>
+					
+					<ul [ngbCollapse]="isCollapsed1" (mouseleave)="isCollapsed1 = !isCollapsed1" class="dropdown-menu">
+						<li><a routerLink='sifarnici/statusSjednice'>Status sjednice</a></li>
+						<li><a routerLink='sifarnici/statusSjednice'>Status stavke dnevnog reda</a></li>
+						<li><a routerLink='sifarnici/statusSjednice'>Status učesnika</a></li>
+						<li><a routerLink='sifarnici/statusSjednice'>Tip učesnika</a></li>
+						<li><a routerLink='sifarnici/statusSjednice'>Tip glasa</a></li>
+					</ul>
+															
+
+				</li>
+			</ul>
+
+		</div>
+
+	</div>
+
+
+</div>
+
+
+
+<br />
+<br />
+<br />
+
+<div class="container body-content">
+
+	<router-outlet></router-outlet>
+
+</div>
+
+<footer>
+	<p class="text-center">&copy; 2016 - Tim 6 - Sjednice</p>
+</footer>
+
+<!--Potrebno za rad modala na formi-->
+<template ngbModalContainer></template>

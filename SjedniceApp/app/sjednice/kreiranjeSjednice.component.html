@@ -1,0 +1,171 @@
+<div class="panel panel-default col-md-12">
+    <div class="panel-heading">
+        <h3 class="text-center">Kreiranje nove sjednice</h3>
+    </div>
+    <div class="panel-body">
+
+        <form action="" method="POST" class="form-horizontal" role="form">
+
+            <div class="container">
+                <div class="vertical-center-row">
+                    <div class='col-md-8'>
+                        <div class="form-group">
+                            <label class="control-label" for="date">Datum početka</label>
+                            <input class="form-control" id="datep" name="date" type="date" placeholder="MM/DD/YYY" type="text" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="date">Datum završetka</label>
+                            <input class="form-control" id="datez" name="date" type="date" placeholder="MM/DD/YYY" type="text" />
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Naziv teme">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Mjesto održavanja">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-2">
+                    <button type="submit" class="btn btn-primary pull-right">Spremi</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="text-center">Kreiranje dnevnog reda</h3>
+    </div>
+    <div class="panel-body">
+        <button class="btn btn-primary btn-sm pull-right" (click)="open(content)">Kreiraj</button>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Dnevni red</th>
+                <th></th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr>
+                <td>I tačka dnevnog reda</td>
+                <td class="pull-right">
+                    <button class="btn btn-primary">Uredi</button> |
+                    <button class="btn btn-info">Detalji</button>
+                </td>
+            </tr>
+            <tr>
+                <td>II tačka dnevnog reda</td>
+                <td class="pull-right">
+                    <button class="btn btn-primary">Uredi</button> |
+                    <button class="btn btn-info">Detalji</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<div class="panel panel-default col-md-6">
+    <div class="panel-heading">
+        <h3 class="text-center">Pridruživanje učesnika sjednici</h3>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-9">
+
+            <select class="form-control">
+                <option selected>Odaberite osobu</option>
+                <option>Faris Džafić</option>
+                <option>Aida Granulo</option>                
+            </select>
+
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-primary pull-right">Dodaj</button>
+        </div>
+    </div>
+
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Dnevni red</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Konjicija Samim</td>
+                <td class="pull-right">
+                    <button class="btn btn-info">Ukloni</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Omanović Samir</td>
+                <td class="pull-right">
+                    <button class="btn btn-primary">Ukloni</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+<div class="panel panel-default col-md-6">
+    <div class="panel-heading">
+        <h3 class="text-center">Pridruživanje priloga za sjednicu</h3>
+    </div>
+    <div class="panel-body">
+        <button class="btn btn-primary pull-right">
+                Pridruži prilog
+        </button>
+        <input type="file" class="form-control">       
+    </div>
+
+     <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Pridruženi prilozi</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Zapisnik sa posljednje sjednice održane 30.09.2016.</td>
+                    <td class="pull-right"><button class="btn btn-primary">Ukloni</button>
+                </tr>
+                <tr>
+                    <td>Pravilnik o odabiru akademskog osoblja</td>
+                    <td class="pull-right"><button class="btn btn-primary">Ukloni</button>
+                </tr>
+            </tbody>
+        </table>
+</div>
+
+<!--MODAL ZA KREIRANJE TAČKE DNEVNOG REDA-->
+
+<template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+        <h4 class="modal-title">Unos tačke dnevnog reda</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <input class="form-control" placeholder="Naziv tačke dnevnog reda">
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" placeholder="Opis tačke dnevnog reda"></textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Spremi</button>
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Izađi</button>
+    </div>
+</template>
