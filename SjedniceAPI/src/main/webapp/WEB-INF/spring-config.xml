@@ -11,8 +11,7 @@
     <mvc:annotation-driven />
 
     <!--   Ispod ćete zalijepiti data source -->
-    
-
+           
 
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">

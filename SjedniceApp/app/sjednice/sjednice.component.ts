@@ -9,8 +9,10 @@ import { SjedniceService } from '../shared/services/sjednice.service';
 })
 export class SjedniceComponent implements OnInit {
     sjednice: Sjednica[] = [];
-    constructor(private sjednicaService : SjedniceService) { }    
+    constructor(private service : SjedniceService) { }    
     ngOnInit() { 
-        this.sjednicaService.getSjednice().subscribe(data => this.sjednice = data);        
+
+        //subscribe služi da se pretplatimo na observable objekat koji se vraća iz servisa
+        this.service.getList().subscribe(data => this.sjednice = data);        
     }
 }
