@@ -44,4 +44,7 @@
     
     <bean id="sjednicaDao" class="com.sjednice.dao.SjednicaDao"></bean>
     <bean id="sjednicaServices" class="com.sjednice.services.SjednicaServices"></bean>
+    
+    <bean id="statusSjedniceDao" class="com.sjednice.dao.StatusSjedniceDao"></bean>
+    <bean id="statusSjedniceServices" class="com.sjednice.services.StatusSjedniceServices"></bean>
 </beans>
