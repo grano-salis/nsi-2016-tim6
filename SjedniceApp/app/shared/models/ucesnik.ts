@@ -1,4 +1,4 @@
-export interface Ucesnik {
+export class Ucesnik {
     id: number;
     uposlenikId: number;
     sjednicaId: number;

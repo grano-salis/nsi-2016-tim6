@@ -9,7 +9,9 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
@@ -24,9 +26,10 @@ public class StavkaDnevnogReda implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "generator", sequenceName = "STAVKA_DNEVNOG_REDA_ID_SEQUENCE", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generator")
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "dnevni_red_id")
     private int dnevni_red_id;
@@ -43,11 +46,11 @@ public class StavkaDnevnogReda implements Serializable {
     @Column(name = "status_stavke_dr_id")
     private int status_stavke_dr_id;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

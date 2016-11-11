@@ -13,12 +13,12 @@ public class DataServices implements IDataServices<Employee> {
 	DataDao dataDao;
 	
 	@Override
-	public boolean addEntity(Employee employee) throws Exception {
+	public Employee addEntity(Employee employee) throws Exception {
 		return dataDao.addEntity(employee);
 	}
 
 	@Override
-	public Employee getEntityById(long id) throws Exception {
+	public Employee getEntityById(Integer id) throws Exception {
 		return dataDao.getEntityById(id);
 	}
 
@@ -28,7 +28,7 @@ public class DataServices implements IDataServices<Employee> {
 	}
 
 	@Override
-	public boolean deleteEntity(long id) throws Exception {
+	public boolean deleteEntity(Integer id) throws Exception {
 		return dataDao.deleteEntity(id);
 	}
 

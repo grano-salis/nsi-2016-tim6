@@ -1,4 +1,4 @@
-export interface StatusSjednice {
-    id:number;
-    naziv:string;
+export class StatusSjednice {
+    id: number;
+    naziv: string;
 }

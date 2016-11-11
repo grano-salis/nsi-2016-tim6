@@ -31,22 +31,22 @@ public class StatusSjedniceController {
 
     static final Logger logger = Logger.getLogger(RestController.class);
 
+    @CrossOrigin
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    Status addStatusSjednice(@RequestBody StatusSjednice statusSjednice) {
+    StatusSjednice addStatusSjednice(@RequestBody StatusSjednice statusSjednice) {
         try {
-            dataServices.addEntity(statusSjednice);
-            return new Status(1, "Employee added Successfully !");
+            return dataServices.addEntity(statusSjednice);            
         } catch (Exception e) {
             // e.printStackTrace();
-            return new Status(0, e.toString());
+            return null;
         }
 
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    StatusSjednice getStatusSjednice(@PathVariable("id") long id) {
+    StatusSjednice getStatusSjednice(@PathVariable("id") Integer id) {
         StatusSjednice statusSjednice = null;
         try {
             statusSjednice = dataServices.getEntityById(id);
@@ -71,16 +71,16 @@ public class StatusSjedniceController {
 
         return statusSjedniceList;
     }
-
-    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+    @CrossOrigin
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
     public @ResponseBody
-    Status deleteStatusSjednice(@PathVariable("id") long id) {
+    Status deleteStatusSjednice(@PathVariable("id") Integer id) {
 
         try {
             dataServices.deleteEntity(id);
-            return new Status(1, "Employee deleted Successfully !");
+            return new Status(200, "Uspješno obrisano !");
         } catch (Exception e) {
-            return new Status(0, e.toString());
+            return new Status(400, e.toString());
         }
 
     }

@@ -1,4 +1,4 @@
-export interface StavkaDr {
+export class StavkaDr {
     id: number;
     dnevniRedId: number;
     redniBroj: number;

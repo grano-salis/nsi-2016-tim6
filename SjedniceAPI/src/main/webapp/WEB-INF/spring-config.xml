@@ -11,7 +11,7 @@
     <mvc:annotation-driven />
 
     <!--   Ispod ćete zalijepiti data source -->
-           
+
 
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -20,11 +20,25 @@
             <list>
                 <value>com.sjednice.model.Employee</value>
                 <value>com.sjednice.model.Sjednica</value>
+                <value>com.sjednice.model.StatusSjednice</value>
+                <value>com.sjednice.model.ChatPoruka</value>
+                <value>com.sjednice.model.DnevniRed</value>
+                <value>com.sjednice.model.Glas</value>
+                <value>com.sjednice.model.Prilog</value>
+                
+                <value>com.sjednice.model.StatusStavkeDnevnogReda</value>
+                <value>com.sjednice.model.StatusUcesnika</value>
+                <value>com.sjednice.model.StavkaDnevnogReda</value>
+                <value>com.sjednice.model.TipGlasa</value>
+                <value>com.sjednice.model.TipUcesnika</value>
+                <value>com.sjednice.model.Ucesnik</value>
+                <value>com.sjednice.model.Zapisnik</value>               
+
             </list>
         </property>
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
                 <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
             </props>
         </property>

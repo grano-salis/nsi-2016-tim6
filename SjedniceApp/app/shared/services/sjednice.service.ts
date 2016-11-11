@@ -20,5 +20,5 @@ export class SjedniceService {
     getList() : Observable<Sjednica[]> {        
         return this.http.get(this.url.sjednice + "/list")
             .map((response: Response) => response.json());            
-    }
+    }    
 }

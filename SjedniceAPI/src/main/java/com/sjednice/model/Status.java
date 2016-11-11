@@ -3,7 +3,7 @@ package com.sjednice.model;
 public class Status {
 
 	private int code;
-	private String message;
+	private String message;        
 
 	public Status() {
 	}
@@ -28,4 +28,6 @@ public class Status {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+        
+        
 }

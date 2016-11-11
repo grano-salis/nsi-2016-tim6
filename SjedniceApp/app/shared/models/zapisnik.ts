@@ -1,4 +1,4 @@
-export interface Zapisnik {
+export class Zapisnik {
     id: number;
     tekst: string;
     sjednicaId: number;

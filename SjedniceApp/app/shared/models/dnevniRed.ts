@@ -1,4 +1,4 @@
-export interface DnevniRed {
+export class DnevniRed {
     id: number;
     sjednicaId: number;
 }

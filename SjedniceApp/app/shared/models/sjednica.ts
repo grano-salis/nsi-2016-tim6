@@ -1,4 +1,4 @@
-export interface Sjednica {
+export class Sjednica {
     id: number;
     naziv: string;
     datumOd: string;

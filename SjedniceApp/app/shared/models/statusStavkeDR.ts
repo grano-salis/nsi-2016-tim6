@@ -1,4 +1,4 @@
-export interface StatusStavkeDR {
-    id:number;
-    naziv:string;
+export class StatusStavkeDR {
+    id: number;
+    naziv: string;
 }

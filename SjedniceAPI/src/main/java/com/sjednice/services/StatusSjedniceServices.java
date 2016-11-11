@@ -16,12 +16,12 @@ public class StatusSjedniceServices implements IDataServices <StatusSjednice>{
 	StatusSjedniceDao dataDao;
 	
     @Override
-    public boolean addEntity(StatusSjednice item) throws Exception {
+    public StatusSjednice addEntity(StatusSjednice item) throws Exception {
 		return dataDao.addEntity(item);
     }
 
     @Override
-    public StatusSjednice getEntityById(long id) throws Exception {
+    public StatusSjednice getEntityById(Integer id) throws Exception {
 		return dataDao.getEntityById(id);
     }
 
@@ -31,7 +31,7 @@ public class StatusSjedniceServices implements IDataServices <StatusSjednice>{
 	}
 
     @Override
-    public boolean deleteEntity(long id) throws Exception {
+    public boolean deleteEntity(Integer id) throws Exception {
 		return dataDao.deleteEntity(id);
 	}
     

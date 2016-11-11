@@ -1,4 +1,4 @@
-export interface Glas {
+export class Glas {
     in: number;
     stavkaDrId: number;
     tipGlasaId: number;

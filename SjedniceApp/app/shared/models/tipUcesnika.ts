@@ -1,4 +1,4 @@
-export interface TipUcesnika {
+export class TipUcesnika {
     id: number;
     naziv: string;
 }

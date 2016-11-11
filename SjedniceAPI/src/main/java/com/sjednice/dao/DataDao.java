@@ -18,19 +18,19 @@ public class DataDao implements IDataDao <Employee> {
 	Transaction tx = null;
 
 	@Override
-	public boolean addEntity(Employee employee) throws Exception {
+	public Employee addEntity(Employee employee) throws Exception {
 
 		session = sessionFactory.openSession();
 		tx = session.beginTransaction();
-		session.save(employee);
+		employee.setId((long)session.save(employee));
 		tx.commit();
 		session.close();
 
-		return false;
+		return employee;
 	}
 
 	@Override
-	public Employee getEntityById(long id) throws Exception {
+	public Employee getEntityById(Integer id) throws Exception {
 		session = sessionFactory.openSession();
 		Employee employee = (Employee) session.load(Employee.class,
 				new Long(id));
@@ -53,7 +53,7 @@ public class DataDao implements IDataDao <Employee> {
 	}
 	
 	@Override
-	public boolean deleteEntity(long id)
+	public boolean deleteEntity(Integer id)
 			throws Exception {
 		session = sessionFactory.openSession();
 		Object o = session.load(Employee.class, id);

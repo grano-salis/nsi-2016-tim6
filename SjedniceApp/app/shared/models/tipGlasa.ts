@@ -1,4 +1,4 @@
-export interface TipGlasa {
+export class TipGlasa {
     id: number;
     naziv: string;
 }

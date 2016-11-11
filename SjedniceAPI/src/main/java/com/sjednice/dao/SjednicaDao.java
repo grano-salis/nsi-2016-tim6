@@ -26,12 +26,12 @@ public class SjednicaDao implements IDataDao<Sjednica> {
     Transaction tx = null;
 
     @Override
-    public boolean addEntity(Sjednica item) throws Exception {
+    public Sjednica addEntity(Sjednica item) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Sjednica getEntityById(long id) throws Exception {
+    public Sjednica getEntityById(Integer id) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -47,7 +47,7 @@ public class SjednicaDao implements IDataDao<Sjednica> {
     }
 
     @Override
-    public boolean deleteEntity(long id) throws Exception {
+    public boolean deleteEntity(Integer id) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

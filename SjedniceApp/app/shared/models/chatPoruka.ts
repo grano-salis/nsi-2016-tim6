@@ -1,4 +1,4 @@
-export interface CharPoruka {
+export class CharPoruka {
     id: number;
     ucesnikId: number;
     poruka: string;

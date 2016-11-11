@@ -1,4 +1,4 @@
-export interface StatusUcesnika{
+export class StatusUcesnika{
     id: number;
     naziv: string;
 }
