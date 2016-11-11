@@ -4,6 +4,10 @@ import { SjedniceComponent } from './sjednice/sjednice.component';
 import { TrenutnaSjednicaComponent } from './trenutna_sjednica/trenutnaSjednica.component';
 import { KreiranjeSjedniceComponent } from './sjednice/kreiranjeSjednice.component';
 import { StatusSjedniceComponent } from './sifarnici/statusSjednice.component';
+import { StatusStavkeDrComponent } from './sifarnici/statusStavkeDR.component';
+import { StatusUcesnikaComponent } from './sifarnici/statusUcesnika.component';
+import { TipUcesnikaComponent } from './sifarnici/tipUcesnika.component';
+import { TipGlasaComponent } from './sifarnici/tipGlasa.component';
 
 
 export const Declarations = [
@@ -12,5 +16,9 @@ export const Declarations = [
     SjedniceComponent,
     TrenutnaSjednicaComponent,
     KreiranjeSjedniceComponent,
-    StatusSjedniceComponent
+    StatusSjedniceComponent,
+    StatusStavkeDrComponent,
+    StatusUcesnikaComponent,
+    TipUcesnikaComponent,
+    TipGlasaComponent
 ]
