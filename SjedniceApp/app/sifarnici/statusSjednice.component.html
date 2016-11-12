@@ -23,7 +23,13 @@
 					<td>{{status.naziv}}</td>
 					<td class="pull-right">
 						<button class="btn btn-primary btn-sm">Uredi</button> |
-						<button class="btn btn-danger btn-sm" (click)="deleteEntity(status)">Obriši</button>
+						<button class="btn btn-danger btn-sm" 
+						mwlConfirmationPopover
+						message="Jeste li sigurni da želite obrisati ?"						
+						placement="left"
+						(confirm)="deleteEntity(status)"
+						(cancel)="isOpen = false"						
+						>Obriši</button>
 					</td>
 				</tr>				
 		</tbody>

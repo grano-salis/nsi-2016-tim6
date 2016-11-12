@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <!-- Polyfill(s) for older browsers -->
-    <script src="node_modules/core-js/client/shim.min.js"></script>
-
+    <script src="node_modules/core-js/client/shim.min.js"></script>    
     <script src="node_modules/zone.js/dist/zone.js"></script>
     <script src="node_modules/reflect-metadata/Reflect.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>           
@@ -20,7 +19,8 @@
       System.import('app').catch(function(err){ console.error(err); });
       System.config({
         map: {
-          '@ng-bootstrap/ng-bootstrap': 'node_modules/@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js'
+          '@ng-bootstrap/ng-bootstrap': 'node_modules/@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
+          'angular-confirmation-popover' : 'node_modules/angular-confirmation-popover/dist/umd/angular-confirmation-popover.js'
         }
       });
     </script>
