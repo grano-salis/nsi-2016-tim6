@@ -12,7 +12,6 @@
 
     <!--   Ispod ćete zalijepiti data source -->
 
-
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
@@ -60,4 +59,30 @@
     
     <bean id="statusSjedniceDao" class="com.sjednice.dao.StatusSjedniceDao"></bean>
     <bean id="statusSjedniceServices" class="com.sjednice.services.StatusSjedniceServices"></bean>
+    
+    <bean id="chatPorukaDao" class="com.sjednice.dao.ChatPorukaDao"></bean>
+    <bean id="chatPorukaServices" class="com.sjednice.services.ChatPorukaServices"></bean>
+    
+    <bean id="dnevniRedDao" class="com.sjednice.dao.DnevniRedDao"></bean>
+    <bean id="dnevniRedServices" class="com.sjednice.services.DnevniRedServices"></bean>
+    
+    <bean id="employeeDao" class="com.sjednice.dao.EmployeeDao"></bean>
+    <bean id="employeeServices" class="com.sjednice.services.EmployeeServices"></bean>
+    
+    <bean id="glasDao" class="com.sjednice.dao.GlasDao"></bean>
+    <bean id="glasServices" class="com.sjednice.services.GlasServices"></bean>
+    
+    <bean id="prilogDao" class="com.sjednice.dao.PrilogDao"></bean>
+    <bean id="prilogServices" class="com.sjednice.services.PrilogServices"></bean>
+    
+    <bean id="statusDao" class="com.sjednice.dao.StatusDao"></bean>
+    <bean id="statusServices" class="com.sjednice.services.StatusServices"></bean>
+    
+    <bean id="statusSjedniceDao" class="com.sjednice.dao.StatusSjedniceDao"></bean>
+    <bean id="statusSjedniceServices" class="com.sjednice.services.StatusSjedniceServices"></bean>
+    
+    <bean id="statusStavkeDnevnogRedaDao" class="com.sjednice.dao.StatusStavkeDnevnogRedaDao"></bean>
+    <bean id="statusStavkeDnevnogRedaServices" class="com.sjednice.services.StatusStavkeDnevnogRedaServices"></bean>
+    
+    
 </beans>
