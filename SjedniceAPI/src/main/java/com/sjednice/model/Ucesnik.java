@@ -32,10 +32,10 @@ public class Ucesnik implements Serializable {
     private Integer id;
 
     @Column(name = "uposlenik_id")
-    private int uposlenik_id;
+    private Integer uposlenik_id;
 
     @Column(name = "sjednica_id")
-    private int sjednica_id;
+    private Integer sjednica_id;
 
     @Column(name = "tip_ucesnika_id")
     private int tip_ucesnika_id;
