@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TipGlasa } from '../shared/models/tipGlasa';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'; // potrebno za rad modala
 import { TipGlasaService } from '../shared/services/tipGlasa.service';
+import { Status } from '../shared/models/status';
 
 @Component({
     moduleId: module.id,
@@ -9,7 +10,12 @@ import { TipGlasaService } from '../shared/services/tipGlasa.service';
     templateUrl: 'tipGlasa.component.html'    
 })
 export class TipGlasaComponent implements OnInit {
-    tipGlasa:TipGlasa[];
+    tipoviGlasa:TipGlasa[];
+
+    tipGlasa: TipGlasa = new TipGlasa(); // u ovaj će se spremati kreirani model
+
+    status: Status;
+
     constructor(private service:TipGlasaService, private modalService: NgbModal) { } // potrebno za rad modala
 
     open(content:any) { // potrebno za rad modala
@@ -17,6 +23,21 @@ export class TipGlasaComponent implements OnInit {
     }
 
     ngOnInit() { 
-        this.service.getList().subscribe(data => this.tipGlasa = data);   
+        this.service.getList().subscribe(data => this.tipoviGlasa = data);   
+    }
+    
+    create(tipGlasa: TipGlasa) {
+        this.service.addEntity(tipGlasa)
+            .subscribe(data => this.tipoviGlasa.push(data));
+    }
+
+    deleteEntity(tipGlasa: TipGlasa) {
+        this.service.deleteEntity(tipGlasa.id)
+            .subscribe(data => this.status = data);
+
+        var index = this.tipoviGlasa.indexOf(tipGlasa, 0);
+        if (index > -1) {
+            this.tipoviGlasa.splice(index, 1);
+        }
     }
 }

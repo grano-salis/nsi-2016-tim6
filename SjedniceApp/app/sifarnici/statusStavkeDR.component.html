@@ -1,7 +1,7 @@
 <div class="panel panel-default">
 	<!-- Default panel contents -->
 	<div class="panel-heading">
-		<h3>Status stavke dnevnog reda</h3>
+		<h3>Statusi stavke dnevnog reda sjednice</h3>
 	</div>
 	<div class="panel-body">
 		<div class="pull-right">
@@ -19,20 +19,19 @@
 		</thead>
 		<tbody>
 			<tr>
-				<tr>
-					<td>U toku</td>
+				<tr *ngFor="let status of statusiStavkeDR">
+					<td>{{status.naziv}}</td>
 					<td class="pull-right">
 						<button class="btn btn-primary btn-sm">Uredi</button> |
-						<button class="btn btn-danger btn-sm">Obriši</button>
+						<button class="btn btn-danger btn-sm" 
+						mwlConfirmationPopover
+						message="Jeste li sigurni da želite obrisati ?"						
+						placement="left"
+						(confirm)="deleteEntity(status)"
+						(cancel)="isOpen = false"						
+						>Obriši</button>
 					</td>
-				</tr>
-				<tr>
-					<td>Odgođena</td>
-					<td class="pull-right">
-						<button class="btn btn-primary btn-sm">Uredi</button> |
-						<button class="btn btn-danger btn-sm">Obriši</button>
-					</td>
-				</tr>
+				</tr>				
 		</tbody>
 	</table>
 </div>
@@ -42,15 +41,15 @@
 		<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
-		<h4 class="modal-title">Status stavke dnevnog reda</h4>
+		<h4 class="modal-title">Status stavke dnevnog reda sjedice</h4>
 	</div>
 	<div class="modal-body">
 		<div class="form-group">
-			<input class="form-control" placeholder="Unesite status stavke dnevnog reda" />
+			<input [(ngModel)]="statusStavkeDR.naziv" class="form-control" placeholder="Unesite status stavke dnevnog reda" />
 		</div>
 	</div>
 	<div class="modal-footer">
-		<button type="button" class="btn btn-primary">Unesi</button>
+		<button type="button" class="btn btn-primary" (click)="create(statusStavkeDR)">Unesi</button>
 		<button type="button" class="btn btn-secondary" (click)="c('Close click')">Izađi</button>
 	</div>
 </template>
