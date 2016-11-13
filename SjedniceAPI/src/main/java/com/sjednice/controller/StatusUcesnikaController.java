@@ -92,9 +92,9 @@ public class StatusUcesnikaController {
 
 		try {
 			dataServices.deleteEntity(id);
-			return new Status(1, "StatusUcesnika deleted Successfully !");
+			return new Status(200, "StatusUcesnika deleted Successfully !");
 		} catch (Exception e) {
-			return new Status(0, e.toString());
+			return new Status(400, e.toString());
 		}
 
 	}

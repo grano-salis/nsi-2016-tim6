@@ -88,9 +88,9 @@ public class TipUcesnikaController {
 
 		try {
 			dataServices.deleteEntity(id);
-			return new Status(1, "TipUcesnika deleted Successfully !");
+			return new Status(200, "TipUcesnika deleted Successfully !");
 		} catch (Exception e) {
-			return new Status(0, e.toString());
+			return new Status(400, e.toString());
 		}
 
 	}

@@ -20,12 +20,12 @@ public class EmployeeServices implements IDataServices<Employee> {
 
     @Override
     public Employee addEntity(Employee item) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return dataDao.addEntity(item);
     }
 
     @Override
     public Employee getEntityById(Integer id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return dataDao.getEntityById(id);
     }
 
     @Override
@@ -35,6 +35,6 @@ public class EmployeeServices implements IDataServices<Employee> {
 
     @Override
     public boolean deleteEntity(Integer id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return dataDao.deleteEntity(id);
     } 
 }

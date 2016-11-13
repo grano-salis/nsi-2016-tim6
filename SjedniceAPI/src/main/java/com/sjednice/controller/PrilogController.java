@@ -75,9 +75,9 @@ public class PrilogController {
 
 		try {
 			dataServices.deleteEntity(id);
-			return new Status(1, "Prilog deleted Successfully !");
+			return new Status(200, "Prilog deleted Successfully !");
 		} catch (Exception e) {
-			return new Status(0, e.toString());
+			return new Status(400, e.toString());
 		}
 
 	}

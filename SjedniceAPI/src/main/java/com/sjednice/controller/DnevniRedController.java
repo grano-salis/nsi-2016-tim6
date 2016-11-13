@@ -75,9 +75,9 @@ public class DnevniRedController {
 
 		try {
 			dataServices.deleteEntity(id);
-			return new Status(1, "DnevniRed deleted Successfully !");
+			return new Status(200, "DnevniRed deleted Successfully !");
 		} catch (Exception e) {
-			return new Status(0, e.toString());
+			return new Status(400, e.toString());
 		}
 
 	}

@@ -19,22 +19,22 @@ public class UcesnikServices implements IDataServices<Ucesnik> {
 
     @Override
     public Ucesnik addEntity(Ucesnik item) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		return dataDao.addEntity(item);
     }
 
     @Override
     public Ucesnik getEntityById(Integer id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		return dataDao.getEntityById(id);
     }
 
     @Override
     public List<Ucesnik> getEntityList() throws Exception {
-        return dataDao.getEntityList();
+                return dataDao.getEntityList();
     }
 
     @Override
     public boolean deleteEntity(Integer id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		return dataDao.deleteEntity(id);
     } 
     
 }

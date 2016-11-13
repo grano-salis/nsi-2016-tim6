@@ -75,9 +75,9 @@ public class StatusStavkeDnevnogRedaController {
 
 		try {
 			dataServices.deleteEntity(id);
-			return new Status(1, "StatusStavkeDnevnogReda deleted Successfully !");
+			return new Status(200, "StatusStavkeDnevnogReda deleted Successfully !");
 		} catch (Exception e) {
-			return new Status(0, e.toString());
+			return new Status(400, e.toString());
 		}
 
 	}

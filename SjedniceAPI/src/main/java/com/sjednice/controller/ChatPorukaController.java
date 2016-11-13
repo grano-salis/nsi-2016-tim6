@@ -75,9 +75,9 @@ public class ChatPorukaController {
 
 		try {
 			dataServices.deleteEntity(id);
-			return new Status(1, "ChatPoruka deleted Successfully !");
+			return new Status(200, "ChatPoruka deleted Successfully !");
 		} catch (Exception e) {
-			return new Status(0, e.toString());
+			return new Status(400, e.toString());
 		}
 
 	}

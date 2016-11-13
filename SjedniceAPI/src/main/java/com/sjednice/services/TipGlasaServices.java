@@ -20,22 +20,22 @@ public class TipGlasaServices implements IDataServices<TipGlasa> {
 
     @Override
     public TipGlasa addEntity(TipGlasa item) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		return dataDao.addEntity(item);
     }
 
     @Override
     public TipGlasa getEntityById(Integer id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		return dataDao.getEntityById(id);
     }
 
     @Override
     public List<TipGlasa> getEntityList() throws Exception {
-        return dataDao.getEntityList();
+                return dataDao.getEntityList();
     }
 
     @Override
     public boolean deleteEntity(Integer id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		return dataDao.deleteEntity(id);
     } 
     
 }

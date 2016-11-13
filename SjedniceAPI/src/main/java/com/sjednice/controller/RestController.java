@@ -75,9 +75,9 @@ public class RestController {
 
 		try {
 			dataServices.deleteEntity(id);
-			return new Status(1, "Employee deleted Successfully !");
+			return new Status(200, "Employee deleted Successfully !");
 		} catch (Exception e) {
-			return new Status(0, e.toString());
+			return new Status(400, e.toString());
 		}
 
 	}

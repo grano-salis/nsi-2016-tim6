@@ -20,12 +20,12 @@ public class StavkaDnevnogRedaServices implements IDataServices<StavkaDnevnogRed
 
     @Override
     public StavkaDnevnogReda addEntity(StavkaDnevnogReda item) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		return dataDao.addEntity(item);
     }
 
     @Override
     public StavkaDnevnogReda getEntityById(Integer id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		return dataDao.getEntityById(id);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class StavkaDnevnogRedaServices implements IDataServices<StavkaDnevnogRed
 
     @Override
     public boolean deleteEntity(Integer id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		return dataDao.deleteEntity(id);
     } 
     
 }
