@@ -1,9 +1,7 @@
 package com.sjednice.controller;
 
-import com.sjednice.model.Employee;
 import com.sjednice.model.Status;
 import com.sjednice.model.StatusSjednice;
-import com.sjednice.services.DataServices;
 import com.sjednice.services.StatusSjedniceServices;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -29,7 +27,7 @@ public class StatusSjedniceController {
     @Autowired
     StatusSjedniceServices dataServices;
 
-    static final Logger logger = Logger.getLogger(RestController.class);
+    static final Logger logger = Logger.getLogger(StatusSjedniceController.class);
 
     @CrossOrigin
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

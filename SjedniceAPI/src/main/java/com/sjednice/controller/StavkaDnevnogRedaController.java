@@ -26,72 +26,71 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @CrossOrigin
 @RequestMapping("/stavkaDnevnogReda")
 
-
-
 /**
  *
  * @author Aida
  */
 public class StavkaDnevnogRedaController {
-    
-    
+
     @Autowired
-	StavkaDnevnogRedaServices dataServices;
+    StavkaDnevnogRedaServices dataServices;
 
-	static final Logger logger = Logger.getLogger(GlasController.class);
+    static final Logger logger = Logger.getLogger(GlasController.class);
 
-	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody
-	StavkaDnevnogReda addStavkaDnevnogReda(@RequestBody StavkaDnevnogReda str) {
-		try {
-			return dataServices.addEntity(str);
-			//return new Status(1, "Employee added Successfully !");
-		} catch (Exception e) {
-			// e.printStackTrace();
-			return null;
-		}
+    @CrossOrigin
+    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    StavkaDnevnogReda addStavkaDnevnogReda(@RequestBody StavkaDnevnogReda str) {
+        try {
+            return dataServices.addEntity(str);
+            //return new Status(1, "Employee added Successfully !");
+        } catch (Exception e) {
+            // e.printStackTrace();
+            return null;
+        }
 
-	}
+    }
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public @ResponseBody
-	StavkaDnevnogReda getStavkaDnevnogReda(@PathVariable("id") Integer id) {
-		StavkaDnevnogReda str = null;
-		try {
-			str = dataServices.getEntityById(id);
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    StavkaDnevnogReda getStavkaDnevnogReda(@PathVariable("id") Integer id) {
+        StavkaDnevnogReda str = null;
+        try {
+            str = dataServices.getEntityById(id);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return str;
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public @ResponseBody
-	List<StavkaDnevnogReda> getStavkaDnevnogReda() {
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public @ResponseBody
+    List<StavkaDnevnogReda> getStavkaDnevnogReda() {
 
-		List <StavkaDnevnogReda> stavkaDnevnogRedaList = null;
-		try {
-			stavkaDnevnogRedaList = dataServices.getEntityList();
+        List<StavkaDnevnogReda> stavkaDnevnogRedaList = null;
+        try {
+            stavkaDnevnogRedaList = dataServices.getEntityList();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		return stavkaDnevnogRedaList;
-	}
+        return stavkaDnevnogRedaList;
+    }
 
-	@RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-	public @ResponseBody
-	Status deleteStavkaDnevnogReda(@PathVariable("id") Integer id) {
+    @CrossOrigin
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody
+    Status deleteStavkaDnevnogReda(@PathVariable("id") Integer id) {
 
-		try {
-			dataServices.deleteEntity(id);
-			return new Status(200, "StavkaDnevnogReda deleted Successfully !");
-		} catch (Exception e) {
-			return new Status(400, e.toString());
-		}
+        try {
+            dataServices.deleteEntity(id);
+            return new Status(200, "StavkaDnevnogReda deleted Successfully !");
+        } catch (Exception e) {
+            return new Status(400, e.toString());
+        }
 
-	}
-    
+    }
+
 }

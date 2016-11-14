@@ -23,7 +23,7 @@ public class StatusSjednice implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @SequenceGenerator(name = "generator", sequenceName = "STATUS_SJEDNICE_ID_SEQUENCE", allocationSize = 1)
+    @SequenceGenerator(name = "generator", sequenceName = "STATUS_SJEDNICE_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generator")
     @Column(name = "id")
     private Integer id;

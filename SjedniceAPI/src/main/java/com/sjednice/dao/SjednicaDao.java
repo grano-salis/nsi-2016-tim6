@@ -5,7 +5,9 @@
  */
 package com.sjednice.dao;
 
+import com.sjednice.model.Prilog;
 import com.sjednice.model.Sjednica;
+import com.sjednice.model.StatusSjednice;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -27,12 +29,26 @@ public class SjednicaDao implements IDataDao<Sjednica> {
 
     @Override
     public Sjednica addEntity(Sjednica item) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        session = sessionFactory.openSession();
+        tx = session.beginTransaction();
+        Integer id = (Integer)session.save(item);
+        item.setId(id);
+        tx.commit();
+        session.close();
+        
+        return item;
     }
 
     @Override
     public Sjednica getEntityById(Integer id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        Sjednica item;
+        item = (Sjednica) session.load(Sjednica.class, id);
+        tx = session.getTransaction();
+        session.beginTransaction();
+        tx.commit();
+        return item;
     }
 
     @SuppressWarnings("unchecked")
@@ -48,7 +64,13 @@ public class SjednicaDao implements IDataDao<Sjednica> {
 
     @Override
     public boolean deleteEntity(Integer id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        Object o = session.load(Sjednica.class, id);
+        tx = session.getTransaction();
+        session.beginTransaction();
+        session.delete(o);
+        tx.commit();
+        return false;
     }
 
 }

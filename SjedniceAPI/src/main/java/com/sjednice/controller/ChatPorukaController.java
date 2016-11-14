@@ -23,62 +23,64 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/chatPoruka")
 public class ChatPorukaController {
 
-	@Autowired
-	ChatPorukaServices dataServices;
+    @Autowired
+    ChatPorukaServices dataServices;
 
-	static final Logger logger = Logger.getLogger(ChatPorukaController.class);
+    static final Logger logger = Logger.getLogger(ChatPorukaController.class);
 
-	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody
-	ChatPoruka addChatPoruka(@RequestBody ChatPoruka chatPoruka) {
-		try {
-			return dataServices.addEntity(chatPoruka);
-			//return new Status(1, "Employee added Successfully !");
-		} catch (Exception e) {
-			// e.printStackTrace();
-			return null;
-		}
+    @CrossOrigin
+    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    ChatPoruka addChatPoruka(@RequestBody ChatPoruka chatPoruka) {
+        try {
+            return dataServices.addEntity(chatPoruka);
+            //return new Status(1, "Employee added Successfully !");
+        } catch (Exception e) {
+            // e.printStackTrace();
+            return null;
+        }
 
-	}
+    }
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public @ResponseBody
-	ChatPoruka getChatPoruka(@PathVariable("id") Integer id) {
-		ChatPoruka chatPoruka = null;
-		try {
-			chatPoruka = dataServices.getEntityById(id);
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    ChatPoruka getChatPoruka(@PathVariable("id") Integer id) {
+        ChatPoruka chatPoruka = null;
+        try {
+            chatPoruka = dataServices.getEntityById(id);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return chatPoruka;
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return chatPoruka;
+    }
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public @ResponseBody
-	List<ChatPoruka> getEmployee() {
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public @ResponseBody
+    List<ChatPoruka> getChatPoruka() {
 
-		List<ChatPoruka> chatPorukaList = null;
-		try {
-			chatPorukaList = dataServices.getEntityList();
+        List<ChatPoruka> chatPorukaList = null;
+        try {
+            chatPorukaList = dataServices.getEntityList();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		return chatPorukaList;
-	}
+        return chatPorukaList;
+    }
+    
+    @CrossOrigin
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody
+    Status deleteChatPoruka(@PathVariable("id") Integer id) {
 
-	@RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-	public @ResponseBody
-	Status deleteChatPoruka(@PathVariable("id") Integer id) {
+        try {
+            dataServices.deleteEntity(id);
+            return new Status(200, "ChatPoruka deleted Successfully !");
+        } catch (Exception e) {
+            return new Status(400, e.toString());
+        }
 
-		try {
-			dataServices.deleteEntity(id);
-			return new Status(200, "ChatPoruka deleted Successfully !");
-		} catch (Exception e) {
-			return new Status(400, e.toString());
-		}
-
-	}
+    }
 }

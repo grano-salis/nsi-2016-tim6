@@ -5,8 +5,6 @@
  */
 package com.sjednice.controller;
 
-
-
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -27,76 +25,73 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @CrossOrigin
-@RequestMapping("/statusUcesnika")
-
-
-
+@RequestMapping("/sifarnici/statusucesnika")
 
 /**
  *
  * @author Aida
  */
 public class StatusUcesnikaController {
-    
-    
-    
+
     @Autowired
-	StatusUcesnikaServices dataServices;
+    StatusUcesnikaServices dataServices;
 
-	static final Logger logger = Logger.getLogger(GlasController.class);
+    static final Logger logger = Logger.getLogger(GlasController.class);
 
-	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody
-	StatusUcesnika addStatusUcesnika(@RequestBody StatusUcesnika su) {
-		try {
-			return dataServices.addEntity(su);
-			//return new Status(1, "Employee added Successfully !");
-		} catch (Exception e) {
-			// e.printStackTrace();
-			return null;
-		}
+    @CrossOrigin
+    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    StatusUcesnika addStatusUcesnika(@RequestBody StatusUcesnika su) {
+        try {
+            return dataServices.addEntity(su);
+            //return new Status(1, "Employee added Successfully !");
+        } catch (Exception e) {
+            // e.printStackTrace();
+            return null;
+        }
 
-	}
+    }
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public @ResponseBody
-	StatusUcesnika getStatusUcesnika(@PathVariable("id") Integer id) {
-		StatusUcesnika statusUcesnika = null;
-		try {
-			statusUcesnika = dataServices.getEntityById(id);
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    StatusUcesnika getStatusUcesnika(@PathVariable("id") Integer id) {
+        StatusUcesnika statusUcesnika = null;
+        try {
+            statusUcesnika = dataServices.getEntityById(id);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return statusUcesnika;
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return statusUcesnika;
+    }
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public @ResponseBody
-	List<StatusUcesnika> getStatusUcesnika() {
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public @ResponseBody
+    List<StatusUcesnika> getStatusUcesnika() {
 
-		List<StatusUcesnika> statusUcesnikaList = null;
-		try {
-			statusUcesnikaList = dataServices.getEntityList();
+        List<StatusUcesnika> statusUcesnikaList = null;
+        try {
+            statusUcesnikaList = dataServices.getEntityList();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		return statusUcesnikaList;
-	}
+        return statusUcesnikaList;
+    }
 
-	@RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-	public @ResponseBody
-	Status deleteStatusUcesnika(@PathVariable("id") Integer id) {
+    @CrossOrigin
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody
+    Status deleteStatusUcesnika(@PathVariable("id") Integer id) {
 
-		try {
-			dataServices.deleteEntity(id);
-			return new Status(200, "StatusUcesnika deleted Successfully !");
-		} catch (Exception e) {
-			return new Status(400, e.toString());
-		}
+        try {
+            dataServices.deleteEntity(id);
+            return new Status(200, "StatusUcesnika deleted Successfully !");
+        } catch (Exception e) {
+            return new Status(400, e.toString());
+        }
 
-	}
-    
+    }
+
 }

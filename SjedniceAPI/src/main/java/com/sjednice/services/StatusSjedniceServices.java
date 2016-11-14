@@ -1,6 +1,5 @@
 package com.sjednice.services;
 
-import com.sjednice.dao.DataDao;
 import com.sjednice.dao.StatusSjedniceDao;
 import com.sjednice.model.StatusSjednice;
 import java.util.List;
@@ -10,29 +9,29 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Aida
  */
-public class StatusSjedniceServices implements IDataServices <StatusSjednice>{
+public class StatusSjedniceServices implements IDataServices<StatusSjednice> {
 
-	@Autowired
-	StatusSjedniceDao dataDao;
-	
+    @Autowired
+    StatusSjedniceDao dataDao;
+
     @Override
     public StatusSjednice addEntity(StatusSjednice item) throws Exception {
-		return dataDao.addEntity(item);
+        return dataDao.addEntity(item);
     }
 
     @Override
     public StatusSjednice getEntityById(Integer id) throws Exception {
-		return dataDao.getEntityById(id);
+        return dataDao.getEntityById(id);
     }
 
     @Override
     public List<StatusSjednice> getEntityList() throws Exception {
-		return dataDao.getEntityList();
-	}
+        return dataDao.getEntityList();
+    }
 
     @Override
     public boolean deleteEntity(Integer id) throws Exception {
-		return dataDao.deleteEntity(id);
-	}
-    
+        return dataDao.deleteEntity(id);
+    }
+
 }

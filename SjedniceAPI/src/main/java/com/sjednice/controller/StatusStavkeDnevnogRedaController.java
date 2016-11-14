@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @CrossOrigin
-@RequestMapping("/statusStavkeDnevnogReda")
+@RequestMapping("/sifarnici/statusstavkednevnogreda")
 public class StatusStavkeDnevnogRedaController {
 
 	@Autowired
@@ -28,6 +28,7 @@ public class StatusStavkeDnevnogRedaController {
 
 	static final Logger logger = Logger.getLogger(ChatPorukaController.class);
 
+        @CrossOrigin
 	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody
 	StatusStavkeDnevnogReda addStatusStavkeDnevnogReda(@RequestBody StatusStavkeDnevnogReda statusStavkeDnevnogReda) {
@@ -69,7 +70,8 @@ public class StatusStavkeDnevnogRedaController {
 		return statusStavkeDnevnogRedaList;
 	}
 
-	@RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+        @CrossOrigin
+	@RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody
 	Status deleteStatusStavkeDnevnogReda(@PathVariable("id") Integer id) {
 

@@ -23,62 +23,64 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/dnevniRed")
 public class DnevniRedController {
 
-	@Autowired
-	DnevniRedServices dataServices;
+    @Autowired
+    DnevniRedServices dataServices;
 
-	static final Logger logger = Logger.getLogger(DnevniRedController.class);
+    static final Logger logger = Logger.getLogger(DnevniRedController.class);
 
-	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody
-	DnevniRed addDnevniRed(@RequestBody DnevniRed dnevniRed) {
-		try {
-			return dataServices.addEntity(dnevniRed);
-			//return new Status(1, "Employee added Successfully !");
-		} catch (Exception e) {
-			// e.printStackTrace();
-			return null;
-		}
+    @CrossOrigin
+    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    DnevniRed addDnevniRed(@RequestBody DnevniRed dnevniRed) {
+        try {
+            return dataServices.addEntity(dnevniRed);
+            //return new Status(1, "Employee added Successfully !");
+        } catch (Exception e) {
+            // e.printStackTrace();
+            return null;
+        }
 
-	}
+    }
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public @ResponseBody
-	DnevniRed getDnevniRed(@PathVariable("id") Integer id) {
-		DnevniRed dnevniRed = null;
-		try {
-			dnevniRed = dataServices.getEntityById(id);
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    DnevniRed getDnevniRed(@PathVariable("id") Integer id) {
+        DnevniRed dnevniRed = null;
+        try {
+            dnevniRed = dataServices.getEntityById(id);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return dnevniRed;
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dnevniRed;
+    }
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public @ResponseBody
-	List<DnevniRed> getDnevniRed() {
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public @ResponseBody
+    List<DnevniRed> getDnevniRed() {
 
-		List<DnevniRed> dnevniRedList = null;
-		try {
-			dnevniRedList = dataServices.getEntityList();
+        List<DnevniRed> dnevniRedList = null;
+        try {
+            dnevniRedList = dataServices.getEntityList();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		return dnevniRedList;
-	}
+        return dnevniRedList;
+    }
 
-	@RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-	public @ResponseBody
-	Status deleteDnevniRed(@PathVariable("id") Integer id) {
+    @CrossOrigin
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody
+    Status deleteDnevniRed(@PathVariable("id") Integer id) {
 
-		try {
-			dataServices.deleteEntity(id);
-			return new Status(200, "DnevniRed deleted Successfully !");
-		} catch (Exception e) {
-			return new Status(400, e.toString());
-		}
+        try {
+            dataServices.deleteEntity(id);
+            return new Status(200, "DnevniRed deleted Successfully !");
+        } catch (Exception e) {
+            return new Status(400, e.toString());
+        }
 
-	}
+    }
 }

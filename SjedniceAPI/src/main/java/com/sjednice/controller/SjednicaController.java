@@ -6,6 +6,8 @@
 package com.sjednice.controller;
 
 import com.sjednice.model.Sjednica;
+import com.sjednice.model.Status;
+import com.sjednice.model.StatusSjednice;
 import com.sjednice.services.SjednicaServices;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,32 @@ public class SjednicaController {
     @Autowired
     SjednicaServices dataServices;
 
+    @CrossOrigin
+    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    Sjednica add(@RequestBody Sjednica model) {
+        try {
+            return dataServices.addEntity(model);
+        } catch (Exception e) {
+            // e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    Sjednica get(@PathVariable("id") Integer id) {
+        Sjednica model = null;
+        try {
+            model = dataServices.getEntityById(id);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return model;
+    }
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public @ResponseBody
     List<Sjednica> getAll() {
@@ -43,6 +71,20 @@ public class SjednicaController {
         }
 
         return model;
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody
+    Status delete(@PathVariable("id") Integer id) {
+
+        try {
+            dataServices.deleteEntity(id);
+            return new Status(200, "Uspješno obrisano !");
+        } catch (Exception e) {
+            return new Status(400, e.toString());
+        }
+
     }
 
 }

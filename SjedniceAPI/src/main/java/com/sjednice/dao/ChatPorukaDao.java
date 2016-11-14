@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package com.sjednice.dao;
+
 import com.sjednice.model.ChatPoruka;
+import com.sjednice.model.StatusSjednice;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Session;
@@ -16,7 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Sumeja
  */
-public class ChatPorukaDao  implements IDataDao<ChatPoruka>{
+public class ChatPorukaDao implements IDataDao<ChatPoruka> {
+
     @Autowired
     SessionFactory sessionFactory;
 
@@ -25,12 +28,26 @@ public class ChatPorukaDao  implements IDataDao<ChatPoruka>{
 
     @Override
     public ChatPoruka addEntity(ChatPoruka item) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        session = sessionFactory.openSession();
+        tx = session.beginTransaction();
+        Integer id = (Integer) session.save(item);
+        item.setId(id);
+        tx.commit();
+        session.close();
+
+        return item;
     }
 
     @Override
     public ChatPoruka getEntityById(Integer id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        ChatPoruka item;
+        item = (ChatPoruka) session.load(ChatPoruka.class, id);
+        tx = session.getTransaction();
+        session.beginTransaction();
+        tx.commit();
+        return item;
     }
 
     @SuppressWarnings("unchecked")
@@ -46,8 +63,13 @@ public class ChatPorukaDao  implements IDataDao<ChatPoruka>{
 
     @Override
     public boolean deleteEntity(Integer id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        Object o = session.load(ChatPoruka.class, id);
+        tx = session.getTransaction();
+        session.beginTransaction();
+        session.delete(o);
+        tx.commit();
+        return false;   
     }
 
-    
 }

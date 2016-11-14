@@ -1,6 +1,4 @@
 package com.sjednice.dao;
-
-import com.sjednice.model.Employee;
 import com.sjednice.model.StatusSjednice;
 import java.io.Serializable;
 import java.util.List;
@@ -37,12 +35,12 @@ public class StatusSjedniceDao implements IDataDao<StatusSjednice> {
     @Override
     public StatusSjednice getEntityById(Integer id) throws Exception {
         session = sessionFactory.openSession();
-        StatusSjednice statusSj = (StatusSjednice) session.load(StatusSjednice.class,
-                new Long(id));
+        StatusSjednice item;
+        item = (StatusSjednice) session.load(StatusSjednice.class, id);
         tx = session.getTransaction();
         session.beginTransaction();
         tx.commit();
-        return statusSj;
+        return item;
     }
 
     @SuppressWarnings("unchecked")

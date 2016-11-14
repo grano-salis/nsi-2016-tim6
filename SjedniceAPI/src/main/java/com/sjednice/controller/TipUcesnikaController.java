@@ -5,7 +5,6 @@
  */
 package com.sjednice.controller;
 
-
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -26,73 +25,73 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @CrossOrigin
-@RequestMapping("/tipUcesnika")
+@RequestMapping("/sifarnici/tipucesnika")
 
 /**
  *
  * @author Aida
  */
 public class TipUcesnikaController {
-    
-    
-    
+
     @Autowired
-	TipUcesnikaServices dataServices;
+    TipUcesnikaServices dataServices;
 
-	static final Logger logger = Logger.getLogger(GlasController.class);
+    static final Logger logger = Logger.getLogger(GlasController.class);
 
-	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody
-	TipUcesnika addTipUcesnika(@RequestBody TipUcesnika tipUcesnika) {
-		try {
-			return dataServices.addEntity(tipUcesnika);
-			//return new Status(1, "Employee added Successfully !");
-		} catch (Exception e) {
-			// e.printStackTrace();
-			return null;
-		}
+    @CrossOrigin
+    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    TipUcesnika addTipUcesnika(@RequestBody TipUcesnika tipUcesnika) {
+        try {
+            return dataServices.addEntity(tipUcesnika);
+            //return new Status(1, "Employee added Successfully !");
+        } catch (Exception e) {
+            // e.printStackTrace();
+            return null;
+        }
 
-	}
+    }
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public @ResponseBody
-	TipUcesnika getTipUcesnika(@PathVariable("id") Integer id) {
-		TipUcesnika tipUcesnika = null;
-		try {
-			tipUcesnika = dataServices.getEntityById(id);
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    TipUcesnika getTipUcesnika(@PathVariable("id") Integer id) {
+        TipUcesnika tipUcesnika = null;
+        try {
+            tipUcesnika = dataServices.getEntityById(id);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return tipUcesnika;
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return tipUcesnika;
+    }
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public @ResponseBody
-	List<TipUcesnika> getTipUcesnika() {
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public @ResponseBody
+    List<TipUcesnika> getTipUcesnika() {
 
-		List<TipUcesnika> tipUcesnikaList = null;
-		try {
-			tipUcesnikaList = dataServices.getEntityList();
+        List<TipUcesnika> tipUcesnikaList = null;
+        try {
+            tipUcesnikaList = dataServices.getEntityList();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		return tipUcesnikaList;
-	}
+        return tipUcesnikaList;
+    }
 
-	@RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-	public @ResponseBody
-	Status deleteTipUcesnika(@PathVariable("id") Integer id) {
+    @CrossOrigin
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody
+    Status deleteTipUcesnika(@PathVariable("id") Integer id) {
 
-		try {
-			dataServices.deleteEntity(id);
-			return new Status(200, "TipUcesnika deleted Successfully !");
-		} catch (Exception e) {
-			return new Status(400, e.toString());
-		}
+        try {
+            dataServices.deleteEntity(id);
+            return new Status(200, "TipUcesnika deleted Successfully !");
+        } catch (Exception e) {
+            return new Status(400, e.toString());
+        }
 
-	}
-    
+    }
+
 }

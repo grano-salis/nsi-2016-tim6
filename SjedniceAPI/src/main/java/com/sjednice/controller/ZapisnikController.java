@@ -5,8 +5,6 @@
  */
 package com.sjednice.controller;
 
-
-
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -34,66 +32,66 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Aida
  */
 public class ZapisnikController {
-    
-    
-    
+
     @Autowired
-	ZapisnikServices dataServices;
+    ZapisnikServices dataServices;
 
-	static final Logger logger = Logger.getLogger(GlasController.class);
+    static final Logger logger = Logger.getLogger(GlasController.class);
 
-	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody
-	Zapisnik addZapisnik(@RequestBody Zapisnik zapisnik) {
-		try {
-			return dataServices.addEntity(zapisnik);
-			//return new Status(1, "Employee added Successfully !");
-		} catch (Exception e) {
-			// e.printStackTrace();
-			return null;
-		}
+    @CrossOrigin
+    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    Zapisnik addZapisnik(@RequestBody Zapisnik zapisnik) {
+        try {
+            return dataServices.addEntity(zapisnik);
+            //return new Status(1, "Employee added Successfully !");
+        } catch (Exception e) {
+            // e.printStackTrace();
+            return null;
+        }
 
-	}
+    }
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public @ResponseBody
-	Zapisnik getZapisnik(@PathVariable("id") Integer id) {
-		Zapisnik zapisnik = null;
-		try {
-			zapisnik = dataServices.getEntityById(id);
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    Zapisnik getZapisnik(@PathVariable("id") Integer id) {
+        Zapisnik zapisnik = null;
+        try {
+            zapisnik = dataServices.getEntityById(id);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return zapisnik;
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return zapisnik;
+    }
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public @ResponseBody
-	List<Zapisnik> getZapisnik() {
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public @ResponseBody
+    List<Zapisnik> getZapisnik() {
 
-		List<Zapisnik> zapisnikList = null;
-		try {
-			zapisnikList = dataServices.getEntityList();
+        List<Zapisnik> zapisnikList = null;
+        try {
+            zapisnikList = dataServices.getEntityList();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		return zapisnikList;
-	}
+        return zapisnikList;
+    }
 
-	@RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-	public @ResponseBody
-	Status deleteZapisnik(@PathVariable("id") Integer id) {
+    @CrossOrigin
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody
+    Status deleteZapisnik(@PathVariable("id") Integer id) {
 
-		try {
-			dataServices.deleteEntity(id);
-			return new Status(200, "Zapisnik deleted Successfully !");
-		} catch (Exception e) {
-			return new Status(400, e.toString());
-		}
+        try {
+            dataServices.deleteEntity(id);
+            return new Status(200, "Zapisnik deleted Successfully !");
+        } catch (Exception e) {
+            return new Status(400, e.toString());
+        }
 
-	}
-    
+    }
+
 }

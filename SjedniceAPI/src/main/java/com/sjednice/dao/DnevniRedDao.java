@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package com.sjednice.dao;
+import com.sjednice.model.ChatPoruka;
 import com.sjednice.model.DnevniRed;
+import com.sjednice.model.StatusSjednice;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Session;
@@ -24,12 +26,26 @@ public class DnevniRedDao implements IDataDao<DnevniRed>{
 
     @Override
     public DnevniRed addEntity(DnevniRed item) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        session = sessionFactory.openSession();
+        tx = session.beginTransaction();
+        Integer id = (Integer)session.save(item);
+        item.setId(id);
+        tx.commit();
+        session.close();
+        
+        return item;
     }
 
     @Override
     public DnevniRed getEntityById(Integer id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        DnevniRed item;
+        item = (DnevniRed) session.load(DnevniRed.class, id);
+        tx = session.getTransaction();
+        session.beginTransaction();
+        tx.commit();
+        return item;
     }
 
     @SuppressWarnings("unchecked")
@@ -45,7 +61,13 @@ public class DnevniRedDao implements IDataDao<DnevniRed>{
 
     @Override
     public boolean deleteEntity(Integer id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        Object o = session.load(DnevniRed.class, id);
+        tx = session.getTransaction();
+        session.beginTransaction();
+        session.delete(o);
+        tx.commit();
+        return false;   
     }
 
     

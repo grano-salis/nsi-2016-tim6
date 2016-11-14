@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @CrossOrigin
-@RequestMapping("/tipGlasa")
+@RequestMapping("/sifarnici/tipglasa")
 
 /**
  *
@@ -37,7 +37,8 @@ public class TipGlasaController {
 	TipGlasaServices dataServices;
 
 	static final Logger logger = Logger.getLogger(GlasController.class);
-
+        
+        @CrossOrigin
 	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody
 	TipGlasa addTipGlasa(@RequestBody TipGlasa tipglasa) {
@@ -79,7 +80,8 @@ public class TipGlasaController {
 		return tipGlasaList;
 	}
 
-	@RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+        @CrossOrigin
+	@RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody
 	Status deleteTipGlasa(@PathVariable("id") Integer id) {
 

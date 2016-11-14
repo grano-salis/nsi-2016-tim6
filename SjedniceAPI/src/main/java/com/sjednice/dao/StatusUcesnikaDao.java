@@ -6,6 +6,7 @@
 package com.sjednice.dao;
 
 
+import com.sjednice.model.StatusStavkeDnevnogReda;
 import com.sjednice.model.StatusUcesnika;
 import java.io.Serializable;
 import java.util.List;
@@ -27,12 +28,26 @@ public class StatusUcesnikaDao implements IDataDao<StatusUcesnika>{
 
     @Override
     public StatusUcesnika addEntity(StatusUcesnika item) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        session = sessionFactory.openSession();
+        tx = session.beginTransaction();
+        Integer id = (Integer)session.save(item);
+        item.setId(id);
+        tx.commit();
+        session.close();
+        
+        return item;
     }
 
     @Override
     public StatusUcesnika getEntityById(Integer id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        StatusUcesnika item;
+        item = (StatusUcesnika) session.load(StatusUcesnika.class, id);
+        tx = session.getTransaction();
+        session.beginTransaction();
+        tx.commit();
+        return item;
     }
 
     @SuppressWarnings("unchecked")
@@ -48,7 +63,13 @@ public class StatusUcesnikaDao implements IDataDao<StatusUcesnika>{
 
     @Override
     public boolean deleteEntity(Integer id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        Object o = session.load(StatusUcesnika.class, id);
+        tx = session.getTransaction();
+        session.beginTransaction();
+        session.delete(o);
+        tx.commit();
+        return false;
     }
 
     

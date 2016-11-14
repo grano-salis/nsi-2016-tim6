@@ -23,62 +23,64 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/prilog")
 public class PrilogController {
 
-	@Autowired
-	PrilogServices dataServices;
+    @Autowired
+    PrilogServices dataServices;
 
-	static final Logger logger = Logger.getLogger(PrilogController.class);
+    static final Logger logger = Logger.getLogger(PrilogController.class);
 
-	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody
-	Prilog addPrilog(@RequestBody Prilog prilog) {
-		try {
-			return dataServices.addEntity(prilog);
-			//return new Status(1, "Employee added Successfully !");
-		} catch (Exception e) {
-			// e.printStackTrace();
-			return null;
-		}
+    @CrossOrigin
+    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    Prilog addPrilog(@RequestBody Prilog prilog) {
+        try {
+            return dataServices.addEntity(prilog);
+            //return new Status(1, "Employee added Successfully !");
+        } catch (Exception e) {
+            // e.printStackTrace();
+            return null;
+        }
 
-	}
+    }
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public @ResponseBody
-	Prilog getPrilog(@PathVariable("id") Integer id) {
-		Prilog prilog = null;
-		try {
-			prilog = dataServices.getEntityById(id);
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    Prilog getPrilog(@PathVariable("id") Integer id) {
+        Prilog prilog = null;
+        try {
+            prilog = dataServices.getEntityById(id);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return prilog;
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return prilog;
+    }
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public @ResponseBody
-	List<Prilog> getPrilog() {
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public @ResponseBody
+    List<Prilog> getPrilog() {
 
-		List<Prilog> prilogList = null;
-		try {
-			prilogList = dataServices.getEntityList();
+        List<Prilog> prilogList = null;
+        try {
+            prilogList = dataServices.getEntityList();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		return prilogList;
-	}
+        return prilogList;
+    }
 
-	@RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-	public @ResponseBody
-	Status deletePrilog(@PathVariable("id") Integer id) {
+    @CrossOrigin
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody
+    Status deletePrilog(@PathVariable("id") Integer id) {
 
-		try {
-			dataServices.deleteEntity(id);
-			return new Status(200, "Prilog deleted Successfully !");
-		} catch (Exception e) {
-			return new Status(400, e.toString());
-		}
+        try {
+            dataServices.deleteEntity(id);
+            return new Status(200, "Prilog deleted Successfully !");
+        } catch (Exception e) {
+            return new Status(400, e.toString());
+        }
 
-	}
+    }
 }

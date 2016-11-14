@@ -6,6 +6,7 @@
 package com.sjednice.dao;
 
 
+import com.sjednice.model.Ucesnik;
 import com.sjednice.model.Zapisnik;
 import java.io.Serializable;
 import java.util.List;
@@ -27,12 +28,26 @@ public class ZapisnikDao implements IDataDao<Zapisnik>{
 
     @Override
     public Zapisnik addEntity(Zapisnik item) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        session = sessionFactory.openSession();
+        tx = session.beginTransaction();
+        Integer id = (Integer)session.save(item);
+        item.setId(id);
+        tx.commit();
+        session.close();
+        
+        return item;
     }
 
     @Override
     public Zapisnik getEntityById(Integer id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        Zapisnik item;
+        item = (Zapisnik) session.load(Zapisnik.class, id);
+        tx = session.getTransaction();
+        session.beginTransaction();
+        tx.commit();
+        return item;    
     }
 
     @SuppressWarnings("unchecked")
@@ -48,7 +63,13 @@ public class ZapisnikDao implements IDataDao<Zapisnik>{
 
     @Override
     public boolean deleteEntity(Integer id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        Object o = session.load(Zapisnik.class, id);
+        tx = session.getTransaction();
+        session.beginTransaction();
+        session.delete(o);
+        tx.commit();
+        return false;
     }
 
     

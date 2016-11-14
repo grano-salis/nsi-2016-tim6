@@ -22,7 +22,7 @@ public class ChatPoruka implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @SequenceGenerator(name = "generator", sequenceName = "CHAT_PORUKA_ID_SEQUENCE", allocationSize = 1)
+    @SequenceGenerator(name = "generator", sequenceName = "CHAT_PORUKA_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generator")
     @Column(name = "id")
     private Integer id;

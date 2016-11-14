@@ -16,8 +16,7 @@
           class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="annotatedClasses">
-            <list>
-                <value>com.sjednice.model.Employee</value>
+            <list>                
                 <value>com.sjednice.model.Sjednica</value>
                 <value>com.sjednice.model.StatusSjednice</value>
                 <value>com.sjednice.model.ChatPoruka</value>
@@ -50,9 +49,6 @@
 
     <bean id="persistenceExceptionTranslationPostProcessor"
           class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
-
-    <bean id="dataDao" class="com.sjednice.dao.DataDao"></bean>
-    <bean id="dataServices" class="com.sjednice.services.DataServices"></bean>
     
     <bean id="sjednicaDao" class="com.sjednice.dao.SjednicaDao"></bean>
     <bean id="sjednicaServices" class="com.sjednice.services.SjednicaServices"></bean>
@@ -64,25 +60,32 @@
     <bean id="chatPorukaServices" class="com.sjednice.services.ChatPorukaServices"></bean>
     
     <bean id="dnevniRedDao" class="com.sjednice.dao.DnevniRedDao"></bean>
-    <bean id="dnevniRedServices" class="com.sjednice.services.DnevniRedServices"></bean>
-    
-    <bean id="employeeDao" class="com.sjednice.dao.EmployeeDao"></bean>
-    <bean id="employeeServices" class="com.sjednice.services.EmployeeServices"></bean>
+    <bean id="dnevniRedServices" class="com.sjednice.services.DnevniRedServices"></bean>    
     
     <bean id="glasDao" class="com.sjednice.dao.GlasDao"></bean>
     <bean id="glasServices" class="com.sjednice.services.GlasServices"></bean>
     
     <bean id="prilogDao" class="com.sjednice.dao.PrilogDao"></bean>
-    <bean id="prilogServices" class="com.sjednice.services.PrilogServices"></bean>
-    
-    <bean id="statusDao" class="com.sjednice.dao.StatusDao"></bean>
-    <bean id="statusServices" class="com.sjednice.services.StatusServices"></bean>
-    
-    <bean id="statusSjedniceDao" class="com.sjednice.dao.StatusSjedniceDao"></bean>
-    <bean id="statusSjedniceServices" class="com.sjednice.services.StatusSjedniceServices"></bean>
-    
+    <bean id="prilogServices" class="com.sjednice.services.PrilogServices"></bean> 
+      
     <bean id="statusStavkeDnevnogRedaDao" class="com.sjednice.dao.StatusStavkeDnevnogRedaDao"></bean>
     <bean id="statusStavkeDnevnogRedaServices" class="com.sjednice.services.StatusStavkeDnevnogRedaServices"></bean>
     
+    <bean id="stavkaDnevnogRedaDao" class="com.sjednice.dao.StavkaDnevnogRedaDao"></bean>
+    <bean id="stavkaDnevnogRedaServices" class="com.sjednice.services.StavkaDnevnogRedaServices"></bean>
     
+    <bean id="zapisnikDao" class="com.sjednice.dao.ZapisnikDao"></bean>
+    <bean id="zapisnikServices" class="com.sjednice.services.ZapisnikServices"></bean>
+    
+    <bean id="ucesnikDao" class="com.sjednice.dao.UcesnikDao"></bean>
+    <bean id="ucesnikServices" class="com.sjednice.services.UcesnikServices"></bean>
+    
+    <bean id="tipUcesnikaDao" class="com.sjednice.dao.TipUcesnikaDao"></bean>
+    <bean id="tipUcesnikaServices" class="com.sjednice.services.TipUcesnikaServices"></bean>
+    
+    <bean id="tipGlasaDao" class="com.sjednice.dao.TipGlasaDao"></bean>
+    <bean id="tipGlasaServices" class="com.sjednice.services.TipGlasaServices"></bean>
+    
+    <bean id="statusUcesnikaDao" class="com.sjednice.dao.StatusUcesnikaDao"></bean>
+    <bean id="statusUcesnikaServices" class="com.sjednice.services.StatusUcesnikaServices"></bean>
 </beans>
