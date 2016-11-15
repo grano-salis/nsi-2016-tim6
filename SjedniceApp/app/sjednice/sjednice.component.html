@@ -1,11 +1,11 @@
 <div class="panel panel-default">
 	<!-- Default panel contents -->
 	<div class="panel-heading">
-		<h3>Sjednice</h3>		
+		<h3>Sjednice</h3>
 	</div>
 	<div class="panel-body">
 		<div class="pull-right">
-			<button class="btn btn-primary btn-sm" routerLink="kreiranjeSjednice">Kreiraj sjednicu</button>
+			<button class="btn btn-primary btn-sm" (click)="open(content)">Kreiraj sjednicu</button>
 		</div>
 	</div>
 	<table class="table">
@@ -25,3 +25,35 @@
 	</table>
 
 </div>
+
+
+<template #content let-c="close" let-d="dismiss">
+	<div class="modal-header">
+		<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+		<h4 class="modal-title">Kreiranje sjednice</h4>
+	</div>
+	<div class="modal-body">
+
+		<div class="form-group">
+			<input [(ngModel)]="sjednica.naziv" class="form-control" placeholder="Naziv teme">
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="date">Datum početka</label>
+			<input [(ngModel)]="sjednica.datumOd" class="form-control" id="datep" name="date" type="date" placeholder="MM/DD/YYY" type="text"/>
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="date">Datum završetka</label>
+			<input [(ngModel)]="sjednica.datumDo" class="form-control" id="datez" name="date" type="date" placeholder="MM/DD/YYY" type="text"/>
+		</div>
+		<div class="form-group">
+			<input [(ngModel)]="sjednica.sala" class="form-control" placeholder="Mjesto održavanja">
+		</div>
+
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" (click)="create(sjednica)">Unesi</button>
+		<button type="button" class="btn btn-secondary" (click)="c('Close click')">Izađi</button>
+	</div>
+</template>

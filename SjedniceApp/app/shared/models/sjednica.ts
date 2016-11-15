@@ -1,7 +1,10 @@
 export class Sjednica {
     id: number;
     naziv: string;
-    datumOd: string;
-    datumDo: Date;
+    datumOdravanjaOd: Date;
+    datumOdrzavanjaDo: Date;
     sala: string;
+    statusSjedniceId: number;
+    dnevniRedId: number;
+    zapisnikId: number;
 }
