@@ -5,9 +5,8 @@
  */
 package com.sjednice.dao;
 
-import com.sjednice.model.Sjednica;
+import com.sjednice.model.UserInfo;
 import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -17,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author faris
  */
-public class SjednicaDao implements IDataDao<Sjednica> {
+public class UserInfoDao implements IDataDao<UserInfo> {
 
     @Autowired
     SessionFactory sessionFactory;
@@ -26,35 +25,26 @@ public class SjednicaDao implements IDataDao<Sjednica> {
     Transaction tx = null;
 
     @Override
-    public Sjednica addEntity(Sjednica item) throws Exception {
-
-        session = sessionFactory.openSession();
-        tx = session.beginTransaction();
-        Integer id = (Integer) session.save(item);
-        item.setId(id);
-        tx.commit();
-        session.close();
-
-        return item;
+    public UserInfo addEntity(UserInfo item) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Sjednica getEntityById(Integer id) throws Exception {
+    public UserInfo getEntityById(Integer id) throws Exception {
         session = sessionFactory.openSession();
-        Sjednica item;
-        item = (Sjednica) session.get(Sjednica.class, id);
+        UserInfo item;
+        item = (UserInfo) session.get(UserInfo.class, id);
         tx = session.getTransaction();
         session.beginTransaction();
         tx.commit();
         return item;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public List<Sjednica> getEntityList() throws Exception {
+    public List<UserInfo> getEntityList() throws Exception {
         session = sessionFactory.openSession();
         tx = session.beginTransaction();
-        List<Sjednica> model = session.createCriteria(Sjednica.class).list();
+        List<UserInfo> model = session.createCriteria(UserInfo.class).list();
         tx.commit();
         session.close();
         return model;
@@ -62,13 +52,7 @@ public class SjednicaDao implements IDataDao<Sjednica> {
 
     @Override
     public boolean deleteEntity(Integer id) throws Exception {
-        session = sessionFactory.openSession();
-        Object o = session.load(Sjednica.class, id);
-        tx = session.getTransaction();
-        session.beginTransaction();
-        session.delete(o);
-        tx.commit();
-        return false;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

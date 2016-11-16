@@ -5,9 +5,7 @@
  */
 package com.sjednice.dao;
 
-import com.sjednice.model.StavkaDnevnogReda;
 import com.sjednice.model.TipGlasa;
-import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -18,7 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Aida
  */
-public class TipGlasaDao implements IDataDao<TipGlasa>{
+public class TipGlasaDao implements IDataDao<TipGlasa> {
+
     @Autowired
     SessionFactory sessionFactory;
 
@@ -30,11 +29,11 @@ public class TipGlasaDao implements IDataDao<TipGlasa>{
 
         session = sessionFactory.openSession();
         tx = session.beginTransaction();
-        Integer id = (Integer)session.save(item);
+        Integer id = (Integer) session.save(item);
         item.setId(id);
         tx.commit();
         session.close();
-        
+
         return item;
     }
 
@@ -42,11 +41,11 @@ public class TipGlasaDao implements IDataDao<TipGlasa>{
     public TipGlasa getEntityById(Integer id) throws Exception {
         session = sessionFactory.openSession();
         TipGlasa item;
-        item = (TipGlasa) session.load(TipGlasa.class, id);
+        item = (TipGlasa) session.get(TipGlasa.class, id);
         tx = session.getTransaction();
         session.beginTransaction();
         tx.commit();
-        return item;  
+        return item;
     }
 
     @SuppressWarnings("unchecked")
@@ -68,9 +67,7 @@ public class TipGlasaDao implements IDataDao<TipGlasa>{
         session.beginTransaction();
         session.delete(o);
         tx.commit();
-        return false;      
+        return false;
     }
 
-    
-    
 }

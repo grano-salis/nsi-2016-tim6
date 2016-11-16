@@ -5,20 +5,19 @@
  */
 package com.sjednice.dao;
 
-
-import com.sjednice.model.TipUcesnika;
 import com.sjednice.model.Ucesnik;
-import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  *
  * @author Aida
  */
-public class UcesnikDao implements IDataDao<Ucesnik>{
+public class UcesnikDao implements IDataDao<Ucesnik> {
+
     @Autowired
     SessionFactory sessionFactory;
 
@@ -30,11 +29,11 @@ public class UcesnikDao implements IDataDao<Ucesnik>{
 
         session = sessionFactory.openSession();
         tx = session.beginTransaction();
-        Integer id = (Integer)session.save(item);
+        Integer id = (Integer) session.save(item);
         item.setId(id);
         tx.commit();
         session.close();
-        
+
         return item;
     }
 
@@ -71,7 +70,4 @@ public class UcesnikDao implements IDataDao<Ucesnik>{
         return false;
     }
 
-    
-    
-    
 }

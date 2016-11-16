@@ -23,14 +23,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@Controller
-@CrossOrigin
-@RequestMapping("/zapisnik")
+
 
 /**
  *
  * @author Aida
  */
+@Controller
+@CrossOrigin
+@RequestMapping("/zapisnik")
 public class ZapisnikController {
 
     @Autowired

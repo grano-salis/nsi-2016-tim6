@@ -5,10 +5,7 @@
  */
 package com.sjednice.dao;
 
-
-import com.sjednice.model.StatusUcesnika;
 import com.sjednice.model.StavkaDnevnogReda;
-import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,7 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Aida
  */
-public class StavkaDnevnogRedaDao implements IDataDao<StavkaDnevnogReda>{
+public class StavkaDnevnogRedaDao implements IDataDao<StavkaDnevnogReda> {
+
     @Autowired
     SessionFactory sessionFactory;
 
@@ -31,11 +29,11 @@ public class StavkaDnevnogRedaDao implements IDataDao<StavkaDnevnogReda>{
 
         session = sessionFactory.openSession();
         tx = session.beginTransaction();
-        Integer id = (Integer)session.save(item);
+        Integer id = (Integer) session.save(item);
         item.setId(id);
         tx.commit();
         session.close();
-        
+
         return item;
     }
 
@@ -43,11 +41,11 @@ public class StavkaDnevnogRedaDao implements IDataDao<StavkaDnevnogReda>{
     public StavkaDnevnogReda getEntityById(Integer id) throws Exception {
         session = sessionFactory.openSession();
         StavkaDnevnogReda item;
-        item = (StavkaDnevnogReda) session.load(StavkaDnevnogReda.class, id);
+        item = (StavkaDnevnogReda) session.get(StavkaDnevnogReda.class, id);
         tx = session.getTransaction();
         session.beginTransaction();
         tx.commit();
-        return item;  
+        return item;
     }
 
     @SuppressWarnings("unchecked")
@@ -69,9 +67,7 @@ public class StavkaDnevnogRedaDao implements IDataDao<StavkaDnevnogReda>{
         session.beginTransaction();
         session.delete(o);
         tx.commit();
-        return false;   
+        return false;
     }
 
-    
-    
 }

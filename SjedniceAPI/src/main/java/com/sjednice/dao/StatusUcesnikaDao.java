@@ -5,10 +5,7 @@
  */
 package com.sjednice.dao;
 
-
-import com.sjednice.model.StatusStavkeDnevnogReda;
 import com.sjednice.model.StatusUcesnika;
-import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,7 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Aida
  */
-public class StatusUcesnikaDao implements IDataDao<StatusUcesnika>{
+public class StatusUcesnikaDao implements IDataDao<StatusUcesnika> {
+
     @Autowired
     SessionFactory sessionFactory;
 
@@ -31,11 +29,11 @@ public class StatusUcesnikaDao implements IDataDao<StatusUcesnika>{
 
         session = sessionFactory.openSession();
         tx = session.beginTransaction();
-        Integer id = (Integer)session.save(item);
+        Integer id = (Integer) session.save(item);
         item.setId(id);
         tx.commit();
         session.close();
-        
+
         return item;
     }
 
@@ -43,7 +41,7 @@ public class StatusUcesnikaDao implements IDataDao<StatusUcesnika>{
     public StatusUcesnika getEntityById(Integer id) throws Exception {
         session = sessionFactory.openSession();
         StatusUcesnika item;
-        item = (StatusUcesnika) session.load(StatusUcesnika.class, id);
+        item = (StatusUcesnika) session.get(StatusUcesnika.class, id);
         tx = session.getTransaction();
         session.beginTransaction();
         tx.commit();
@@ -72,6 +70,4 @@ public class StatusUcesnikaDao implements IDataDao<StatusUcesnika>{
         return false;
     }
 
-    
-    
 }

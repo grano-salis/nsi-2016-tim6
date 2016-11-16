@@ -12,6 +12,7 @@
 
     <!--   Ispod ćete zalijepiti data source -->
 
+
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
@@ -31,7 +32,7 @@
                 <value>com.sjednice.model.TipUcesnika</value>
                 <value>com.sjednice.model.Ucesnik</value>
                 <value>com.sjednice.model.Zapisnik</value>               
-
+                <value>com.sjednice.model.UserInfo</value>       
             </list>
         </property>
         <property name="hibernateProperties">
@@ -88,4 +89,7 @@
     
     <bean id="statusUcesnikaDao" class="com.sjednice.dao.StatusUcesnikaDao"></bean>
     <bean id="statusUcesnikaServices" class="com.sjednice.services.StatusUcesnikaServices"></bean>
+    
+    <bean id="userInfoDao" class="com.sjednice.dao.UserInfoDao"></bean>
+    <bean id="userInfoServices" class="com.sjednice.services.UserInfoServices"></bean>
 </beans>

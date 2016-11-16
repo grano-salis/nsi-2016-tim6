@@ -10,9 +10,13 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -47,11 +51,23 @@ public class Sjednica implements Serializable {
     @Column(name = "dnevni_red_id")
     private Integer dnevniRedId;
 
-    @Column(name = "status_sjednice_id")
-    private Integer statusSjedniceId;
+//    @Column(name = "status_sjednice_id")
+//    private Integer statusSjedniceId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "status_sjednice_id")
+    private StatusSjednice statusSjednice;
 
     @Column(name = "zapisnik_id")
     private Integer zapisnikId;
+
+    public StatusSjednice getStatusSjednice() {
+        return statusSjednice;
+    }
+
+    public void setStatusSjednice(StatusSjednice statusSjednice) {
+        this.statusSjednice = statusSjednice;
+    }
 
     public Integer getId() {
         return id;
@@ -101,13 +117,13 @@ public class Sjednica implements Serializable {
         this.dnevniRedId = dnevniRedId;
     }
 
-    public Integer getStatusSjedniceId() {
-        return statusSjedniceId;
-    }
-
-    public void setStatusSjedniceId(Integer statusSjedniceId) {
-        this.statusSjedniceId = statusSjedniceId;
-    }
+//    public Integer getStatusSjedniceId() {
+//        return statusSjedniceId;
+//    }
+//
+//    public void setStatusSjedniceId(Integer statusSjedniceId) {
+//        this.statusSjedniceId = statusSjedniceId;
+//    }
 
     public Integer getZapisnikId() {
         return zapisnikId;

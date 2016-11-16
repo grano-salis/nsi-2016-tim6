@@ -6,8 +6,6 @@
 package com.sjednice.dao;
 
 import com.sjednice.model.ChatPoruka;
-import com.sjednice.model.StatusSjednice;
-import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -43,7 +41,7 @@ public class ChatPorukaDao implements IDataDao<ChatPoruka> {
     public ChatPoruka getEntityById(Integer id) throws Exception {
         session = sessionFactory.openSession();
         ChatPoruka item;
-        item = (ChatPoruka) session.load(ChatPoruka.class, id);
+        item = (ChatPoruka) session.get(ChatPoruka.class, id);
         tx = session.getTransaction();
         session.beginTransaction();
         tx.commit();
@@ -69,7 +67,7 @@ public class ChatPorukaDao implements IDataDao<ChatPoruka> {
         session.beginTransaction();
         session.delete(o);
         tx.commit();
-        return false;   
+        return false;
     }
 
 }

@@ -5,20 +5,19 @@
  */
 package com.sjednice.dao;
 
-import com.sjednice.model.DnevniRed;
 import com.sjednice.model.Glas;
-import com.sjednice.model.StatusSjednice;
-import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  *
  * @author Sumeja
  */
-public class GlasDao implements IDataDao<Glas>{
+public class GlasDao implements IDataDao<Glas> {
+
     @Autowired
     SessionFactory sessionFactory;
 
@@ -30,11 +29,11 @@ public class GlasDao implements IDataDao<Glas>{
 
         session = sessionFactory.openSession();
         tx = session.beginTransaction();
-        Integer id = (Integer)session.save(item);
+        Integer id = (Integer) session.save(item);
         item.setId(id);
         tx.commit();
         session.close();
-        
+
         return item;
     }
 
@@ -42,7 +41,7 @@ public class GlasDao implements IDataDao<Glas>{
     public Glas getEntityById(Integer id) throws Exception {
         session = sessionFactory.openSession();
         Glas item;
-        item = (Glas) session.load(Glas.class, id);
+        item = (Glas) session.get(Glas.class, id);
         tx = session.getTransaction();
         session.beginTransaction();
         tx.commit();
@@ -71,6 +70,4 @@ public class GlasDao implements IDataDao<Glas>{
         return false;
     }
 
-    
-    
 }

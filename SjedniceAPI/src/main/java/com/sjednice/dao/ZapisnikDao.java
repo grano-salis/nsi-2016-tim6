@@ -4,11 +4,7 @@
  * and open the template in the editor.
  */
 package com.sjednice.dao;
-
-
-import com.sjednice.model.Ucesnik;
 import com.sjednice.model.Zapisnik;
-import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -43,7 +39,7 @@ public class ZapisnikDao implements IDataDao<Zapisnik>{
     public Zapisnik getEntityById(Integer id) throws Exception {
         session = sessionFactory.openSession();
         Zapisnik item;
-        item = (Zapisnik) session.load(Zapisnik.class, id);
+        item = (Zapisnik) session.get(Zapisnik.class, id);
         tx = session.getTransaction();
         session.beginTransaction();
         tx.commit();

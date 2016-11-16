@@ -5,20 +5,19 @@
  */
 package com.sjednice.dao;
 
-import com.sjednice.model.Glas;
 import com.sjednice.model.Prilog;
-import com.sjednice.model.StatusSjednice;
-import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  *
  * @author Sumeja
  */
-public class PrilogDao implements IDataDao<Prilog>{
+public class PrilogDao implements IDataDao<Prilog> {
+
     @Autowired
     SessionFactory sessionFactory;
 
@@ -30,11 +29,11 @@ public class PrilogDao implements IDataDao<Prilog>{
 
         session = sessionFactory.openSession();
         tx = session.beginTransaction();
-        Integer id = (Integer)session.save(item);
+        Integer id = (Integer) session.save(item);
         item.setId(id);
         tx.commit();
         session.close();
-        
+
         return item;
     }
 
@@ -42,7 +41,7 @@ public class PrilogDao implements IDataDao<Prilog>{
     public Prilog getEntityById(Integer id) throws Exception {
         session = sessionFactory.openSession();
         Prilog item;
-        item = (Prilog) session.load(Prilog.class, id);
+        item = (Prilog) session.get(Prilog.class, id);
         tx = session.getTransaction();
         session.beginTransaction();
         tx.commit();
@@ -71,6 +70,4 @@ public class PrilogDao implements IDataDao<Prilog>{
         return false;
     }
 
-    
-    
 }

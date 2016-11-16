@@ -5,20 +5,19 @@
  */
 package com.sjednice.dao;
 
-import com.sjednice.model.Sjednica;
-import com.sjednice.model.StatusSjednice;
 import com.sjednice.model.StatusStavkeDnevnogReda;
-import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  *
  * @author Sumeja
  */
-public class StatusStavkeDnevnogRedaDao implements IDataDao<StatusStavkeDnevnogReda>{
+public class StatusStavkeDnevnogRedaDao implements IDataDao<StatusStavkeDnevnogReda> {
+
     @Autowired
     SessionFactory sessionFactory;
 
@@ -30,11 +29,11 @@ public class StatusStavkeDnevnogRedaDao implements IDataDao<StatusStavkeDnevnogR
 
         session = sessionFactory.openSession();
         tx = session.beginTransaction();
-        Integer id = (Integer)session.save(item);
+        Integer id = (Integer) session.save(item);
         item.setId(id);
         tx.commit();
         session.close();
-        
+
         return item;
     }
 
@@ -42,7 +41,7 @@ public class StatusStavkeDnevnogRedaDao implements IDataDao<StatusStavkeDnevnogR
     public StatusStavkeDnevnogReda getEntityById(Integer id) throws Exception {
         session = sessionFactory.openSession();
         StatusStavkeDnevnogReda item;
-        item = (StatusStavkeDnevnogReda) session.load(StatusStavkeDnevnogReda.class, id);
+        item = (StatusStavkeDnevnogReda) session.get(StatusStavkeDnevnogReda.class, id);
         tx = session.getTransaction();
         session.beginTransaction();
         tx.commit();
@@ -71,6 +70,4 @@ public class StatusStavkeDnevnogRedaDao implements IDataDao<StatusStavkeDnevnogR
         return false;
     }
 
-    
-    
 }
