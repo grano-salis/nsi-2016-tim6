@@ -75,19 +75,15 @@
 			<div class="input-group">
 				<input type="text" [(ngModel)]="cp.poruka" class="form-control">
 				<span class="input-group-btn">
-                    <!--<button (click) = "sendMsg(cp)" class="btn btn-default" type="button">Pošalji</button>-->
+                    <button (click) = "sendMsg()" class="btn btn-default" type="button">Pošalji</button>
                 </span>
 			</div>
 			<br />
 			<div class="list-group">
-				<li class="list-group-item">
-					<h4 class="list-group-item-heading">Hasović Aida</h4>
-					<p class="list-group-item-text">Vozdra i tebi!</p>
-				</li>
-				<li class="list-group-item">
-					<h4 class="list-group-item-heading">Faris Džafić</h4>
-					<p class="list-group-item-text">Vozdra !</p>
-				</li>
+				<li class="list-group-item" *ngFor="let messagge of messages">
+					<h4 class="list-group-item-heading">OsobaX</h4>
+					<p class="list-group-item-text">{{messagge.poruka}}</p>
+				</li>				
 			</div>
 		</div>
 	</div>

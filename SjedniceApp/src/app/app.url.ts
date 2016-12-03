@@ -1,5 +1,4 @@
 const base = "http://localhost:8080/SjedniceAPI"
-
 const basews = "ws://localhost:8080/SjedniceAPI";
 
 export class UrlProvider {    

@@ -6,6 +6,8 @@ import { StatusUcesnikaService } from "./shared/services/statusUcesnika.service"
 import { TipGlasaService } from "./shared/services/tipGlasa.service";
 import { TipUcesnikaService } from "./shared/services/tipUcesnika.service";
 import { UserInfoService } from "./shared/services/userInfo.service";
+import { ChatPorukaService } from "./shared/services/chatPoruka.service";
+import { WebSocketService } from "./shared/services/webSocket.service";
 
 export const Providers = [
     SjedniceService, 
@@ -15,5 +17,7 @@ export const Providers = [
     TipGlasaService,
     TipUcesnikaService,
     UserInfoService,
-    UrlProvider
+    UrlProvider,
+    WebSocketService,
+    ChatPorukaService
 ]

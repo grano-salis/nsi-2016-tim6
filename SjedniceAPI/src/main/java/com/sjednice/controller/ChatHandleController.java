@@ -17,9 +17,9 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class ChatHandleController {
-    @MessageMapping("/sendChat")
+    @MessageMapping("/")
     @SendTo("/topic/messages")
-    public ChatPoruka greeting(ChatPoruka message) throws Exception {
+    public ChatPoruka chat(ChatPoruka message) throws Exception {
         Thread.sleep(1000); // simulated delay
         return message;
     }
