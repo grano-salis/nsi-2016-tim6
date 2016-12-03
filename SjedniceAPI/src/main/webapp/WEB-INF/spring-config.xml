@@ -6,11 +6,12 @@
   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
-
+    
     <context:component-scan base-package="com.sjednice.controller" />
     <mvc:annotation-driven />
-
+         
     <!--   Ispod ćete zalijepiti data source -->
+    
 
 
     <bean id="sessionFactory"
@@ -92,4 +93,12 @@
     
     <bean id="userInfoDao" class="com.sjednice.dao.UserInfoDao"></bean>
     <bean id="userInfoServices" class="com.sjednice.services.UserInfoServices"></bean>
+    
+    
+    <websocket:message-broker application-destination-prefix="/app">
+        <websocket:stomp-endpoint path="/chat">
+            <websocket:sockjs/>
+        </websocket:stomp-endpoint>
+        <websocket:simple-broker prefix="/topic"/>
+    </websocket:message-broker>
 </beans>

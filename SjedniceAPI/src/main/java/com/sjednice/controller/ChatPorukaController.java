@@ -27,7 +27,8 @@ public class ChatPorukaController {
     ChatPorukaServices dataServices;
 
     static final Logger logger = Logger.getLogger(ChatPorukaController.class);
-
+    
+   
     @CrossOrigin
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
