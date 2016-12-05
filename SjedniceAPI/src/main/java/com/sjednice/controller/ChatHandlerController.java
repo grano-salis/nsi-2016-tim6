@@ -14,10 +14,12 @@ import com.sjednice.model.ChatPoruka;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class ChatHandleController {
-    @MessageMapping("/")
+public class ChatHandlerController {
+    @MessageMapping("/send")
     @SendTo("/topic/messages")
     public ChatPoruka chat(ChatPoruka message) throws Exception {
         Thread.sleep(1000); // simulated delay

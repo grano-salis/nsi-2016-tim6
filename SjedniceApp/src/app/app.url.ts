@@ -10,6 +10,6 @@ export class UrlProvider {
     public tipUcesnika:string = base + "/sifarnici/tipucesnika";
     public userInfo:string = base + "/userinfo";    
     public chatPoruka:string = base + "/chatPoruka";
-    public webSocketUrlChat:string = basews + "/chat";
+    public webSocketUrlChat:string = basews;
 }
 

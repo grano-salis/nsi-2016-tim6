@@ -23,8 +23,7 @@ export class TrenutnaSjednicaComponent implements OnInit {
      }
 
     sendMsg() {
-		console.log('new message from client: ', this.cp.poruka);
-        this.chatService.messages
+		console.log('new message from client: ', this.cp.poruka);        
 		this.chatService.messages.next(this.cp);        
 		this.cp.poruka = '';
 	}
