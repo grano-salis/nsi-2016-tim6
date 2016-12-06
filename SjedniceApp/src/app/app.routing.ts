@@ -10,11 +10,13 @@ import { StatusUcesnikaComponent } from './sifarnici/statusUcesnika.component';
 import { TipUcesnikaComponent } from './sifarnici/tipUcesnika.component';
 import { TipGlasaComponent } from './sifarnici/tipGlasa.component';
 import { KreiranjeSjedniceComponent } from './sjednice/kreiranjeSjednice.component';
+import { DetaljiSjedniceComponent } from './sjednice/detaljiSjednice.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'sjednice', component: SjedniceComponent },
   { path: 'sjednice/kreiranjeSjednice/:id', component: KreiranjeSjedniceComponent },
+  { path: 'sjednice/detaljiSjednice/:id', component: DetaljiSjedniceComponent },
   { path: 'trenutna', component: TrenutnaSjednicaComponent },  
   { path: 'sifarnici/statusSjednice', component: StatusSjedniceComponent },
   { path: 'sifarnici/statusStavkeDR', component: StatusStavkeDrComponent },

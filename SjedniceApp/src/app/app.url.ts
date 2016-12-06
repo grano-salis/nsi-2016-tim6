@@ -1,5 +1,5 @@
-const base = "http://localhost:8080/SjedniceAPI"
-const basews = "ws://localhost:8080/SjedniceAPI";
+const base = "http://nsi06sjedniceapi.azurewebsites.net/"
+const basews = "http://nsi06sjedniceapi.azurewebsites.net/";
 
 export class UrlProvider {    
     public sjednice:string = base + "/sjednica";

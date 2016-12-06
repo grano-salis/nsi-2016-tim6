@@ -3,6 +3,7 @@ import { HomeComponent } from './home/home.component';
 import { SjedniceComponent } from './sjednice/sjednice.component';
 import { TrenutnaSjednicaComponent } from './trenutna_sjednica/trenutnaSjednica.component';
 import { KreiranjeSjedniceComponent } from './sjednice/kreiranjeSjednice.component';
+import { DetaljiSjedniceComponent } from './sjednice/detaljiSjednice.component';
 import { StatusSjedniceComponent } from './sifarnici/statusSjednice.component';
 import { StatusStavkeDrComponent } from './sifarnici/statusStavkeDR.component';
 import { StatusUcesnikaComponent } from './sifarnici/statusUcesnika.component';
@@ -16,6 +17,7 @@ export const Declarations = [
     SjedniceComponent,
     TrenutnaSjednicaComponent,
     KreiranjeSjedniceComponent,
+    DetaljiSjedniceComponent,
     StatusSjedniceComponent,
     StatusStavkeDrComponent,
     StatusUcesnikaComponent,

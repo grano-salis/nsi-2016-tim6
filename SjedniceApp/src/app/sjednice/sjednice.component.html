@@ -21,8 +21,11 @@
 			<tr *ngFor="let sjednica of sjednice">
 				<td>{{ sjednica.naziv }}</td>
 				<td>{{ sjednica.datumOdrzavanjaOd | date:"MM/dd/yy" }}</td>
-				<td>{{ sjednica.statusSjednice.naziv }}</td>
-				<td><button [routerLink]="['/sjednice/kreiranjeSjednice', sjednica.id]" class="btn btn-sm btn-primary">Uredi</button> </td>
+				<td>{{ sjednica.statusSjednice.naziv }}</td>           
+				<td>
+					<button [routerLink]="['/sjednice/detaljiSjednice', sjednica.id]" class="btn btn-sm btn-primary">Detalji</button>
+					<button [routerLink]="['/sjednice/kreiranjeSjednice', sjednica.id]" class="btn btn-sm btn-primary">Uredi</button> 
+				</td>
 			</tr>
 
 		</tbody>
