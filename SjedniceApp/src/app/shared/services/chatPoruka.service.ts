@@ -18,11 +18,12 @@ import { WebSocketService } from '../services/webSocket.service';
 @Injectable()
 export class ChatPorukaService {
 
-    public messages: Subject<ChatPoruka>;    
+    public messages: Subject<ChatPoruka>;
+
 
     constructor(private wsService: WebSocketService, private url: UrlProvider) {        
         this.messages = <Subject<ChatPoruka>>wsService
-            .connect(this.url.webSocketUrlChat)        
+            .connect(this.url.webSocketUrlChat + "/chat")
             .map((response: MessageEvent): ChatPoruka => {
                 let data = JSON.parse(response.data);
                 return {
@@ -31,7 +32,8 @@ export class ChatPorukaService {
                     ucesnikId: data.ucensnikId,
                     vrijeme: data.vrijeme
                 }
-            });                	
+            });
+        
 
     }
 

@@ -37,7 +37,7 @@ export class SjedniceComponent implements OnInit {
     }
 
     create(sjednica: Sjednica) {
-        sjednica.statusSjednice = new StatusSjednice(7, "xxx"); //OVO JE ID STATUSA "U PRIPREMI", xxx - svejedno sta ce pisati ko naziv       
+        sjednica.statusSjednice = new StatusSjednice(7, "U pripremi");     
 
         sjednica.datumOdrzavanjaOd = new Date(this.datumOd.year, this.datumOd.month, this.datumOd.day);        
 
