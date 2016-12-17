@@ -34,7 +34,7 @@ public class StatusSjedniceController {
     public @ResponseBody
     StatusSjednice addStatusSjednice(@RequestBody StatusSjednice statusSjednice) {
         try {
-            return dataServices.addEntity(statusSjednice);            
+            return dataServices.addEntity(statusSjednice);
         } catch (Exception e) {
             // e.printStackTrace();
             return null;
@@ -42,6 +42,7 @@ public class StatusSjedniceController {
 
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public @ResponseBody
     StatusSjednice getStatusSjednice(@PathVariable("id") Integer id) {
@@ -55,6 +56,7 @@ public class StatusSjedniceController {
         return statusSjednice;
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public @ResponseBody
     List<StatusSjednice> getStatusSjednice() {
@@ -69,6 +71,7 @@ public class StatusSjedniceController {
 
         return statusSjedniceList;
     }
+
     @CrossOrigin
     @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
     public @ResponseBody

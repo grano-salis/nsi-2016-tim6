@@ -6,6 +6,7 @@
 package com.sjednice.dao;
 
 import com.sjednice.model.Sjednica;
+import com.sjednice.model.StatusSjednice;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -32,6 +33,17 @@ public class SjednicaDao implements IDataDao<Sjednica> {
         tx = session.beginTransaction();
         Integer id = (Integer) session.save(item);
         item.setId(id);
+        tx.commit();
+        session.close();
+
+        return item;
+    }
+    @Override
+    public Sjednica updateEntity(Sjednica item) throws Exception {
+
+        session = sessionFactory.openSession();
+        tx = session.beginTransaction();                
+        session.update(item);
         tx.commit();
         session.close();
 

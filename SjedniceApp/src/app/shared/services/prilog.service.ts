@@ -7,48 +7,48 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { Sjednica } from '../models/sjednica';
+import { Prilog } from '../models/prilog';
 import { Status } from '../models/status';
 
 import { iService } from '../services/iService';
 
 @Injectable()
-export class SjedniceService implements iService<Sjednica>{
+export class PrilogService implements iService<Prilog>{
 
     constructor(private http: Http, private url: UrlProvider) { }
 
-    //ovo je funkcija koja pomoću http-a dobavlja listu sjednica sa našeg servisa
+    //ovo je funkcija koja pomoću http-a dobavlja listu priloga sa našeg servisa
     //observable služi za asinhrono povezivanje sa servisom, ne morate sad aman znati kako to radi
     //bitno je da stavite ovdje observable i u komponenti subscribe i radiće
-    getList(): Observable<Sjednica[]> {
-        return this.http.get(this.url.sjednice + "/list")
+    getList(): Observable<Prilog[]> {
+        return this.http.get(this.url.prilog + "/list")
             .map((response: Response) => response.json());
     }
 
-    get(id: number): Observable<Sjednica> {
-        return this.http.get(this.url.sjednice + "/" + id.toString())
+    get(id: number): Observable<Prilog> {
+        return this.http.get(this.url.prilog + "/" + id.toString())
             .map((response: Response) => response.json());
     }
 
-    create(sjednica: Sjednica): Observable<Sjednica> {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
+    create(prilog: Prilog): Observable<Prilog> {
+        let headers = new Headers({ 'Content-Type': 'multipart/form-data' });
         let options = new RequestOptions({ headers: headers });
-        console.log(JSON.stringify(sjednica));
-        return this.http.post(this.url.sjednice + "/create", JSON.stringify(sjednica), options)
+        console.log(JSON.stringify(prilog));
+        return this.http.post(this.url.prilog + "/create", prilog, options)
             .map((response: Response) => response.json());
     }
 
-    update(sjednica: Sjednica): Observable<Sjednica> {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
+    update(prilog: Prilog): Observable<Prilog> {
+        let headers = new Headers({ 'Content-Type': 'multipart/form-data' });
         let options = new RequestOptions({ headers: headers });
-        console.log(JSON.stringify(sjednica));
-        return this.http.put(this.url.sjednice + "/update", JSON.stringify(sjednica), options)
+        console.log(JSON.stringify(prilog));
+        return this.http.put(this.url.prilog + "/update", JSON.stringify(prilog), options)
             .map((response: Response) => response.json());
     }
 
 
     delete(id: number): Observable<Status> {
-        return this.http.delete(this.url.sjednice + "/delete/" + id.toString())
+        return this.http.delete(this.url.prilog + "/delete/" + id.toString())
             .map((response: Response) => response.json());
     }
 }

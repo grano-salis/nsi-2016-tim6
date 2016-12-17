@@ -34,4 +34,9 @@ public class StatusSjedniceServices implements IDataServices<StatusSjednice> {
         return dataDao.deleteEntity(id);
     }
 
+    @Override
+    public StatusSjednice updateEntity(StatusSjednice item) throws Exception {
+        return dataDao.updateEntity(item);
+    }
+
 }

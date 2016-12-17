@@ -37,5 +37,10 @@ public class TipGlasaServices implements IDataServices<TipGlasa> {
     public boolean deleteEntity(Integer id) throws Exception {
 		return dataDao.deleteEntity(id);
     } 
+
+    @Override
+    public TipGlasa updateEntity(TipGlasa item) throws Exception {
+        return dataDao.updateEntity(item);
+    }
     
 }

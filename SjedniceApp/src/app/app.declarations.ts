@@ -9,6 +9,7 @@ import { StatusStavkeDrComponent } from './sifarnici/statusStavkeDR.component';
 import { StatusUcesnikaComponent } from './sifarnici/statusUcesnika.component';
 import { TipUcesnikaComponent } from './sifarnici/tipUcesnika.component';
 import { TipGlasaComponent } from './sifarnici/tipGlasa.component';
+import { FileUploadComponent } from './fileUpload.component';
 
 
 export const Declarations = [
@@ -22,5 +23,6 @@ export const Declarations = [
     StatusStavkeDrComponent,
     StatusUcesnikaComponent,
     TipUcesnikaComponent,
-    TipGlasaComponent
+    TipGlasaComponent,
+    FileUploadComponent
 ]

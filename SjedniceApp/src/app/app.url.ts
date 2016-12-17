@@ -1,5 +1,5 @@
-const base = "http://nsi06sjedniceapi.azurewebsites.net/"
-const basews = "http://nsi06sjedniceapi.azurewebsites.net/";
+const base = "http://localhost:8080/SjedniceAPI"
+//const base = "http://nsi06api.azurewebsites.net"
 
 export class UrlProvider {    
     public sjednice:string = base + "/sjednica";
@@ -10,6 +10,9 @@ export class UrlProvider {
     public tipUcesnika:string = base + "/sifarnici/tipucesnika";
     public userInfo:string = base + "/userinfo";    
     public chatPoruka:string = base + "/chatPoruka";
-    public webSocketUrlChat:string = basews;
+    public ucesnik:string = base + "/ucesnik";
+    public stavkaDr:string = base + "/stavkaDnevnogReda";
+    public webSocketUrlChat:string = base + "/chat";
+    public prilog:string = base + "/prilog";
 }
 

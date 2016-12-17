@@ -37,4 +37,9 @@ public class ChatPorukaServices implements IDataServices<ChatPoruka> {
     public boolean deleteEntity(Integer id) throws Exception {
         return dataDao.deleteEntity(id);    
     } 
+
+    @Override
+    public ChatPoruka updateEntity(ChatPoruka item) throws Exception {
+        return dataDao.updateEntity(item);
+    }
 }

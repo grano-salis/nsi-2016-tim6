@@ -37,5 +37,10 @@ public class TipUcesnikaServices implements IDataServices<TipUcesnika> {
     public boolean deleteEntity(Integer id) throws Exception {
 		return dataDao.deleteEntity(id);
     } 
+
+    @Override
+    public TipUcesnika updateEntity(TipUcesnika item) throws Exception {
+        return dataDao.updateEntity(item);
+    }
     
 }

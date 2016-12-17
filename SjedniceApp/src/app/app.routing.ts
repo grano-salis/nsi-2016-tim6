@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'sjednice', component: SjedniceComponent },
   { path: 'sjednice/kreiranjeSjednice/:id', component: KreiranjeSjedniceComponent },
   { path: 'sjednice/detaljiSjednice/:id', component: DetaljiSjedniceComponent },
-  { path: 'trenutna', component: TrenutnaSjednicaComponent },  
+  { path: 'sjednice/trenutna/:id', component: TrenutnaSjednicaComponent },  
   { path: 'sifarnici/statusSjednice', component: StatusSjedniceComponent },
   { path: 'sifarnici/statusStavkeDR', component: StatusStavkeDrComponent },
   { path: 'sifarnici/statusUcesnika', component: StatusUcesnikaComponent },

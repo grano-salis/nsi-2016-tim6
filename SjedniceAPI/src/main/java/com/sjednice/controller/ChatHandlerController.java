@@ -11,6 +11,7 @@ package com.sjednice.controller;
  */
 
 import com.sjednice.model.ChatPoruka;
+import com.sjednice.model.StavkaDnevnogReda;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
@@ -25,4 +26,13 @@ public class ChatHandlerController {
         Thread.sleep(1000); // simulated delay
         return message;
     }
+    
+    @MessageMapping("/sendaktivnastavkadr")
+    @SendTo("/topic/aktivnastavkadr")
+    public StavkaDnevnogReda chat(StavkaDnevnogReda stavka) throws Exception {
+        Thread.sleep(1000); // simulated delay
+        return stavka;
+    }
+    
+    
 }

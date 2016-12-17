@@ -37,6 +37,11 @@ public class StatusUcesnikaServices implements IDataServices<StatusUcesnika> {
     public boolean deleteEntity(Integer id) throws Exception {
 		return dataDao.deleteEntity(id);
     } 
+
+    @Override
+    public StatusUcesnika updateEntity(StatusUcesnika item) throws Exception {
+        return dataDao.updateEntity(item);
+    }
     
     
 }

@@ -23,6 +23,7 @@
 				<td>{{ sjednica.datumOdrzavanjaOd | date:"MM/dd/yy" }}</td>
 				<td>{{ sjednica.statusSjednice.naziv }}</td>           
 				<td>
+					<button [routerLink]="['/sjednice/trenutna', sjednica.id]" class="btn btn-sm btn-primary">Uđi</button>
 					<button [routerLink]="['/sjednice/detaljiSjednice', sjednica.id]" class="btn btn-sm btn-primary">Detalji</button>
 					<button [routerLink]="['/sjednice/kreiranjeSjednice', sjednica.id]" class="btn btn-sm btn-primary">Uredi</button> 
 				</td>

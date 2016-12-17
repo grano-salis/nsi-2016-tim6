@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
@@ -35,10 +36,13 @@ public class Prilog implements Serializable {
     @Column(name = "naziv")
     private String naziv;
 
-    @Column(name = "content_type")
-    private String content_type;
+    @Column(name = "sjednica_id")
+    private Integer sjednicaId;
 
-    @Column(name = "sadrzaj")
+    @Column(name = "content_type")
+    private String contentType;
+
+    @Column(name = "sadrzaj")    
     private byte[] sadrzaj;
 
     public Integer getId() {
@@ -49,6 +53,14 @@ public class Prilog implements Serializable {
         this.id = id;
     }
 
+    public Integer getSjednicaId() {
+        return sjednicaId;
+    }
+
+    public void setSjednicaId(Integer sjednicaId) {
+        this.sjednicaId = sjednicaId;
+    }
+
     public String getNaziv() {
         return naziv;
     }
@@ -57,12 +69,12 @@ public class Prilog implements Serializable {
         this.naziv = naziv;
     }
 
-    public String getContent_type() {
-        return content_type;
+    public String getContentType() {
+        return contentType;
     }
 
-    public void setContent_type(String content_type) {
-        this.content_type = content_type;
+    public void setContentType(String content_type) {
+        this.contentType = content_type;
     }
 
     public byte[] getSadrzaj() {

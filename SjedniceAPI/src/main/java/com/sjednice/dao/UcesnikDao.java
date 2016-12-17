@@ -10,6 +10,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -36,6 +37,18 @@ public class UcesnikDao implements IDataDao<Ucesnik> {
 
         return item;
     }
+    
+    @Override
+    public Ucesnik updateEntity(Ucesnik item) throws Exception {
+
+        session = sessionFactory.openSession();
+        tx = session.beginTransaction();
+        session.update(item);
+        tx.commit();
+        session.close();
+
+        return item;
+    }
 
     @Override
     public Ucesnik getEntityById(Integer id) throws Exception {
@@ -54,6 +67,16 @@ public class UcesnikDao implements IDataDao<Ucesnik> {
         session = sessionFactory.openSession();
         tx = session.beginTransaction();
         List<Ucesnik> model = session.createCriteria(Ucesnik.class).list();
+        tx.commit();
+        session.close();
+        return model;
+    }
+    
+    @SuppressWarnings("unchecked")    
+    public List<Ucesnik> getEntityListBySjednicaId(Integer sjednicaId) throws Exception {
+        session = sessionFactory.openSession();
+        tx = session.beginTransaction();
+        List<Ucesnik> model = session.createCriteria(Ucesnik.class).add(Restrictions.eq("sjednica_id", sjednicaId)).list();
         tx.commit();
         session.close();
         return model;

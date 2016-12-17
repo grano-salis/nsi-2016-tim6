@@ -1,18 +1,22 @@
 <div class="row">
 	<div class="panel panel-default">
 		<div class="panel-heading" (click)="isCollapsed1 = !isCollapsed1">
-			<h3 class="panel-title">Podaci o sjednici</h3>            
+			<h3 class="panel-title">Podaci o sjednici</h3>
 		</div>
 		<div [ngbCollapse]="isCollapsed1" class="panel-body">
 			<label class="control-label">Tema sjednice</label>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et fuga, culpa voluptatem fugiat soluta, doloribus aspernatur
-				reprehenderit debitis asperiores aliquam rem! Quis sapiente amet error provident assumenda tenetur laboriosam placeat!
+			<p>{{sjednica?.naziv}} </p>
+			<hr />
+			<label class="control-label">Opis sjednice</label>
+			<p>{{sjednica?.opis}} </p>
+
 			<hr />
 			<label class="control-label">Precjedavajući</label>
-			<p>Granulo Aida</p>
+			<p> {{ precjedavajuci?.userInfo?.lastName + " " + precjedavajuci?.userInfo?.firstName }}</p>
 
+			<hr/>
 			<label class="control-label">Datum i vrijeme početka</label>
-			<p>21.12.2016. 14:30</p>
+			<p>{{ sjednica?.datumOdrzavanjaOd | date:"MM/dd/yy" }}</p>
 
 		</div>
 	</div>
@@ -23,22 +27,11 @@
 	<div class="col-md-6">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 (click)="isCollapsed2 = !isCollapsed2" class="panel-title" >Učesnici</h3>				
+				<h3 (click)="isCollapsed2 = !isCollapsed2" class="panel-title">Učesnici</h3>
 			</div>
 			<div class="panel-body" [ngbCollapse]="isCollapsed2">
 				<ul class="list-group" style="max-height:200px; overflow-y:auto;">
-					<li class="list-group-item">Džafić Faris</li>
-					<li class="list-group-item">Botulja sumeja</li>
-					<li class="list-group-item">Granulo Aida</li>
-					<li class="list-group-item">Hasović Aida</li>
-					<li class="list-group-item">Džafić Faris</li>
-					<li class="list-group-item">Botulja sumeja</li>
-					<li class="list-group-item">Granulo Aida</li>
-					<li class="list-group-item">Hasović Aida</li>
-					<li class="list-group-item">Džafić Faris</li>
-					<li class="list-group-item">Botulja sumeja</li>
-					<li class="list-group-item">Granulo Aida</li>
-					<li class="list-group-item">Hasović Aida</li>
+					<li *ngFor="let ucesnik of ucesnici" class="list-group-item">{{ucesnik?.tipUcesnika?.naziv + ": " + ucesnik?.userInfo?.lastName + " " + ucesnik?.userInfo?.firstName }}</li>
 				</ul>
 			</div>
 		</div>
@@ -47,15 +40,18 @@
 	<div class="col-md-6">
 		<div class="panel panel-default">
 			<div class="panel-heading" (click)="isCollapsed3 = !isCollapsed3">
-				<h3 class="panel-title">Stavke dnevnog reda</h3>				
+				<h3 class="panel-title">Stavke dnevnog reda</h3>
 			</div>
 			<div class="panel-body" [ngbCollapse]="isCollapsed3">
-				<div class="list-group" style="max-height:200px; overflow-y:auto;">
-					<a href="#" class="list-group-item active" title="Aktivna tačka"> <span class="badge"> << </span>Aktivna stavka dnevnog reda </a>
-					<a href="#" class="list-group-item">Stavka 1</a>
-					<a href="#" class="list-group-item">Stavka 2</a>
-					<a href="#" class="list-group-item">Stavka 3</a>
-					<a href="#" class="list-group-item">Stavla 3</a>
+				<div class="list-group" style="max-height:200px;">
+					<div *ngFor="let stavka of stavkeDr" [ngClass]="{active: stavka.id == aktivnaStavka.id}" class="list-group-item">
+						{{ stavka.naslov }}
+						<div class="pull-right">
+							<button class="btn btn-primary btn-sm" mwlConfirmationPopover message="Jeste li sigurni da želite postaviti ovu stavku za aktvnu ?"
+								placement="left" (confirm)="postaviZaAktivnuStavku(stavka)" (cancel)="isOpen = false">Postavi za aktivnu</button>
+							<button class="btn btn-primary btn-sm">Detalji</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -83,11 +79,10 @@
 				<li class="list-group-item" *ngFor="let messagge of messages">
 					<h4 class="list-group-item-heading">OsobaX</h4>
 					<p class="list-group-item-text">{{messagge.poruka}}</p>
-				</li>				
+				</li>
 			</div>
 		</div>
 	</div>
 
 
 </div>
-

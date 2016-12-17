@@ -33,9 +33,17 @@ public class StavkaDnevnogRedaServices implements IDataServices<StavkaDnevnogRed
         return dataDao.getEntityList();
     }
 
+    public List<StavkaDnevnogReda> getEntityListBySjednicaId(Integer sjednicaId) throws Exception {
+                return dataDao.getEntityListBySjednicaId(sjednicaId);
+    }
     @Override
     public boolean deleteEntity(Integer id) throws Exception {
 		return dataDao.deleteEntity(id);
     } 
+
+    @Override
+    public StavkaDnevnogReda updateEntity(StavkaDnevnogReda item) throws Exception {
+        return dataDao.updateEntity(item);
+    }
     
 }

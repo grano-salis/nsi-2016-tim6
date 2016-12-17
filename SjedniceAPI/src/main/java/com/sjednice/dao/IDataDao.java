@@ -5,6 +5,8 @@ import java.util.List;
 public interface IDataDao<T> {
 
     public T addEntity(T item) throws Exception;
+    
+    public T updateEntity(T item) throws Exception;
 
     public T getEntityById(Integer id) throws Exception;
 

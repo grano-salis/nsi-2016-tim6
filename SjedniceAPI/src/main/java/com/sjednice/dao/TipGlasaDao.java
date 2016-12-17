@@ -36,6 +36,18 @@ public class TipGlasaDao implements IDataDao<TipGlasa> {
 
         return item;
     }
+    
+    @Override
+    public TipGlasa updateEntity(TipGlasa item) throws Exception {
+
+        session = sessionFactory.openSession();
+        tx = session.beginTransaction();
+        session.update(item);
+        tx.commit();
+        session.close();
+
+        return item;
+    }
 
     @Override
     public TipGlasa getEntityById(Integer id) throws Exception {

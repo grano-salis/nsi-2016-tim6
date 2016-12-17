@@ -36,6 +36,18 @@ public class PrilogDao implements IDataDao<Prilog> {
 
         return item;
     }
+    
+    @Override
+    public Prilog updateEntity(Prilog item) throws Exception {
+
+        session = sessionFactory.openSession();
+        tx = session.beginTransaction();
+        session.update(item);
+        tx.commit();
+        session.close();
+
+        return item;
+    }
 
     @Override
     public Prilog getEntityById(Integer id) throws Exception {

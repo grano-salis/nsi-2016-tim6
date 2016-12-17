@@ -8,9 +8,12 @@ package com.sjednice.model;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
@@ -31,17 +34,31 @@ public class Ucesnik implements Serializable {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "uposlenik_id")
-    private Integer uposlenik_id;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "uposlenik_id")
+    private UserInfo userInfo;
 
     @Column(name = "sjednica_id")
     private Integer sjednica_id;
 
-    @Column(name = "tip_ucesnika_id")
-    private int tip_ucesnika_id;
 
-    @Column(name = "status_ucesnika_id")
-    private int status_ucesnika_id;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "tip_ucesnika_id")
+    private TipUcesnika tipUcesnika;
+
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "status_ucesnika_id")
+    private StatusUcesnika statusUcesnika;
+
+    public TipUcesnika getTipUcesnika() {
+        return tipUcesnika;
+    }
+
+    public void setTipUcesnika(TipUcesnika tipUcesnika) {
+        this.tipUcesnika = tipUcesnika;
+    }
 
     public Integer getId() {
         return id;
@@ -51,13 +68,14 @@ public class Ucesnik implements Serializable {
         this.id = id;
     }
 
-    public int getUposlenik_id() {
-        return uposlenik_id;
+    public UserInfo getUserInfo() {
+        return userInfo;
     }
 
-    public void setUposlenik_id(int uposlenik_id) {
-        this.uposlenik_id = uposlenik_id;
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
     }
+
 
     public int getSjednica_id() {
         return sjednica_id;
@@ -67,20 +85,13 @@ public class Ucesnik implements Serializable {
         this.sjednica_id = sjednica_id;
     }
 
-    public int getTip_ucesnika_id() {
-        return tip_ucesnika_id;
+    public StatusUcesnika getStatusUcesnika() {
+        return statusUcesnika;
     }
 
-    public void setTip_ucesnika_id(int tip_ucesnika_id) {
-        this.tip_ucesnika_id = tip_ucesnika_id;
+    public void setStatusUcesnika(StatusUcesnika statusUcesnika) {
+        this.statusUcesnika = statusUcesnika;
     }
 
-    public int getStatus_ucesnika_id() {
-        return status_ucesnika_id;
-    }
-
-    public void setStatus_ucesnika_id(int status_ucesnika_id) {
-        this.status_ucesnika_id = status_ucesnika_id;
-    }
-
+   
 }

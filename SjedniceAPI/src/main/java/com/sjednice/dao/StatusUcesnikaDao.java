@@ -36,6 +36,18 @@ public class StatusUcesnikaDao implements IDataDao<StatusUcesnika> {
 
         return item;
     }
+    
+    @Override
+    public StatusUcesnika updateEntity(StatusUcesnika item) throws Exception {
+
+        session = sessionFactory.openSession();
+        tx = session.beginTransaction();
+        session.update(item);
+        tx.commit();
+        session.close();
+
+        return item;
+    }
 
     @Override
     public StatusUcesnika getEntityById(Integer id) throws Exception {

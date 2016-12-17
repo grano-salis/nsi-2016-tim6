@@ -1,6 +1,6 @@
 export class StavkaDr {
     id: number;
-    dnevniRedId: number;
+    sjednicaId: number;
     redniBroj: number;
     naslov: string;
     opis: string;

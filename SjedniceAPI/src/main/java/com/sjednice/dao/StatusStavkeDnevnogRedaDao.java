@@ -10,6 +10,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -36,6 +37,18 @@ public class StatusStavkeDnevnogRedaDao implements IDataDao<StatusStavkeDnevnogR
 
         return item;
     }
+    
+    @Override
+    public StatusStavkeDnevnogReda updateEntity(StatusStavkeDnevnogReda item) throws Exception {
+
+        session = sessionFactory.openSession();
+        tx = session.beginTransaction();
+        session.update(item);
+        tx.commit();
+        session.close();
+
+        return item;
+    }
 
     @Override
     public StatusStavkeDnevnogReda getEntityById(Integer id) throws Exception {
@@ -57,8 +70,8 @@ public class StatusStavkeDnevnogRedaDao implements IDataDao<StatusStavkeDnevnogR
         tx.commit();
         session.close();
         return model;
-    }
-
+    }       
+    
     @Override
     public boolean deleteEntity(Integer id) throws Exception {
         session = sessionFactory.openSession();

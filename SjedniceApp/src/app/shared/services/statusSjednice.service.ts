@@ -20,6 +20,11 @@ export class StatusSjedniceService {
             .map((response: Response) => response.json());
     }
 
+    get(id: number): Observable<StatusSjednice> {
+        return this.http.get(this.url.statusSjednice + "/" + id.toString())
+            .map((response: Response) => response.json());
+    }
+
     addEntity(statusSjednice: StatusSjednice): Observable<StatusSjednice> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });

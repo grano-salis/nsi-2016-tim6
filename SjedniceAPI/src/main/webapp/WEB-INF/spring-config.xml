@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:websocket="http://www.springframework.org/schema/websocket"
+<beans xmlns="http://www.springframework.org/schema/beans"         
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
        xmlns:util="http://www.springframework.org/schema/util" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:websocket="http://www.springframework.org/schema/websocket"
        xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
     http://www.springframework.org/schema/websocket
-        http://www.springframework.org/schema/websocket/spring-websocket.xsd">
+    http://www.springframework.org/schema/websocket/spring-websocket.xsd
+">
     
     <context:component-scan base-package="com.sjednice.controller" />
     <mvc:annotation-driven />
     
+    <!--<mvc:cors />-->
 
-   <websocket:message-broker application-destination-prefix="/app">
+    <websocket:message-broker application-destination-prefix="/app">
         <websocket:stomp-endpoint path="/chat" allowed-origins="*">
             <websocket:sockjs/>
         </websocket:stomp-endpoint>
@@ -22,8 +24,19 @@
     </websocket:message-broker>
         
     <!--   Ispod ćete zalijepiti data source -->
+    
 
+    
+ 
+    
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 
+        <!-- setting maximum upload size -->
+        <property name="maxUploadSize" value="100000" />
+
+    </bean>
+    
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
@@ -31,8 +44,7 @@
             <list>                
                 <value>com.sjednice.model.Sjednica</value>
                 <value>com.sjednice.model.StatusSjednice</value>
-                <value>com.sjednice.model.ChatPoruka</value>
-                <value>com.sjednice.model.DnevniRed</value>
+                <value>com.sjednice.model.ChatPoruka</value>                
                 <value>com.sjednice.model.Glas</value>
                 <value>com.sjednice.model.Prilog</value>
                 
@@ -42,7 +54,7 @@
                 <value>com.sjednice.model.TipGlasa</value>
                 <value>com.sjednice.model.TipUcesnika</value>
                 <value>com.sjednice.model.Ucesnik</value>
-                <value>com.sjednice.model.Zapisnik</value>               
+                           
                 <value>com.sjednice.model.UserInfo</value>       
             </list>
         </property>
@@ -71,9 +83,6 @@
     <bean id="chatPorukaDao" class="com.sjednice.dao.ChatPorukaDao"></bean>
     <bean id="chatPorukaServices" class="com.sjednice.services.ChatPorukaServices"></bean>
     
-    <bean id="dnevniRedDao" class="com.sjednice.dao.DnevniRedDao"></bean>
-    <bean id="dnevniRedServices" class="com.sjednice.services.DnevniRedServices"></bean>    
-    
     <bean id="glasDao" class="com.sjednice.dao.GlasDao"></bean>
     <bean id="glasServices" class="com.sjednice.services.GlasServices"></bean>
     
@@ -85,9 +94,6 @@
     
     <bean id="stavkaDnevnogRedaDao" class="com.sjednice.dao.StavkaDnevnogRedaDao"></bean>
     <bean id="stavkaDnevnogRedaServices" class="com.sjednice.services.StavkaDnevnogRedaServices"></bean>
-    
-    <bean id="zapisnikDao" class="com.sjednice.dao.ZapisnikDao"></bean>
-    <bean id="zapisnikServices" class="com.sjednice.services.ZapisnikServices"></bean>
     
     <bean id="ucesnikDao" class="com.sjednice.dao.UcesnikDao"></bean>
     <bean id="ucesnikServices" class="com.sjednice.services.UcesnikServices"></bean>

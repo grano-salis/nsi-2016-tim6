@@ -55,7 +55,7 @@ public class ChatPorukaController {
         }
         return chatPoruka;
     }
-
+    @CrossOrigin
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public @ResponseBody
     List<ChatPoruka> getChatPoruka() {

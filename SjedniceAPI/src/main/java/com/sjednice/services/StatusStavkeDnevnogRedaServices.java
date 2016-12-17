@@ -37,4 +37,9 @@ public class StatusStavkeDnevnogRedaServices implements IDataServices<StatusStav
     public boolean deleteEntity(Integer id) throws Exception {
 		return dataDao.deleteEntity(id);
     } 
+
+    @Override
+    public StatusStavkeDnevnogReda updateEntity(StatusStavkeDnevnogReda item) throws Exception {
+        return dataDao.updateEntity(item);
+    }
 }

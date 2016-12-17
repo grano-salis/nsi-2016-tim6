@@ -7,7 +7,6 @@ package com.sjednice.controller;
 
 import com.sjednice.model.Sjednica;
 import com.sjednice.model.Status;
-import com.sjednice.model.StatusSjednice;
 import com.sjednice.services.SjednicaServices;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +37,19 @@ public class SjednicaController {
     Sjednica add(@RequestBody Sjednica model) {
         try {
             return dataServices.addEntity(model);
+        } catch (Exception e) {
+            // e.printStackTrace();
+            return null;
+        }
+
+    }
+    
+    @CrossOrigin
+    @RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    Sjednica update(@RequestBody Sjednica model) {
+        try {
+            return dataServices.updateEntity(model);
         } catch (Exception e) {
             // e.printStackTrace();
             return null;

@@ -10,7 +10,7 @@ import { Status } from '../shared/models/status';
 })
 export class TipUcesnikaComponent implements OnInit {
     tipoviUcesnika:TipUcesnika[];
-    tipUcesnika: TipUcesnika = new TipUcesnika(); // u ovaj će se spremati kreirani model
+    tipUcesnika: TipUcesnika = new TipUcesnika(0, ""); // u ovaj će se spremati kreirani model
 
     status: Status;
     constructor(private service:TipUcesnikaService, private modalService: NgbModal) { } // potrebno za rad modala

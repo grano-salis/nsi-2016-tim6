@@ -36,6 +36,18 @@ public class TipUcesnikaDao implements IDataDao<TipUcesnika> {
 
         return item;
     }
+    
+    @Override
+    public TipUcesnika updateEntity(TipUcesnika item) throws Exception {
+
+        session = sessionFactory.openSession();
+        tx = session.beginTransaction();
+        session.update(item);
+        tx.commit();
+        session.close();
+
+        return item;
+    }
 
     @Override
     public TipUcesnika getEntityById(Integer id) throws Exception {

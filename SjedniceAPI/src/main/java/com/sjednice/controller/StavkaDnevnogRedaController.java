@@ -78,6 +78,21 @@ public class StavkaDnevnogRedaController {
 
         return stavkaDnevnogRedaList;
     }
+    
+    @RequestMapping(value = "/getListBySjednicaId/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    List<StavkaDnevnogReda> getStavkaDnevnogRedaBySjednicaId(@PathVariable("id") Integer id) {
+
+        List<StavkaDnevnogReda> list = null;
+        try {
+            list = dataServices.getEntityListBySjednicaId(id);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
 
     @CrossOrigin
     @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)

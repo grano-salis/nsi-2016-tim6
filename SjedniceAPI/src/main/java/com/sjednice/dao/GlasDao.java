@@ -36,6 +36,18 @@ public class GlasDao implements IDataDao<Glas> {
 
         return item;
     }
+    
+    @Override
+    public Glas updateEntity(Glas item) throws Exception {
+
+        session = sessionFactory.openSession();
+        tx = session.beginTransaction();
+        session.update(item);
+        tx.commit();
+        session.close();
+
+        return item;
+    }
 
     @Override
     public Glas getEntityById(Integer id) throws Exception {

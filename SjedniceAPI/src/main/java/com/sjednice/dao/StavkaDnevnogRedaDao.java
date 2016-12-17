@@ -10,6 +10,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -38,6 +39,18 @@ public class StavkaDnevnogRedaDao implements IDataDao<StavkaDnevnogReda> {
     }
 
     @Override
+    public StavkaDnevnogReda updateEntity(StavkaDnevnogReda item) throws Exception {
+
+        session = sessionFactory.openSession();
+        tx = session.beginTransaction();
+        session.update(item);
+        tx.commit();
+        session.close();
+
+        return item;
+    }
+    
+    @Override
     public StavkaDnevnogReda getEntityById(Integer id) throws Exception {
         session = sessionFactory.openSession();
         StavkaDnevnogReda item;
@@ -54,6 +67,16 @@ public class StavkaDnevnogRedaDao implements IDataDao<StavkaDnevnogReda> {
         session = sessionFactory.openSession();
         tx = session.beginTransaction();
         List<StavkaDnevnogReda> model = session.createCriteria(StavkaDnevnogReda.class).list();
+        tx.commit();
+        session.close();
+        return model;
+    }
+    
+     @SuppressWarnings("unchecked")    
+    public List<StavkaDnevnogReda> getEntityListBySjednicaId(Integer sjednicaId) throws Exception {
+        session = sessionFactory.openSession();
+        tx = session.beginTransaction();
+        List<StavkaDnevnogReda> model = session.createCriteria(StavkaDnevnogReda.class).add(Restrictions.eq("sjednicaId", sjednicaId)).list();
         tx.commit();
         session.close();
         return model;

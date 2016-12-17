@@ -79,6 +79,21 @@ public class UcesnikController {
 
         return ucesnikList;
     }
+    
+    @RequestMapping(value = "/getListBySjednicaId/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    List<Ucesnik> getUcesnikBySjednicaId(@PathVariable("id") Integer id) {
+
+        List<Ucesnik> ucesnikList = null;
+        try {
+            ucesnikList = dataServices.getEntityListBySjednicaId(id);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ucesnikList;
+    }
 
     @CrossOrigin
     @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)

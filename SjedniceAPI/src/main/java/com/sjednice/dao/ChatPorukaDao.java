@@ -36,6 +36,18 @@ public class ChatPorukaDao implements IDataDao<ChatPoruka> {
 
         return item;
     }
+    
+    @Override
+    public ChatPoruka updateEntity(ChatPoruka item) throws Exception {
+
+        session = sessionFactory.openSession();
+        tx = session.beginTransaction();
+        session.update(item);
+        tx.commit();
+        session.close();
+
+        return item;
+    }
 
     @Override
     public ChatPoruka getEntityById(Integer id) throws Exception {

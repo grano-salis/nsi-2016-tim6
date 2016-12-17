@@ -47,19 +47,10 @@ public class Sjednica implements Serializable {
 
     @Column(name = "datum_odrzavanja_do")
     private Date datumOdrzavanjaDo;
-
-    @Column(name = "dnevni_red_id")
-    private Integer dnevniRedId;
-
-//    @Column(name = "status_sjednice_id")
-//    private Integer statusSjedniceId;
-
+   
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "status_sjednice_id")
     private StatusSjednice statusSjednice;
-
-    @Column(name = "zapisnik_id")
-    private Integer zapisnikId;
 
     public StatusSjednice getStatusSjednice() {
         return statusSjednice;
@@ -108,29 +99,4 @@ public class Sjednica implements Serializable {
     public void setDatumOdrzavanjaDo(Date datumOdrzavanjaDo) {
         this.datumOdrzavanjaDo = datumOdrzavanjaDo;
     }
-
-    public Integer getDnevniRedId() {
-        return dnevniRedId;
-    }
-
-    public void setDnevniRedId(Integer dnevniRedId) {
-        this.dnevniRedId = dnevniRedId;
-    }
-
-//    public Integer getStatusSjedniceId() {
-//        return statusSjedniceId;
-//    }
-//
-//    public void setStatusSjedniceId(Integer statusSjedniceId) {
-//        this.statusSjedniceId = statusSjedniceId;
-//    }
-
-    public Integer getZapisnikId() {
-        return zapisnikId;
-    }
-
-    public void setZapisnikId(Integer zapisnikId) {
-        this.zapisnikId = zapisnikId;
-    }
-
 }

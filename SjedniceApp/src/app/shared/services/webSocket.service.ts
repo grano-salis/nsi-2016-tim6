@@ -1,36 +1,56 @@
 import { Injectable } from '@angular/core';
-import * as Rx from 'rxjs/Rx';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { UrlProvider } from '../../app.url';
+
+import { Observable } from 'rxjs/Observable';
+
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
+import { ChatPoruka } from '../models/chatPoruka';
+import { StavkaDr } from '../models/stavkaDr';
+
+var SockJS = require('sockjs-client');
+var Stomp = require('stompjs');
 
 @Injectable()
 export class WebSocketService {
-	private subject: Rx.Subject<MessageEvent>;
+    stompClient: any;    
 
-	public connect(url): Rx.Subject<MessageEvent> {
-		if (!this.subject) {
-			this.subject = this.create(url);
-		}
-		return this.subject;
-	}
+    messages : ChatPoruka[];
+    stavkeDr: StavkaDr[];
 
-	private create(url): Rx.Subject<MessageEvent> {
-		let ws = new WebSocket(url);				
-		let observable = Rx.Observable.create(
-			(obs: Rx.Observer<MessageEvent>) => {
-				ws.onmessage = obs.next.bind(obs);
-				ws.onerror = obs.error.bind(obs);
-				ws.onclose = obs.complete.bind(obs);
+    aktivnaStavkaDr: StavkaDr;
 
-				return ws.close.bind(ws);
-			})
+    constructor(private url: UrlProvider, messages : ChatPoruka[], stavkeDr : StavkaDr[], aktivnaStavkaDr: StavkaDr) {
+        this.messages = messages;
+        this.stavkeDr = stavkeDr;
+        this.aktivnaStavkaDr = aktivnaStavkaDr;
+        this.connect();
+    }
 
-		let observer = {
-			next: (data: Object) => {
-				if (ws.readyState === WebSocket.OPEN) {
-					ws.send(JSON.stringify(data));
-				}
-			}
-		}
+    sendChatMessage(chatPoruka: ChatPoruka) {
+        this.stompClient.send('/app/send', {}, JSON.stringify(chatPoruka));
+    }
 
-		return Rx.Subject.create(observer, observable);
-	}
-} // end class WebSocketService
+    sendAktivnaStavkaDr(stavkaDr: StavkaDr) {
+        this.stompClient.send('/app/sendaktivnastavkadr', {}, JSON.stringify(stavkaDr));        
+    }
+
+    connect() {        
+        var that = this;
+        var socket = new SockJS(this.url.webSocketUrlChat);        
+        this.stompClient = Stomp.over(socket); 
+        this.stompClient.connect({}, function (frame) {
+            console.log('Connected: ' + frame);
+            that.stompClient.subscribe('/topic/messages', data => that.messages.push(JSON.parse(data.body)));
+            that.stompClient.subscribe('/topic/aktivnastavkadr', 
+                data => that.aktivnaStavkaDr = JSON.parse(data.body)                    
+                  
+            );
+
+        });             
+    }
+    
+
+}

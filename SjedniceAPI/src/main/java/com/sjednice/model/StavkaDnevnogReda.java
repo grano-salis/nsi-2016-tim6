@@ -31,11 +31,11 @@ public class StavkaDnevnogReda implements Serializable {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "dnevni_red_id")
-    private int dnevni_red_id;
+    @Column(name = "sjednica_id")
+    private Integer sjednicaId;
 
     @Column(name = "redni_broj")
-    private int redni_broj;
+    private int redniBroj;
 
     @Column(name = "naslov")
     private String naslov;
@@ -44,7 +44,31 @@ public class StavkaDnevnogReda implements Serializable {
     private String opis;
 
     @Column(name = "status_stavke_dr_id")
-    private int status_stavke_dr_id;
+    private int statusStavkeDrId;
+
+    public Integer getSjednicaId() {
+        return sjednicaId;
+    }
+
+    public void setSjednicaId(Integer sjednicaId) {
+        this.sjednicaId = sjednicaId;
+    }
+
+    public int getRedniBroj() {
+        return redniBroj;
+    }
+
+    public void setRedniBroj(int redniBroj) {
+        this.redniBroj = redniBroj;
+    }
+
+    public int getStatusStavkeDrId() {
+        return statusStavkeDrId;
+    }
+
+    public void setStatusStavkeDrId(int statusStavkeDrId) {
+        this.statusStavkeDrId = statusStavkeDrId;
+    }
 
     public Integer getId() {
         return id;
@@ -52,22 +76,6 @@ public class StavkaDnevnogReda implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public int getDnevni_red_id() {
-        return dnevni_red_id;
-    }
-
-    public void setDnevni_red_id(int dnevni_red_id) {
-        this.dnevni_red_id = dnevni_red_id;
-    }
-
-    public int getRedni_broj() {
-        return redni_broj;
-    }
-
-    public void setRedni_broj(int redni_broj) {
-        this.redni_broj = redni_broj;
     }
 
     public String getNaslov() {
@@ -85,13 +93,4 @@ public class StavkaDnevnogReda implements Serializable {
     public void setOpis(String opis) {
         this.opis = opis;
     }
-
-    public int getStatus_stavke_dr_id() {
-        return status_stavke_dr_id;
-    }
-
-    public void setStatus_stavke_dr_id(int status_stavke_dr_id) {
-        this.status_stavke_dr_id = status_stavke_dr_id;
-    }
-
 }

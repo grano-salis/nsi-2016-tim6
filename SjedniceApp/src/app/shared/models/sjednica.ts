@@ -7,7 +7,5 @@ export class Sjednica {
     datumOdrzavanjaDo: Date;
     sala: string;
     statusSjedniceId: number;
-    statusSjednice: StatusSjednice;
-    dnevniRedId: number;
-    zapisnikId: number;
+    statusSjednice: StatusSjednice;        
 }

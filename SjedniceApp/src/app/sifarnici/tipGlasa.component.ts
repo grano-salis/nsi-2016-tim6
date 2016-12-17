@@ -11,7 +11,7 @@ import { Status } from '../shared/models/status';
 export class TipGlasaComponent implements OnInit {
     tipoviGlasa:TipGlasa[];
 
-    tipGlasa: TipGlasa = new TipGlasa(); // u ovaj će se spremati kreirani model
+    tipGlasa: TipGlasa = new TipGlasa(0, ""); // u ovaj će se spremati kreirani model
 
     status: Status;
 

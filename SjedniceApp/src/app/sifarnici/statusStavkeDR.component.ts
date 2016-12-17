@@ -11,7 +11,7 @@ import { Status } from '../shared/models/status';
 export class StatusStavkeDrComponent implements OnInit {
     statusiStavkeDR:StatusStavkeDR[];
 
-    statusStavkeDR: StatusStavkeDR = new StatusStavkeDR(); // u ovaj će se spremati kreirani model
+    statusStavkeDR: StatusStavkeDR = new StatusStavkeDR(0, ""); // u ovaj će se spremati kreirani model
 
     status: Status;
     constructor(private service:StatusStavkeDRService, private modalService: NgbModal) { } // potrebno za rad modala

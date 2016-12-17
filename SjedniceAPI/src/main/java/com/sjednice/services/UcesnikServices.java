@@ -31,10 +31,19 @@ public class UcesnikServices implements IDataServices<Ucesnik> {
     public List<Ucesnik> getEntityList() throws Exception {
                 return dataDao.getEntityList();
     }
+    
+    public List<Ucesnik> getEntityListBySjednicaId(Integer sjednicaId) throws Exception {
+                return dataDao.getEntityListBySjednicaId(sjednicaId);
+    }
 
     @Override
     public boolean deleteEntity(Integer id) throws Exception {
 		return dataDao.deleteEntity(id);
     } 
+
+    @Override
+    public Ucesnik updateEntity(Ucesnik item) throws Exception {
+        return dataDao.updateEntity(item);
+    }
     
 }

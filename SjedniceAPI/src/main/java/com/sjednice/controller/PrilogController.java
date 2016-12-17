@@ -29,11 +29,12 @@ public class PrilogController {
     static final Logger logger = Logger.getLogger(PrilogController.class);
 
     @CrossOrigin
-    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public @ResponseBody
-    Prilog addPrilog(@RequestBody Prilog prilog) {
+    Prilog addPrilog(@RequestBody com.sjednice.dto.Prilog prilog) {
         try {
-            return dataServices.addEntity(prilog);
+            Prilog p = new Prilog();
+            return dataServices.addEntity(p);
             //return new Status(1, "Employee added Successfully !");
         } catch (Exception e) {
             // e.printStackTrace();

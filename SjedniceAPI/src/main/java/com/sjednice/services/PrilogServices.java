@@ -37,4 +37,9 @@ public class PrilogServices implements IDataServices<Prilog> {
     public boolean deleteEntity(Integer id) throws Exception {
         return dataDao.deleteEntity(id);
     } 
+
+    @Override
+    public Prilog updateEntity(Prilog item) throws Exception {
+        return dataDao.updateEntity(item);
+    }
 }

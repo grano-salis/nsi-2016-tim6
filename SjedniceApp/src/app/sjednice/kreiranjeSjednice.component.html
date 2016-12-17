@@ -5,7 +5,7 @@
     <div class="panel-body">
 
         <div class="form-horizontal">
-
+            <h3 class="text-center text-success" [hidden]="sjednica?.statusSjednice?.id != 2">Sjednica je u toku</h3>
             <div class="container">
                 <div class="vertical-center-row">
                     <div class='col-md-8'>
@@ -15,7 +15,7 @@
                             <div class="input-group-addon" (click)="d1.toggle()">
                                 <p class="text-center">Odaberite datum</p>
                             </div>
-                        </div>                    
+                        </div>
                         <div class="form-group">
                             <label class="control-label">Tema sjednice</label>
                             <input [(ngModel)]="sjednica.naziv" class="form-control">
@@ -29,8 +29,10 @@
             </div>
 
             <div class="form-group">
-                <div class="col-md-10 col-md-offset-2">
-                    <button type="submit" class="btn btn-primary pull-right">Spremi</button>
+                <div class="col-md-10 col-md-offset-2 pull-right">
+                    <button type="submit" class="btn btn-primary">Spremi osnovne podatke</button>
+                    <button type="submit" class="btn btn-primary">Završi kreiranje sjednice</button>
+                    <button type="submit" class="btn btn-info" (click)="pokreniSjednicu()">Započni sjednicu</button>
                 </div>
             </div>
         </div>
@@ -54,18 +56,12 @@
 
         </thead>
         <tbody>
-            <tr>
-                <td>I tačka dnevnog reda</td>
+            <tr *ngFor="let item of stavkeDr">
+                <td>{{ item.opis }}</td>
                 <td class="pull-right">
-                    <button class="btn btn-primary">Uredi</button> |
-                    <button class="btn btn-info">Detalji</button>
-                </td>
-            </tr>
-            <tr>
-                <td>II tačka dnevnog reda</td>
-                <td class="pull-right">
-                    <button class="btn btn-primary">Uredi</button> |
-                    <button class="btn btn-info">Detalji</button>
+                    <button class="btn btn-primary">Detalji</button> |
+                    <button class="btn btn-danger btn-sm" mwlConfirmationPopover message="Jeste li sigurni da želite obrisati ?" placement="left"
+                        (confirm)="deleteStavkaDr(item)" (cancel)="isOpen = false">Obriši</button>
                 </td>
             </tr>
         </tbody>
@@ -85,9 +81,14 @@
                 <option *ngFor="let user of users" [ngValue]="user" >{{ user.lastName + " " + user.firstName }}</option>                   
             </select>
 
+            <select [(ngModel)]="selectedTipUcesnika" class="form-control">
+                <option selected="selected" disabled>Tip učesnika</option>
+                <option *ngFor="let tip of tipoviUcesnika" [ngValue]="tip" >{{ tip.naziv }}</option>                   
+            </select>
+
         </div>
         <div class="col-md-3">
-            <button class="btn btn-primary pull-right">Dodaj</button>
+            <button class="btn btn-primary pull-right" (click)="dodajUcesnika(selectedUser, selectedTipUcesnika)">Dodaj</button>
         </div>
     </div>
 
@@ -95,21 +96,17 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>Dnevni red</th>
+                <th>Učesnici</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Konjicija Samim</td>
+            <tr *ngFor="let ucesnik of ucesnici">
+                <td>{{ ucesnik.userInfo.lastName + " " + ucesnik.userInfo.firstName }}</td>
+                <td> {{ ucesnik.tipUcesnika.naziv }} </td>
                 <td class="pull-right">
-                    <button class="btn btn-info">Ukloni</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Omanović Samir</td>
-                <td class="pull-right">
-                    <button class="btn btn-primary">Ukloni</button>
+                    <button class="btn btn-danger btn-sm" mwlConfirmationPopover message="Jeste li sigurni da želite obrisati ?" placement="left"
+                        (confirm)="deleteUcesnik(ucesnik)" (cancel)="isOpen = false">Obriši</button>
                 </td>
             </tr>
         </tbody>
@@ -121,10 +118,18 @@
         <h3 class="text-center">Pridruživanje priloga za sjednicu</h3>
     </div>
     <div class="panel-body">
-        <button class="btn btn-primary pull-right">
-                Pridruži prilog
-        </button>
-        <input type="file" class="form-control">
+        <div class="form-group">
+            <div class="input-group col-md-12">
+                <input [(ngModel)]="prilog.naziv" placeholder="Naziv" class="form-control" />
+            </div>
+            <div class="input-group col-md-12">
+                <file-upload #fu (change)="prilog.sadrzaj = fu.upload()" class="form-control"></file-upload>                
+            </div>
+            <div class="input-group">
+                <button class="btn btn-primary pull-right col-md-12" (click)="dodajPrilog()"> Pridruži prilog </button>
+            </div>
+        </div>
+
     </div>
 
     <table class="table table-hover">
@@ -135,14 +140,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Zapisnik sa posljednje sjednice održane 30.09.2016.</td>
+            <tr *ngFor="let item of prilozi">
+                <td>{{item.naziv}}</td>
                 <td class="pull-right"><button class="btn btn-primary">Ukloni</button>
-            </tr>
-            <tr>
-                <td>Pravilnik o odabiru akademskog osoblja</td>
-                <td class="pull-right"><button class="btn btn-primary">Ukloni</button>
-            </tr>
+            </tr>            
         </tbody>
     </table>
 </div>
@@ -158,14 +159,17 @@
     </div>
     <div class="modal-body">
         <div class="form-group">
-            <input class="form-control" placeholder="Naziv tačke dnevnog reda">
+            <textarea class="form-control" [(ngModel)]="stavkaDr.redniBroj" placeholder="Redni broj tačke dnevnog reda"></textarea>
         </div>
         <div class="form-group">
-            <textarea class="form-control" placeholder="Opis tačke dnevnog reda"></textarea>
+            <input class="form-control" [(ngModel)]="stavkaDr.naslov" placeholder="Naziv tačke dnevnog reda">
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" [(ngModel)]="stavkaDr.opis" placeholder="Opis tačke dnevnog reda"></textarea>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Spremi</button>
+        <button type="button" class="btn btn-primary" (click)="dodajStavkuDnevnogReda(stavkaDr)">Spremi</button>
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">Izađi</button>
     </div>
 </template>

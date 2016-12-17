@@ -37,4 +37,9 @@ public class GlasServices implements IDataServices<Glas> {
     public boolean deleteEntity(Integer id) throws Exception {
         return dataDao.deleteEntity(id);
     } 
+
+    @Override
+    public Glas updateEntity(Glas item) throws Exception {
+       return dataDao.updateEntity(item);
+    }
 }
