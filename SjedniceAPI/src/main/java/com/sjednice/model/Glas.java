@@ -8,12 +8,19 @@ package com.sjednice.model;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.hibernate.annotations.Fetch;
 
 /**
  *
@@ -32,13 +39,15 @@ public class Glas implements Serializable {
     private Integer id;
 
     @Column(name = "stavka_dnevnog_reda_id")
-    private int stavka_dnevnog_reda_id;
+    private int stavkaDnevnogRedaId;
+       
+    
 
     @Column(name = "tip_glasa_id")
-    private int tip_glasa_id;
+    private int tipGlasaId;
 
     @Column(name = "ucesnik_id")
-    private int ucesnik_id;
+    private int ucesnikId;
 
     public Integer getId() {
         return id;
@@ -48,28 +57,29 @@ public class Glas implements Serializable {
         this.id = id;
     }
 
-    public int getStavka_dnevnog_reda_id() {
-        return stavka_dnevnog_reda_id;
+    public int getStavkaDnevnogRedaId() {
+        return stavkaDnevnogRedaId;
     }
 
-    public void setStavka_dnevnog_reda_id(int stavka_dnevnog_reda_id) {
-        this.stavka_dnevnog_reda_id = stavka_dnevnog_reda_id;
+    public void setStavkaDnevnogRedaId(int stavkaDnevnogRedaId) {
+        this.stavkaDnevnogRedaId = stavkaDnevnogRedaId;
     }
 
-    public int getTip_glasa_id() {
-        return tip_glasa_id;
+    public int getTipGlasaId() {
+        return tipGlasaId;
     }
 
-    public void setTip_glasa_id(int tip_glasa_id) {
-        this.tip_glasa_id = tip_glasa_id;
+    public void setTipGlasaId(int tipGlasaId) {
+        this.tipGlasaId = tipGlasaId;
     }
 
-    public int getUcesnik_id() {
-        return ucesnik_id;
+    public int getUcesnikId() {
+        return ucesnikId;
     }
 
-    public void setUcesnik_id(int ucesnik_id) {
-        this.ucesnik_id = ucesnik_id;
+    public void setUcesnikId(int ucesnikId) {
+        this.ucesnikId = ucesnikId;
     }
 
+  
 }

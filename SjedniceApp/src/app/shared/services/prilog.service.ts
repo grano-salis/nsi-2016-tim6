@@ -15,11 +15,35 @@ import { iService } from '../services/iService';
 @Injectable()
 export class PrilogService implements iService<Prilog>{
 
-    constructor(private http: Http, private url: UrlProvider) { }
+    constructor(private http: Http, private url: UrlProvider) {
 
-    //ovo je funkcija koja pomoću http-a dobavlja listu priloga sa našeg servisa
-    //observable služi za asinhrono povezivanje sa servisom, ne morate sad aman znati kako to radi
-    //bitno je da stavite ovdje observable i u komponenti subscribe i radiće
+    }
+
+
+
+     makeFileRequest(formData: FormData): Observable<Prilog> {
+        return Observable.create(observer => {
+
+            let xhr: XMLHttpRequest = new XMLHttpRequest();
+
+                        
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        observer.next(JSON.parse(xhr.response));
+                        observer.complete();
+                    } else {
+                        observer.error(xhr.response);
+                    }
+                }
+            };
+            
+            xhr.open('POST', this.url.prilog2, true);
+            //xhr.setRequestHeader("content-type", "multipart/form-data");
+            xhr.send(formData);
+        });
+    }
+
     getList(): Observable<Prilog[]> {
         return this.http.get(this.url.prilog + "/list")
             .map((response: Response) => response.json());
@@ -31,11 +55,39 @@ export class PrilogService implements iService<Prilog>{
     }
 
     create(prilog: Prilog): Observable<Prilog> {
-        let headers = new Headers({ 'Content-Type': 'multipart/form-data' });
-        let options = new RequestOptions({ headers: headers });
-        console.log(JSON.stringify(prilog));
-        return this.http.post(this.url.prilog + "/create", prilog, options)
+        // let headers = new Headers( [
+        //     { 'Content-Type': undefined }
+        // ]);                
+        // let options = new RequestOptions({ headers: headers });        
+        return this.http.post(this.url.prilog + "/create", prilog)
             .map((response: Response) => response.json());
+    }
+
+    createFile(file: File): Observable<Prilog> {
+        let headers = new Headers([
+            { 'Content-Type': undefined }
+        ]);
+        let options = new RequestOptions({ headers: headers });
+        console.log(file);
+        return this.http.post(this.url.prilog + "/create", file, options)
+            .map((response: Response) => response.json());
+    }
+
+    createFormData(prilog: FormData) {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    //resolve(JSON.parse(xhr.response));                        
+                } else {
+                    // reject(xhr.response);
+                }
+            }
+        };
+
+
+        xhr.open("POST", this.url.prilog2, true);
+        xhr.send(prilog);
     }
 
     update(prilog: Prilog): Observable<Prilog> {
@@ -49,6 +101,10 @@ export class PrilogService implements iService<Prilog>{
 
     delete(id: number): Observable<Status> {
         return this.http.delete(this.url.prilog + "/delete/" + id.toString())
+            .map((response: Response) => response.json());
+    }
+    getListBySjednicaId(sjednicaId:number): Observable<Prilog[]> {
+        return this.http.get(this.url.prilog + "/getListBySjednicaId/" + sjednicaId.toString())
             .map((response: Response) => response.json());
     }
 }

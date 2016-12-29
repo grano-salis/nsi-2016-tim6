@@ -21,5 +21,9 @@ export class Ucesnik {
         this.statusUcesnika = statusUcesnika;
         this.tipUcesnika = tipUcesnika;
     }
+
+    getPrezimeIIme() : string {
+        return this.userInfo.lastName + " " + this.userInfo.firstName;
+    }
    
 }

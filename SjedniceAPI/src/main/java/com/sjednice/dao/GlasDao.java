@@ -10,6 +10,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -24,6 +25,17 @@ public class GlasDao implements IDataDao<Glas> {
     Session session = null;
     Transaction tx = null;
 
+    
+    @SuppressWarnings("unchecked")    
+    public List<Glas> getEntityListByStavkaDrId(Integer id) throws Exception {
+        session = sessionFactory.openSession();
+        tx = session.beginTransaction();
+        List<Glas> model = session.createCriteria(Glas.class).add(Restrictions.eq("stavkaDnevnogRedaId", id)).list();
+        tx.commit();
+        session.close();
+        return model;
+    }
+    
     @Override
     public Glas addEntity(Glas item) throws Exception {
 

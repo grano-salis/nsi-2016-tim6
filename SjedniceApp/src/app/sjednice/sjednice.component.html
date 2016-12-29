@@ -21,11 +21,11 @@
 			<tr *ngFor="let sjednica of sjednice">
 				<td>{{ sjednica.naziv }}</td>
 				<td>{{ sjednica.datumOdrzavanjaOd | date:"MM/dd/yy" }}</td>
-				<td>{{ sjednica.statusSjednice.naziv }}</td>           
+				<td>{{ sjednica.statusSjednice.naziv }}</td>
 				<td>
 					<button [routerLink]="['/sjednice/trenutna', sjednica.id]" class="btn btn-sm btn-primary">Uđi</button>
 					<button [routerLink]="['/sjednice/detaljiSjednice', sjednica.id]" class="btn btn-sm btn-primary">Detalji</button>
-					<button [routerLink]="['/sjednice/kreiranjeSjednice', sjednica.id]" class="btn btn-sm btn-primary">Uredi</button> 
+					<button [routerLink]="['/sjednice/kreiranjeSjednice', sjednica.id]" class="btn btn-sm btn-primary">Uredi</button>
 				</td>
 			</tr>
 
@@ -49,12 +49,11 @@
 		</div>
 		<div class="form-group">
 			<label class="control-label" for="date">Datum početka</label>
-			<input [(ngModel)]="datumOd" class="form-control" ngbDatepicker #d1="ngbDatepicker"
-			/>
+			<input [(ngModel)]="datumOd" class="form-control" ngbDatepicker #d1="ngbDatepicker" />
 			<div class="input-group-addon" (click)="d1.toggle()">
 				<p class="text-center">Odaberite datum</p>
 			</div>
-		</div>		
+		</div>
 		<div class="form-group">
 			<input [(ngModel)]="sjednica.sala" class="form-control" placeholder="Mjesto održavanja">
 		</div>

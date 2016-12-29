@@ -6,14 +6,24 @@
 package com.sjednice.model;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 /**
  *
@@ -45,6 +55,31 @@ public class StavkaDnevnogReda implements Serializable {
 
     @Column(name = "status_stavke_dr_id")
     private int statusStavkeDrId;
+
+    @OneToMany(mappedBy = "stavkaDnevnogRedaId")
+    @LazyCollection(LazyCollectionOption.FALSE) 
+    private Set<Glas> glasovi;
+
+    public Set<Glas> getGlasovi() {
+        return glasovi;
+    }
+
+    void setGlasovi(Set<Glas> glasovi) {
+        this.glasovi = glasovi;
+    }
+    
+    
+    @OneToMany(mappedBy = "stavkaDnevnogRedaId")
+    @LazyCollection(LazyCollectionOption.FALSE)    
+    private Set<ChatPoruka> poruke;
+
+    public Set<ChatPoruka> getPoruke() {
+        return poruke;
+    }
+
+    void setPoruke(Set<ChatPoruka> poruke) {
+        this.poruke = poruke;
+    }
 
     public Integer getSjednicaId() {
         return sjednicaId;

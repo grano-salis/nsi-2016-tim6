@@ -27,7 +27,7 @@ import { FileUploadComponent } from '../fileUpload.component';
 
 @Component({
     selector: 'app-kreiranje-sjednice',
-    templateUrl: 'kreiranjeSjednice.component.html'        
+    templateUrl: 'kreiranjeSjednice.component.html'
 })
 export class KreiranjeSjedniceComponent implements OnInit {
     private sjednica: Sjednica = new Sjednica(); // sjednica koja se uređuje
@@ -36,7 +36,7 @@ export class KreiranjeSjedniceComponent implements OnInit {
     private ucesnici: Ucesnik[]; //učesnici koji su već pozvani na sjednicu
     private selcetedUser: UserInfo = new UserInfo(); //u ovo se sprema selektovani user kod ododavanja učesnika    
     private tipoviUcesnika: TipUcesnika[];
-    private selectedTipUcesnika: TipUcesnika = new TipUcesnika(1, "Učesnik");    
+    private selectedTipUcesnika: TipUcesnika = new TipUcesnika(1, "Učesnik");
 
     private datumOd: NgbDateStruct; //u ovo se sprema vrijednost iz datepickera
     private status: Status;
@@ -47,6 +47,7 @@ export class KreiranjeSjedniceComponent implements OnInit {
     private fileUpload: File
     private prilog: Prilog = new Prilog();
     private prilozi: Prilog[] = [];
+
     constructor(
         private modalService: NgbModal, // potrebno za rad modala
         private route: ActivatedRoute,
@@ -55,8 +56,8 @@ export class KreiranjeSjedniceComponent implements OnInit {
         private ucesnikService: UcesnikService,
         private stavkaDrService: StavkaDnevnogRedaService,
         private tipUcesnikaService: TipUcesnikaService,
-        private prilogService: PrilogService,  
-        private el: ElementRef      
+        private prilogService: PrilogService,
+        private el: ElementRef
     ) { }
 
     open(content: any) { // potrebno za rad modala
@@ -81,16 +82,26 @@ export class KreiranjeSjedniceComponent implements OnInit {
         this.userInfoService.getList().subscribe(data => this.users = data);
 
         this.ucesnikService.getListBySjednicaId(this.sjednica.id).subscribe(data => this.ucesnici = data);
-        
+
         this.tipUcesnikaService.getList().subscribe(data => this.tipoviUcesnika = data);
 
         this.stavkaDrService.getListBySjednicaId(this.sjednica.id).subscribe(data => this.stavkeDr = data);
+
+        this.prilogService.getListBySjednicaId(this.sjednica.id).subscribe(data => this.prilozi = data);
     }
 
     pokreniSjednicu() {
-         this.sjednica.statusSjednice = new StatusSjednice(2, "U toku"); // postavljanje sjednice na "U toku" i pozivanje update servisa
+        this.sjednica.statusSjednice = new StatusSjednice(2, "U toku"); // postavljanje sjednice na "U toku" i pozivanje update servisa
+        this.sjedniceService.update(this.sjednica).subscribe(data => this.sjednica = data);
+    }
 
-         this.sjedniceService.update(this.sjednica).subscribe(data => this.sjednica = data);    
+    zavrsiKreiranje() {
+        this.sjednica.statusSjednice = new StatusSjednice(1, "Kreirana"); // postavljanje sjednice na "U toku" i pozivanje update servisa
+        this.sjedniceService.update(this.sjednica).subscribe(data => this.sjednica = data);
+    }
+
+    updateDetalja() {
+        this.sjedniceService.update(this.sjednica).subscribe(data => this.sjednica = data);
     }
 
     dodajUcesnika(selectedUser: UserInfo, selectedTipUcesnika: TipUcesnika) {
@@ -108,7 +119,7 @@ export class KreiranjeSjedniceComponent implements OnInit {
         }
     }
 
-    dodajStavkuDnevnogReda(stavka: StavkaDr) { 
+    dodajStavkuDnevnogReda(stavka: StavkaDr) {
         this.stavkaDr.sjednicaId = this.sjednica.id;
         this.stavkaDr.statusStavkeDrId = 3; //nije obrađena       
         this.stavkaDrService.create(stavka).subscribe(data => this.stavkeDr.push(data));
@@ -122,19 +133,30 @@ export class KreiranjeSjedniceComponent implements OnInit {
         if (index > -1) {
             this.stavkeDr.splice(index, 1);
         }
-    }    
+    }
 
     upload() {
         let inputEl = this.el.nativeElement.firstElementChild;
         if (inputEl.files.length > 0) { // a file was selected
-            this.fileUpload = inputEl.files[0];            
+            this.fileUpload = inputEl.files[0];
         }
     }
 
+
     dodajPrilog() {
-        this.prilog.sjednicaId = this.sjednica.id;  
-        console.log(this.prilog.sadrzaj);        
-        this.prilogService.create(this.prilog).subscribe(s => this.prilozi.push(s));
-        
+        let fromData = new FormData();
+        fromData.append("sadrzaj", this.prilog.sadrzaj, this.prilog.sadrzaj.name);
+        fromData.append("naziv", this.prilog.naziv);
+        fromData.append("sjednicaid", this.sjednica.id);
+        this.prilogService.makeFileRequest(fromData);
+        // this.prilog.sjednicaId = this.sjednica.id;  
+        // console.log(this.prilog.sadrzaj);  
+        // this.prilogService.createFile(this.prilog.sadrzaj).subscribe(s => this.prilozi.push(s));
+        //console.log(this.prilog.sadrzaj);        
+        //this.prilogService.create(this.prilog).subscribe(s => this.prilozi.push(s));
+
     }
+
+
+
 }

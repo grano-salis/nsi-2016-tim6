@@ -83,4 +83,19 @@ public class GlasController {
         }
 
     }
+    
+    @RequestMapping(value = "/getListByStavkaDrId/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    List<Glas> getGlasoveByStavkaDnevnogRedaId(@PathVariable("id") Integer id) {
+
+        List<Glas> list = null;
+        try {
+            list = dataServices.getEntityListByStavkaDrId(id);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
 }

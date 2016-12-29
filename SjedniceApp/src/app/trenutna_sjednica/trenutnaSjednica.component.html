@@ -1,86 +1,117 @@
 <div class="row">
-	<div class="panel panel-default">
-		<div class="panel-heading" (click)="isCollapsed1 = !isCollapsed1">
-			<h3 class="panel-title">Podaci o sjednici</h3>
-		</div>
-		<div [ngbCollapse]="isCollapsed1" class="panel-body">
-			<label class="control-label">Tema sjednice</label>
-			<p>{{sjednica?.naziv}} </p>
-			<hr />
-			<label class="control-label">Opis sjednice</label>
-			<p>{{sjednica?.opis}} </p>
+	<div class="col-md-6">
+		<div class="panel panel-info">
+			<div class="panel-heading" (click)="isCollapsed1 = !isCollapsed1">
+				<h3 class="panel-title">Podaci o sjednici</h3>
+			</div>
+			<div [ngbCollapse]="isCollapsed1" class="panel-body">
+				<p><strong class="control-label">Tema sjednice</strong> {{sjednica?.naziv}} </p>
+				<hr />
+				<p><strong class="control-label">Opis sjednice</strong> {{sjednica?.opis}} </p>
+				<hr />
+				<p><strong class="control-label">Status sjednice</strong> {{sjednica?.statusSjednice?.naziv}} </p>
+				<hr />
+				<p><strong class="control-label">Precjedavajući</strong> {{ precjedavajuci?.userInfo?.lastName + " " + precjedavajuci?.userInfo?.firstName
+					}}
+				</p>
+				<hr/>
+				<p><strong class="control-label">Datum i vrijeme početka</strong> {{ sjednica?.datumOdrzavanjaOd | date:"MM/dd/yy" }}</p>
+				
+				<span class="input-group-btn">
+					<button type="button" (click)="svrsiSjednicu()" class="btn btn-default">Završi sjednicu</button>
+				</span>
+				
+			</div>
 
-			<hr />
-			<label class="control-label">Precjedavajući</label>
-			<p> {{ precjedavajuci?.userInfo?.lastName + " " + precjedavajuci?.userInfo?.firstName }}</p>
-
-			<hr/>
-			<label class="control-label">Datum i vrijeme početka</label>
-			<p>{{ sjednica?.datumOdrzavanjaOd | date:"MM/dd/yy" }}</p>
 
 		</div>
 	</div>
-</div>
-
-<div class="row">
 
 	<div class="col-md-6">
-		<div class="panel panel-default">
+		<div class="panel panel-info">
 			<div class="panel-heading">
 				<h3 (click)="isCollapsed2 = !isCollapsed2" class="panel-title">Učesnici</h3>
 			</div>
 			<div class="panel-body" [ngbCollapse]="isCollapsed2">
 				<ul class="list-group" style="max-height:200px; overflow-y:auto;">
-					<li *ngFor="let ucesnik of ucesnici" class="list-group-item">{{ucesnik?.tipUcesnika?.naziv + ": " + ucesnik?.userInfo?.lastName + " " + ucesnik?.userInfo?.firstName }}</li>
-				</ul>
-			</div>
+<li *ngFor="let ucesnik of ucesnici" class="list-group-item">{{ucesnik?.tipUcesnika?.naziv + ": " + ucesnik?.userInfo?.lastName + " " + ucesnik?.userInfo?.firstName }}</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+</div>
+
+
+<div class="row">
+
+
+	<div class="panel panel-primary">
+		<div class="panel-heading" (click)="isCollapsed3 = !isCollapsed3">
+			<h3 class="panel-title">Stavke dnevnog reda</h3>
 		</div>
+		<div class="panel-body" [ngbCollapse]="isCollapsed3">
+			<div class="list-group" style="max-height:200px;">
+<div *ngFor="let stavka of stavkeDr" [ngClass]="{active: stavka.id == aktivnaStavka.id}" class="list-group-item">
+
+	{{ stavka.naslov }}
+
+	<div class="pull-right">
+
+
+		<span [hidden]="stavka.id != aktivnaStavka.id">
+			<button [disabled]="!omogucenoGlasanje" (click)="glasaj(1)" class="btn btn-success btn-xs">Za {{brojZaAktivnu}}</button>
+			<button [disabled]="!omogucenoGlasanje" (click)="glasaj(2)" class="btn btn-danger btn-xs">Protiv {{brojProtivAktivnu}}</button>
+			<button [disabled]="!omogucenoGlasanje" (click)="glasaj(3)" class="btn btn-default btn-xs">Suzdržan {{brojSuzdrzanAktivnu}}</button>
+		</span>
+
+
+		<span [hidden]="stavka.id != aktivnaStavka.id">
+			<button class="btn btn-warning btn-xs" (click)="omogucavanjeGlasanja(!omogucenoGlasanje)" >{{omogucenoGlasanje ? 'Onemogući glasanje' : 'Omogući glasanje'}}</button>
+		</span>
+
+		<span [hidden]="stavka.id == aktivnaStavka.id">
+				<button class="btn btn-primary btn-xs dropdown-item" mwlConfirmationPopover message="Jeste li sigurni da želite postaviti ovu stavku za aktvnu ?"
+				placement="left" (confirm)="postaviZaAktivnuStavku(stavka)" (cancel)="isOpen = false">Postavi za aktivnu</button>			
+		</span>		
+		<!--<button class="btn btn-info btn-xs">Detalji</button>		-->
 	</div>
 
-	<div class="col-md-6">
-		<div class="panel panel-default">
-			<div class="panel-heading" (click)="isCollapsed3 = !isCollapsed3">
-				<h3 class="panel-title">Stavke dnevnog reda</h3>
-			</div>
-			<div class="panel-body" [ngbCollapse]="isCollapsed3">
-				<div class="list-group" style="max-height:200px;">
-					<div *ngFor="let stavka of stavkeDr" [ngClass]="{active: stavka.id == aktivnaStavka.id}" class="list-group-item">
-						{{ stavka.naslov }}
-						<div class="pull-right">
-							<button class="btn btn-primary btn-sm" mwlConfirmationPopover message="Jeste li sigurni da želite postaviti ovu stavku za aktvnu ?"
-								placement="left" (confirm)="postaviZaAktivnuStavku(stavka)" (cancel)="isOpen = false">Postavi za aktivnu</button>
-							<button class="btn btn-primary btn-sm">Detalji</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	<br />
+</div>
+</div>
+</div>
+</div>
+
 
 
 </div>
 
 <div class="row">
 
-	<div class="panel panel-default">
+	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<h1 class="panel-title text-center">Chat</h1>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body" [hidden]="aktivnaStavka.id == 0 || aktivnaStavka.id == null">
 
 			<div class="input-group">
-				<input type="text" [(ngModel)]="cp.poruka" class="form-control">
+				<input type="text" [(ngModel)]="chatPoruka.poruka" class="form-control">
 				<span class="input-group-btn">
                     <button (click) = "sendMsg()" class="btn btn-default" type="button">Pošalji</button>
                 </span>
 			</div>
 			<br />
 			<div class="list-group">
-				<li class="list-group-item" *ngFor="let messagge of messages">
-					<h4 class="list-group-item-heading">OsobaX</h4>
-					<p class="list-group-item-text">{{messagge.poruka}}</p>
+				<li class="list-group-item" *ngFor="let message of messages">
+					<p class="list-group-item-text"> <strong>{{ message.posiljaoc }}:</strong> {{message?.poruka}}</p>
 				</li>
 			</div>
+		</div>
+
+		<div class="panel-body">
+			<h4 class="text-center text-warning" [hidden]="aktivnaStavka.id != 0 && aktivnaStavka.id != null">Chat nije omogućen</h4>
 		</div>
 	</div>
 

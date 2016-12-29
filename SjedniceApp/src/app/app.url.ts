@@ -1,5 +1,6 @@
 const base = "http://localhost:8080/SjedniceAPI"
 //const base = "http://nsi06api.azurewebsites.net"
+const base2 = "http://esjedniceservis.azurewebsites.net"
 
 export class UrlProvider {    
     public sjednice:string = base + "/sjednica";
@@ -14,5 +15,7 @@ export class UrlProvider {
     public stavkaDr:string = base + "/stavkaDnevnogReda";
     public webSocketUrlChat:string = base + "/chat";
     public prilog:string = base + "/prilog";
+    public prilog2:string = base2 + "/api/prilog"
+    public glas:string = base + "/glas";
 }
 

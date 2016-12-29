@@ -22,7 +22,9 @@ public class PrilogServices implements IDataServices<Prilog> {
     public Prilog addEntity(Prilog item) throws Exception {
 		return dataDao.addEntity(item);
     }
-
+    public List<Prilog> getEntityListBySjednicaId(Integer sjednicaId) throws Exception {
+                return dataDao.getEntityListBySjednicaId(sjednicaId);
+    }
     @Override
     public Prilog getEntityById(Integer id) throws Exception {
 		return dataDao.getEntityById(id);

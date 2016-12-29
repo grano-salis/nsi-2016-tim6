@@ -1,6 +1,8 @@
+import { TipGlasa } from '../../shared/models/tipGlasa';
 export class Glas {
-    in: number;
-    stavkaDrId: number;
-    tipGlasaId: number;
-    ucesnikId: number;
+    id: number;
+    stavkaDnevnogRedaId: number;
+    tipGlasa:TipGlasa;
+    tipGlasaId: number;    
+    ucesnikId: number;    
 }

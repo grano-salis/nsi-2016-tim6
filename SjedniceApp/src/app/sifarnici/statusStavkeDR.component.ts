@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StatusStavkeDR } from '../shared/models/statusStavkeDR';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'; // potrebno za rad modala
-import { StatusStavkeDRService } from '../shared/services/statusStavkeDR.service';
+import { StatusStavkeDnevnogRedaService } from '../shared/services/statusStavkeDR.service';
 import { Status } from '../shared/models/status';
 
 @Component({
@@ -14,7 +14,7 @@ export class StatusStavkeDrComponent implements OnInit {
     statusStavkeDR: StatusStavkeDR = new StatusStavkeDR(0, ""); // u ovaj će se spremati kreirani model
 
     status: Status;
-    constructor(private service:StatusStavkeDRService, private modalService: NgbModal) { } // potrebno za rad modala
+    constructor(private service:StatusStavkeDnevnogRedaService, private modalService: NgbModal) { } // potrebno za rad modala
 
     open(content:any) { // potrebno za rad modala
         this.modalService.open(content);

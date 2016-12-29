@@ -8,26 +8,28 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { StatusStavkeDR } from '../models/statusStavkeDR';
+
 import { Status } from '../models/status';
+
 @Injectable()
-export class StatusStavkeDRService {    
+export class StatusStavkeDnevnogRedaService {
 
-    constructor(private http: Http, private url: UrlProvider ) { }
+    constructor(private http: Http, private url: UrlProvider) { }
 
-    getList() : Observable<StatusStavkeDR[]> {        
+    getList(): Observable<StatusStavkeDR[]> {
         return this.http.get(this.url.statusStavkeDR + "/list")
-            .map((response: Response) => response.json());            
+            .map((response: Response) => response.json());
     }
-     addEntity(statusStavkeDR: StatusStavkeDR): Observable<StatusStavkeDR> {
+    addEntity(statusStavkeDR: StatusStavkeDR): Observable<StatusStavkeDR> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         console.log(JSON.stringify(statusStavkeDR));
-        return this.http.post(this.url.statusSjednice + "/create", JSON.stringify(statusStavkeDR), options)
-            .map((response: Response) => response.json());            
+        return this.http.post(this.url.statusStavkeDR + "/create", JSON.stringify(statusStavkeDR), options)
+            .map((response: Response) => response.json());
     }
 
-    deleteEntity(id:number) : Observable<Status> {
+    deleteEntity(id: number): Observable<Status> {
         return this.http.delete(this.url.statusStavkeDR + "/delete/" + id.toString())
-        .map((response: Response) => response.json());
+            .map((response: Response) => response.json());
     }
 }

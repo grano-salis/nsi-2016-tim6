@@ -42,6 +42,21 @@ public class ChatPorukaController {
         }
 
     }
+    
+    @RequestMapping(value = "/getListByStavkaDrId/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    List<ChatPoruka> getGlasoveByStavkaDnevnogRedaId(@PathVariable("id") Integer id) {
+
+        List<ChatPoruka> list = null;
+        try {
+            list = dataServices.getEntityListByStavkaDrId(id);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public @ResponseBody

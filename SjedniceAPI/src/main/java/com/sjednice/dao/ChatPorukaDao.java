@@ -10,6 +10,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -24,6 +25,16 @@ public class ChatPorukaDao implements IDataDao<ChatPoruka> {
     Session session = null;
     Transaction tx = null;
 
+    @SuppressWarnings("unchecked")    
+    public List<ChatPoruka> getEntityListByStavkaDrId(Integer id) throws Exception {
+        session = sessionFactory.openSession();
+        tx = session.beginTransaction();
+        List<ChatPoruka> model = session.createCriteria(ChatPoruka.class).add(Restrictions.eq("stavkaDnevnogRedaId", id)).list();
+        tx.commit();
+        session.close();
+        return model;
+    }
+    
     @Override
     public ChatPoruka addEntity(ChatPoruka item) throws Exception {
 

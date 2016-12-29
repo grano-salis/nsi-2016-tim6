@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Sumeja
  */
 public class GlasServices implements IDataServices<Glas> {
+
     @Autowired
     GlasDao dataDao;
 
@@ -36,10 +37,14 @@ public class GlasServices implements IDataServices<Glas> {
     @Override
     public boolean deleteEntity(Integer id) throws Exception {
         return dataDao.deleteEntity(id);
-    } 
+    }
 
     @Override
     public Glas updateEntity(Glas item) throws Exception {
-       return dataDao.updateEntity(item);
+        return dataDao.updateEntity(item);
+    }
+
+    public List<Glas> getEntityListByStavkaDrId(Integer id) throws Exception {
+        return dataDao.getEntityListByStavkaDrId(id);
     }
 }

@@ -7,9 +7,14 @@ package com.sjednice.dao;
 
 import com.sjednice.model.Prilog;
 import java.util.List;
+import javax.persistence.Query;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -36,7 +41,7 @@ public class PrilogDao implements IDataDao<Prilog> {
 
         return item;
     }
-    
+
     @Override
     public Prilog updateEntity(Prilog item) throws Exception {
 
@@ -52,12 +57,18 @@ public class PrilogDao implements IDataDao<Prilog> {
     @Override
     public Prilog getEntityById(Integer id) throws Exception {
         session = sessionFactory.openSession();
-        Prilog item;
-        item = (Prilog) session.get(Prilog.class, id);
-        tx = session.getTransaction();
         session.beginTransaction();
+        Criteria cr = session.createCriteria(Prilog.class)
+                .add(Restrictions.eq("id", id))
+                .setProjection(Projections.projectionList()
+                        .add(Projections.property("id"), "id")
+                        .add(Projections.property("naziv"), "naziv"))
+                .setResultTransformer(Transformers.aliasToBean(Prilog.class));
+
+        List<Prilog> model = cr.list();
         tx.commit();
-        return item;
+        session.close();
+        return model.get(0);
     }
 
     @SuppressWarnings("unchecked")
@@ -65,7 +76,31 @@ public class PrilogDao implements IDataDao<Prilog> {
     public List<Prilog> getEntityList() throws Exception {
         session = sessionFactory.openSession();
         tx = session.beginTransaction();
-        List<Prilog> model = session.createCriteria(Prilog.class).list();
+        Criteria cr = session.createCriteria(Prilog.class)
+                .setProjection(Projections.projectionList()
+                        .add(Projections.property("id"), "id")
+                        .add(Projections.property("naziv"), "naziv"))
+                .setResultTransformer(Transformers.aliasToBean(Prilog.class));
+
+        List<Prilog> model = cr.list();
+        tx.commit();
+        session.close();
+        return model;
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Prilog> getEntityListBySjednicaId(Integer sjednicaId) throws Exception {
+        session = sessionFactory.openSession();
+        tx = session.beginTransaction();
+        Criteria cr;
+        cr = session.createCriteria(Prilog.class)
+                .add(Restrictions.eq("sjednicaId", sjednicaId))
+                .setProjection(Projections.projectionList()
+                        .add(Projections.property("id"), "id")
+                        .add(Projections.property("naziv"), "naziv"))
+                .setResultTransformer(Transformers.aliasToBean(Prilog.class));
+
+        List<Prilog> model = (List<Prilog>) cr.list();
         tx.commit();
         session.close();
         return model;

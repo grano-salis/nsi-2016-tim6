@@ -27,6 +27,14 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 public class Prilog implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    public Prilog(Integer id, String naziv, Integer sjednicaId, String contentType) {
+        this.id = id;
+        this.naziv = naziv;
+        this.sjednicaId = sjednicaId;
+        this.contentType = contentType;
+    }   
+    
     @Id
     @SequenceGenerator(name = "generator", sequenceName = "PRILOG_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generator")

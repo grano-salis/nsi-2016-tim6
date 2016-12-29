@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-@CrossOrigin
+//@CrossOrigin
 @RequestMapping("/prilog")
 public class PrilogController {
 
@@ -28,21 +30,38 @@ public class PrilogController {
 
     static final Logger logger = Logger.getLogger(PrilogController.class);
 
-    @CrossOrigin
+    
+
+    //@CrossOrigin
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public @ResponseBody
     Prilog addPrilog(@RequestBody com.sjednice.dto.Prilog prilog) {
         try {
-            Prilog p = new Prilog();
-            return dataServices.addEntity(p);
+            
             //return new Status(1, "Employee added Successfully !");
         } catch (Exception e) {
             // e.printStackTrace();
             return null;
         }
+        return null;
 
     }
 
+    @RequestMapping(value = "/getListBySjednicaId/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    List<Prilog> getStavkaDnevnogRedaBySjednicaId(@PathVariable("id") Integer id) {
+
+        List<Prilog> list = null;
+        try {
+            list = dataServices.getEntityListBySjednicaId(id);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+    
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public @ResponseBody
     Prilog getPrilog(@PathVariable("id") Integer id) {

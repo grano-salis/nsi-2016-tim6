@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Sumeja
  */
 public class ChatPorukaServices implements IDataServices<ChatPoruka> {
+
     @Autowired
     ChatPorukaDao dataDao;
 
@@ -35,11 +36,15 @@ public class ChatPorukaServices implements IDataServices<ChatPoruka> {
 
     @Override
     public boolean deleteEntity(Integer id) throws Exception {
-        return dataDao.deleteEntity(id);    
-    } 
+        return dataDao.deleteEntity(id);
+    }
 
     @Override
     public ChatPoruka updateEntity(ChatPoruka item) throws Exception {
         return dataDao.updateEntity(item);
+    }
+
+    public List<ChatPoruka> getEntityListByStavkaDrId(Integer id) throws Exception {
+        return dataDao.getEntityListByStavkaDrId(id);
     }
 }

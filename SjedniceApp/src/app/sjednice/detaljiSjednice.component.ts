@@ -5,10 +5,16 @@ import { ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 
 import { SjedniceService } from '../shared/services/sjednice.service';
-import { UserInfoService } from '../shared/services/userInfo.service';
+import { UcesnikService } from '../shared/services/ucesnik.service';
+import { StavkaDnevnogRedaService } from '../shared/services/stavkaDr.service';
+import { GlasService } from '../shared/services/glas.service';
+import { ChatPorukaService } from '../shared/services/chatPoruka.service';
 
 import { Sjednica } from '../shared/models/sjednica';
-import { UserInfo } from '../shared/models/userInfo';
+import { Ucesnik } from '../shared/models/ucesnik';
+import { StavkaDr } from '../shared/models/stavkaDr';
+import { Glas } from '../shared/models/glas';
+import { ChatPoruka } from '../shared/models/chatPoruka';
 
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
@@ -18,16 +24,17 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 })
 export class DetaljiSjedniceComponent implements OnInit {
     private sjednica: Sjednica = new Sjednica();
-    private users: UserInfo[];
-    private selcetedUser: UserInfo = new UserInfo();
-
-    private datumOd: NgbDateStruct;
-
+    private ucesnici: Ucesnik[];
+    private stavkeDr: StavkaDr[];
+    
     constructor(
         private modalService: NgbModal, // potrebno za rad modala
         private route: ActivatedRoute,
         private sjedniceService: SjedniceService,
-        private userInfoService: UserInfoService
+        private ucesnikService: UcesnikService,
+        private stavkaDrService: StavkaDnevnogRedaService,
+        private glasService: GlasService,
+        private chatService: ChatPorukaService,
     ) { }
 
     open(content: any) { // potrebno za rad modala
@@ -41,13 +48,23 @@ export class DetaljiSjedniceComponent implements OnInit {
             .subscribe(sjednica => this.init(sjednica));
     }
     date: Date;
+
     private init(sjednica) {
 
         this.sjednica = sjednica;
-        this.date = new Date(this.sjednica.datumOdrzavanjaOd);
-        this.datumOd = { year: this.date.getUTCFullYear(), month: this.date.getUTCMonth() + 1, day: this.date.getUTCDay() };
 
-        this.userInfoService.getList().subscribe(data => this.users = data);
+        this.ucesnikService.getListBySjednicaId(this.sjednica.id).subscribe(s => this.ucesnici = s);
+        this.stavkaDrService.getListBySjednicaId(this.sjednica.id).subscribe(s => {
+            
+            s.forEach(stavka => {    
+                stavka.brojZa =  stavka.glasovi.filter(f => f.tipGlasaId == 1).length;
+                stavka.brojProtiv = stavka.glasovi.filter(f => f.tipGlasaId == 2).length;
+                stavka.brojSuzdrzanih = stavka.glasovi.filter(f => f.tipGlasaId == 3).length;         
+                stavka.poruke.forEach(poruka => poruka.posiljaoc = this.ucesnici.find(p => p.id == poruka.ucesnikId).userInfo.firstName + " " + this.ucesnici.find(p => p.id == poruka.ucesnikId).userInfo.lastName);
+            });
+
+            this.stavkeDr = s;            
+        });
     }
 
 
