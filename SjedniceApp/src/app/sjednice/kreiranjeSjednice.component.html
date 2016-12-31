@@ -162,18 +162,48 @@
         <h4 class="modal-title">Unos tačke dnevnog reda</h4>
     </div>
     <div class="modal-body">
-        <div class="form-group">
-            <textarea class="form-control" [(ngModel)]="stavkaDr.redniBroj" placeholder="Redni broj tačke dnevnog reda"></textarea>
-        </div>
-        <div class="form-group">
-            <input class="form-control" [(ngModel)]="stavkaDr.naslov" placeholder="Naziv tačke dnevnog reda">
-        </div>
-        <div class="form-group">
-            <textarea class="form-control" [(ngModel)]="stavkaDr.opis" placeholder="Opis tačke dnevnog reda"></textarea>
-        </div>
+         <form #formCtrl="ngForm">
+            <div class="form-group">
+                <textarea class="form-control" [(ngModel)]="stavkaDr.redniBroj"
+                            id="redniBroj" name="redniBroj" #redniBroj="ngModel" required 
+                            placeholder="Redni broj tačke dnevnog reda">
+                </textarea>
+                 <div *ngIf="redniBroj.errors && (redniBroj.dirty || redniBroj.touched)"
+				       class="alert alert-danger">
+                        <div [hidden]="!redniBroj.errors.required">
+                            Unos rednog broja je obavezan!
+                       </div>
+		         </div>
+            </div>
+            <div class="form-group">
+                <input class="form-control" [(ngModel)]="stavkaDr.naslov"
+                        id="naslov" name="naslov" #naslov="ngModel" required 
+                        placeholder="Naziv tačke dnevnog reda">
+                <div *ngIf="naslov.errors && (naslov.dirty || naslov.touched)"
+				       class="alert alert-danger">
+                        <div [hidden]="!naslov.errors.required">
+                            Unos naslova je obavezan!
+                       </div>
+		         </div>
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" [(ngModel)]="stavkaDr.opis" 
+                          id="opis" name="opis" #opis="ngModel" required 
+                          placeholder="Opis tačke dnevnog reda">
+                </textarea>
+                <div *ngIf="opis.errors && (opis.dirty || opis.touched)"
+				       class="alert alert-danger">
+                        <div [hidden]="!opis.errors.required">
+                            Unos opisa je obavezan!
+                       </div>
+		         </div>
+            </div>
+         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="dodajStavkuDnevnogReda(stavkaDr)">Spremi</button>
+        <button type="button" class="btn btn-primary" 
+               (click)="dodajStavkuDnevnogReda(stavkaDr)"
+               [disabled]="!formCtrl.form.valid">Spremi</button>
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">Izađi</button>
     </div>
 </template>

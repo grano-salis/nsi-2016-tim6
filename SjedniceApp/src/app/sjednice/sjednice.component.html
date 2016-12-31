@@ -43,24 +43,56 @@
 		<h4 class="modal-title">Kreiranje sjednice</h4>
 	</div>
 	<div class="modal-body">
+ <form #formCtrl="ngForm">
+		<div class="form-group">
+			<input type="text" id="naziv" name="naziv"
+			      [(ngModel)]="sjednica.naziv" #naziv="ngModel"
+			       class="form-control" required minlength="4" 
+				   placeholder="Naziv teme">
+			<div *ngIf="naziv.errors && (naziv.dirty || naziv.touched)"
+				  class="alert alert-danger">
+					<div [hidden]="!naziv.errors.required">
+						Unos naziva je obavezan!
+				   </div>
+				   <div [hidden]="!naziv.errors.minlength">
+					Naziv mora imati barem 4 karaktera!
+					</div>
+		   </div>
+        </div>
 
 		<div class="form-group">
-			<input [(ngModel)]="sjednica.naziv" class="form-control" placeholder="Naziv teme">
-		</div>
-		<div class="form-group">
 			<label class="control-label" for="date">Datum početka</label>
-			<input [(ngModel)]="datumOd" class="form-control" ngbDatepicker #d1="ngbDatepicker" />
+			<input [(ngModel)]="datumOd" id="datum" name="datum" required 
+			       #datum="ngModel" class="form-control" 
+				   ngbDatepicker #d1="ngbDatepicker" />
 			<div class="input-group-addon" (click)="d1.toggle()">
 				<p class="text-center">Odaberite datum</p>
 			</div>
+			<div *ngIf="datum.errors && (datum.dirty || datum.touched)"
+				  class="alert alert-danger">
+				<div [hidden]="!datum.errors.required">
+						Unos datuma je obavezan!
+				</div>
+			</div>
 		</div>
 		<div class="form-group">
-			<input [(ngModel)]="sjednica.sala" class="form-control" placeholder="Mjesto održavanja">
-		</div>
+			<input type="text" id="mjesto" name="mjesto"
+			      [(ngModel)]="sjednica.sala" #mjesto="ngModel"
+			       class="form-control" required 
+				   placeholder="Mjesto održavanja">
+			<div *ngIf="mjesto.errors && (mjesto.dirty || mjesto.touched)"
+				  class="alert alert-danger">
+					<div [hidden]="!mjesto.errors.required">
+						Unos mjesta održavanja je obavezan!
+				   </div>
+		   </div>
+        </div>
 
-	</div>
+
 	<div class="modal-footer">
-		<button type="button" class="btn btn-primary" (click)="create(sjednica)">Unesi</button>
+		<button type="button" class="btn btn-primary" (click)="create(sjednica)" [disabled]="!formCtrl.form.valid">Unesi</button>
 		<button type="button" class="btn btn-secondary" (click)="c('Close click')">Izađi</button>
+	</div>
+	 </form>
 	</div>
 </template>
