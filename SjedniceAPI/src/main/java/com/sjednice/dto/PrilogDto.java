@@ -5,20 +5,62 @@
  */
 package com.sjednice.dto;
 
-import org.springframework.web.multipart.MultipartFile;
+import java.io.Serializable;
+import java.sql.Blob;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  *
- * @author faris
+ * @author Aida
  */
-public class Prilog {        
+@Entity
+@Table(name = "prilog")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class PrilogDto implements Serializable {
 
-    public String getNaziv() {
-        return naziv;
+    private static final long serialVersionUID = 1L;
+
+//    public Prilog(Integer id, String naziv, Integer sjednicaId, String contentType) {
+//        this.id = id;
+//        this.naziv = naziv;
+//        this.sjednicaId = sjednicaId;
+//        this.contentType = contentType;
+//    }   
+    
+    @Id
+    @SequenceGenerator(name = "generator", sequenceName = "PRILOG_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generator")
+    @Column(name = "id")
+    private Integer id;
+
+    @Column(name = "naziv")
+    private String naziv;
+
+    @Column(name = "sjednica_id")
+    private Integer sjednicaId;
+
+    @Column(name = "content_type")
+    private String contentType;
+    
+    @Lob
+    @Column(name = "sadrzaj")    
+    private byte[] sadrzaj;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setNaziv(String naziv) {
-        this.naziv = naziv;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getSjednicaId() {
@@ -29,37 +71,28 @@ public class Prilog {
         this.sjednicaId = sjednicaId;
     }
 
+    public String getNaziv() {
+        return naziv;
+    }
+
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
+    }
+
     public String getContentType() {
         return contentType;
     }
 
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
+    public void setContentType(String content_type) {
+        this.contentType = content_type;
     }
 
-    public MultipartFile getSadrzaj() {
+    public byte[] getSadrzaj() {
         return sadrzaj;
     }
 
-    public void setSadrzaj(MultipartFile sadrzaj) {
+    public void setSadrzaj(byte[] sadrzaj) {
         this.sadrzaj = sadrzaj;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    
-    private Integer id;
-    
-    private String naziv;
-    
-    private Integer sjednicaId;
-    
-    private String contentType;
-    
-    private MultipartFile sadrzaj;
 }

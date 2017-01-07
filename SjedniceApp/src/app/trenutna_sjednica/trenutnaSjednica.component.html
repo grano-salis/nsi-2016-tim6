@@ -7,8 +7,6 @@
 			<div [ngbCollapse]="isCollapsed1" class="panel-body">
 				<p><strong class="control-label">Tema sjednice</strong> {{sjednica?.naziv}} </p>
 				<hr />
-				<p><strong class="control-label">Opis sjednice</strong> {{sjednica?.opis}} </p>
-				<hr />
 				<p><strong class="control-label">Status sjednice</strong> {{sjednica?.statusSjednice?.naziv}} </p>
 				<hr />
 				<p><strong class="control-label">Precjedavajući</strong> {{ precjedavajuci?.userInfo?.lastName + " " + precjedavajuci?.userInfo?.firstName
@@ -16,11 +14,11 @@
 				</p>
 				<hr/>
 				<p><strong class="control-label">Datum i vrijeme početka</strong> {{ sjednica?.datumOdrzavanjaOd | date:"MM/dd/yy" }}</p>
-				
+
 				<span class="input-group-btn">
 					<button type="button" (click)="svrsiSjednicu()" class="btn btn-default">Završi sjednicu</button>
 				</span>
-				
+
 			</div>
 
 
@@ -43,6 +41,33 @@
 
 </div>
 
+<div class="row">
+	<div class="panel panel-info">
+		<div class="panel-heading" (click)="isCollapsed4 = !isCollapsed4">
+			<h3 class="text-center">Prilozi</h3>
+		</div>
+		<div [ngbCollapse]="isCollapsed4" class="panel-body">
+
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Pridruženi prilozi</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let item of prilozi">
+						<td>{{item.naziv}}</td>
+						<td class="pull-right">
+							<button class="btn btn-primary btn-sm" (click)="downloadPrilog(item)">Preuzmi</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+</div>
 
 <div class="row">
 
@@ -74,7 +99,7 @@
 		<span [hidden]="stavka.id == aktivnaStavka.id">
 				<button class="btn btn-primary btn-xs dropdown-item" mwlConfirmationPopover message="Jeste li sigurni da želite postaviti ovu stavku za aktvnu ?"
 				placement="left" (confirm)="postaviZaAktivnuStavku(stavka)" (cancel)="isOpen = false">Postavi za aktivnu</button>			
-		</span>		
+		</span>
 		<!--<button class="btn btn-info btn-xs">Detalji</button>		-->
 	</div>
 
@@ -105,7 +130,10 @@
 			<br />
 			<div class="list-group">
 				<li class="list-group-item" *ngFor="let message of messages">
-					<p class="list-group-item-text"> <strong>{{ message.posiljaoc }}:</strong> {{message?.poruka}}</p>
+					<p class="list-group-item-text"> <strong> {{ message.posiljaoc }}:</strong> {{message?.poruka}}
+					<small class="pull-right">{{message.vrijeme | date:"hh:mm" }}</small>
+					</p>
+					
 				</li>
 			</div>
 		</div>

@@ -7,24 +7,25 @@
 		<div class="pull-right">
 			<button class="btn btn-primary btn-sm" (click)="open(content)">Kreiraj sjednicu</button>
 		</div>
-	</div>
+
+	</div>	
 	<table class="table">
 		<thead>
 			<tr>
 				<th>Naziv</th>
 				<th>Datum održavanja</th>
 				<th>Status</th>
-				<th></th>
+				<th>Opcije</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr *ngFor="let sjednica of sjednice">
+			<tr *ngFor="let sjednica of sjednice | orderBy: ['-datumOdrzavanjaOd']">
 				<td>{{ sjednica.naziv }}</td>
-				<td>{{ sjednica.datumOdrzavanjaOd | date:"MM/dd/yy" }}</td>
+				<td>{{ sjednica.datumOdrzavanjaOd | date:"dd.MM.yyyy hh:mm" }}</td>
 				<td>{{ sjednica.statusSjednice.naziv }}</td>
 				<td>
-					<button [routerLink]="['/sjednice/trenutna', sjednica.id]" class="btn btn-sm btn-primary">Uđi</button>
-					<button [routerLink]="['/sjednice/detaljiSjednice', sjednica.id]" class="btn btn-sm btn-primary">Detalji</button>
+					<button [hidden]="sjednica.statusSjednice?.id != 2" [routerLink]="['/sjednice/trenutna', sjednica.id]" class="btn btn-sm btn-primary">Uđi</button>
+					<button [hidden]="sjednica.statusSjednice?.id != 3" [routerLink]="['/sjednice/detaljiSjednice', sjednica.id]" class="btn btn-sm btn-primary">Detalji</button>
 					<button [routerLink]="['/sjednice/kreiranjeSjednice', sjednica.id]" class="btn btn-sm btn-primary">Uredi</button>
 				</td>
 			</tr>
@@ -43,56 +44,53 @@
 		<h4 class="modal-title">Kreiranje sjednice</h4>
 	</div>
 	<div class="modal-body">
- <form #formCtrl="ngForm">
-		<div class="form-group">
-			<input type="text" id="naziv" name="naziv"
-			      [(ngModel)]="sjednica.naziv" #naziv="ngModel"
-			       class="form-control" required minlength="4" 
-				   placeholder="Naziv teme">
-			<div *ngIf="naziv.errors && (naziv.dirty || naziv.touched)"
-				  class="alert alert-danger">
+				
+		<div class="alert alert-success" [hidden]="!prikaziPoruku">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<strong>Sjednica je kreirana</strong>
+		</div>
+		
+		<form #formCtrl="ngForm">
+			<div class="form-group">
+				<input type="text" id="naziv" name="naziv" [(ngModel)]="sjednica.naziv" #naziv="ngModel" class="form-control" required minlength="4"
+					placeholder="Naziv teme">
+				<div *ngIf="naziv.errors && (naziv.dirty || naziv.touched)" class="alert alert-danger">
 					<div [hidden]="!naziv.errors.required">
 						Unos naziva je obavezan!
-				   </div>
-				   <div [hidden]="!naziv.errors.minlength">
-					Naziv mora imati barem 4 karaktera!
 					</div>
-		   </div>
-        </div>
-
-		<div class="form-group">
-			<label class="control-label" for="date">Datum početka</label>
-			<input [(ngModel)]="datumOd" id="datum" name="datum" required 
-			       #datum="ngModel" class="form-control" 
-				   ngbDatepicker #d1="ngbDatepicker" />
-			<div class="input-group-addon" (click)="d1.toggle()">
-				<p class="text-center">Odaberite datum</p>
-			</div>
-			<div *ngIf="datum.errors && (datum.dirty || datum.touched)"
-				  class="alert alert-danger">
-				<div [hidden]="!datum.errors.required">
-						Unos datuma je obavezan!
+					<div [hidden]="!naziv.errors.minlength">
+						Naziv mora imati barem 4 karaktera!
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<input type="text" id="mjesto" name="mjesto"
-			      [(ngModel)]="sjednica.sala" #mjesto="ngModel"
-			       class="form-control" required 
-				   placeholder="Mjesto održavanja">
-			<div *ngIf="mjesto.errors && (mjesto.dirty || mjesto.touched)"
-				  class="alert alert-danger">
+
+			<div class="form-group">
+				<input ng2-datetime-picker date-format="DD.MM.YYYY hh:mm" class="form-control" id="datumOdrzavanjaOd" #datumOdrzavanjaOd="ngModel" name="datumOdrzavanjaOd" [(ngModel)]="sjednica.datumOdrzavanjaOd"
+					close-on-select="false" placeholder="Datum i vrijeme održavanja" required/>
+				<div *ngIf="datumOdrzavanjaOd.errors && (datumOdrzavanjaOd.dirty || datumOdrzavanjaOd.touched)" class="alert alert-danger">
+					<div [hidden]="!datumOdrzavanjaOd.errors.required">
+						Unos datuma je obavezan!
+					</div>
+				</div>
+
+			</div>
+
+
+			<div class="form-group">
+				<input type="text" id="mjesto" name="mjesto" [(ngModel)]="sjednica.sala" #mjesto="ngModel" class="form-control" required
+					placeholder="Mjesto održavanja">
+				<div *ngIf="mjesto.errors && (mjesto.dirty || mjesto.touched)" class="alert alert-danger">
 					<div [hidden]="!mjesto.errors.required">
 						Unos mjesta održavanja je obavezan!
-				   </div>
-		   </div>
-        </div>
+					</div>
+				</div>
+			</div>
 
 
-	<div class="modal-footer">
-		<button type="button" class="btn btn-primary" (click)="create(sjednica)" [disabled]="!formCtrl.form.valid">Unesi</button>
-		<button type="button" class="btn btn-secondary" (click)="c('Close click')">Izađi</button>
-	</div>
-	 </form>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" (click)="create(sjednica)" [disabled]="!formCtrl.form.valid">Unesi</button>
+				<button type="button" class="btn btn-secondary" (click)="c('Close click')">Izađi</button>
+			</div>
+		</form>
 	</div>
 </template>

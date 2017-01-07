@@ -12,6 +12,7 @@ import { StavkaDnevnogRedaService } from "./shared/services/stavkaDr.service";
 import { PrilogService } from "./shared/services/prilog.service";
 import { ChatPorukaService } from "./shared/services/chatPoruka.service";
 import { GlasService } from "./shared/services/glas.service";
+import { SpinnerService } from "./shared/services/spinner.service";
 
 export const Providers = [
     SjedniceService, 
@@ -27,5 +28,6 @@ export const Providers = [
     StavkaDnevnogRedaService,
     PrilogService,
     ChatPorukaService,
-    GlasService
+    GlasService,
+    SpinnerService
 ]

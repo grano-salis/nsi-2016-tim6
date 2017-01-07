@@ -50,7 +50,7 @@ export class DetaljiSjedniceComponent implements OnInit {
     date: Date;
 
     private init(sjednica) {
-
+        
         this.sjednica = sjednica;
 
         this.ucesnikService.getListBySjednicaId(this.sjednica.id).subscribe(s => this.ucesnici = s);

@@ -10,6 +10,8 @@ import { StatusUcesnikaComponent } from './sifarnici/statusUcesnika.component';
 import { TipUcesnikaComponent } from './sifarnici/tipUcesnika.component';
 import { TipGlasaComponent } from './sifarnici/tipGlasa.component';
 import { FileUploadComponent } from './fileUpload.component';
+import { SpinnerComponent } from './spinner.component';
+import { OrderByPipe } from "./shared/pipes/orderBy.pipe";
 
 
 export const Declarations = [
@@ -24,5 +26,7 @@ export const Declarations = [
     StatusUcesnikaComponent,
     TipUcesnikaComponent,
     TipGlasaComponent,
-    FileUploadComponent
+    FileUploadComponent,    
+    SpinnerComponent,
+    OrderByPipe
 ]

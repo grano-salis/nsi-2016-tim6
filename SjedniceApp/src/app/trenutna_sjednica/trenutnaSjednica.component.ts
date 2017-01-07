@@ -11,7 +11,9 @@ import { StavkaDnevnogRedaService } from '../shared/services/stavkaDr.service';
 import { GlasService } from '../shared/services/glas.service';
 import { ChatPorukaService } from '../shared/services/chatPoruka.service';
 import { StatusStavkeDnevnogRedaService } from '../shared/services/statusStavkeDr.service';
+import { PrilogService } from '../shared/services/prilog.service';
 
+import { User } from '../shared/models/user';
 import { ChatPoruka } from '../shared/models/chatPoruka';
 import { Sjednica } from '../shared/models/sjednica';
 import { UserInfo } from '../shared/models/userInfo';
@@ -20,6 +22,7 @@ import { StavkaDr } from '../shared/models/stavkaDr';
 import { Glas } from '../shared/models/glas';
 import { StatusStavkeDR } from '../shared/models/statusStavkeDr';
 import { StatusSjednice } from '../shared/models/statusSJednice';
+import { Prilog } from '../shared/models/prilog';
 
 var SockJS = require('sockjs-client');
 var Stomp = require('stompjs');
@@ -36,7 +39,9 @@ export class TrenutnaSjednicaComponent implements OnInit {
     private sjednica: Sjednica = new Sjednica();
 
     private precjedavajuci: Ucesnik;
+    private ucesnik: Ucesnik;
     private ucesnici: Ucesnik[] = [];
+    private prilozi: Prilog[] = [];
 
     private statusiStavkeDr: StatusStavkeDR[] = [];
     private aktivnaStavka: StavkaDr = new StavkaDr();
@@ -51,6 +56,8 @@ export class TrenutnaSjednicaComponent implements OnInit {
     private brojProtivAktivnu: number = 0;
     private brojSuzdrzanAktivnu: number = 0;
 
+    private user: User;
+
     constructor(
         //private statusStavkeDnevnogRedaService: StatusStavkeDnevnogRedaService,        
         private url: UrlProvider,
@@ -60,6 +67,8 @@ export class TrenutnaSjednicaComponent implements OnInit {
         private stavkaDrService: StavkaDnevnogRedaService,
         private chatService: ChatPorukaService,
         private glasService: GlasService,
+        private prilogService: PrilogService,
+        private userInfoService: UserInfoService
     ) {
         this.connect();
     }
@@ -108,8 +117,14 @@ export class TrenutnaSjednicaComponent implements OnInit {
             .subscribe(data => {
                 this.ucesnici = data;
                 this.precjedavajuci = data.find(s => s.tipUcesnika.id == 2);
-                console.log(JSON.stringify(this.precjedavajuci));
+                this.userInfoService.getUser().subscribe(user => {
+                    this.ucesnik = data.find(s => s.userInfo.id == user.UserId);
+                    this.user = user;
+                });
             });
+
+        this.prilogService.getListBySjednicaId(this.sjednica.id)
+            .subscribe(data => this.prilozi = data);
 
         this.stavkaDrService.getListBySjednicaId(this.sjednica.id).subscribe(data => {
             this.stavkeDr = data;
@@ -124,7 +139,8 @@ export class TrenutnaSjednicaComponent implements OnInit {
             }
         });
 
-        //this.statusStavkeService.getList().subscribe(s => this.statusiStavkeDr = s);
+
+
     }
 
 
@@ -155,7 +171,7 @@ export class TrenutnaSjednicaComponent implements OnInit {
 
     sendMsg() {
         this.chatPoruka.stavkaDnevnogRedaId = this.aktivnaStavka.id;
-        this.chatPoruka.ucesnikId = this.precjedavajuci.id;
+        this.chatPoruka.ucesnikId = this.ucesnik.id;
         this.chatPoruka.vrijeme = new Date();
         this.stompClient.send('/app/send', {}, JSON.stringify(this.chatPoruka));
     }
@@ -164,12 +180,16 @@ export class TrenutnaSjednicaComponent implements OnInit {
         let glas = new Glas();
         glas.stavkaDnevnogRedaId = this.aktivnaStavka.id;
         glas.tipGlasaId = tipGlasa;
-        glas.ucesnikId = this.precjedavajuci.id; //! kasnije treba promijeniti na pravog učesnika        
+        glas.ucesnikId = this.ucesnik.id; //! kasnije treba promijeniti na pravog učesnika        
         this.stompClient.send('/app/sendglas', {}, JSON.stringify(glas));
     }
     svrsiSjednicu() {
         this.sjednica.statusSjednice = new StatusSjednice(3, "Završena"); // postavljanje sjednice na "U toku" i pozivanje update servisa
-
+        this.sjednica.datumOdrzavanjaDo = new Date();
         this.sjedniceService.update(this.sjednica).subscribe(data => this.sjednica = data);
+    }
+
+    downloadPrilog(prilog: Prilog) {
+        //
     }
 }

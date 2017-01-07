@@ -11,7 +11,10 @@
                 <div class="vertical-center-row">
                     <div class='col-md-4'>
                         <div class="form-group">
-                            <label class="control-label" for="date">Datum početka: {{sjednica.datumOdrzavanjaOd}}</label>
+                            <label class="control-label" for="date">Datum: {{sjednica.datumOdrzavanjaOd | date:"MM/dd/yy" }} </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="date">Trajanje: {{sjednica.datumOdrzavanjaOd | date:"hh:mm" }} - {{sjednica.datumOdrzavanjaDo | date:"hh:mm" }} </label>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Tema sjednice: {{sjednica.naziv}}</label>

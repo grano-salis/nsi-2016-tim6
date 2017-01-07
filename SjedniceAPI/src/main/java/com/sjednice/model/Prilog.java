@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
@@ -28,12 +29,12 @@ public class Prilog implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Prilog(Integer id, String naziv, Integer sjednicaId, String contentType) {
-        this.id = id;
-        this.naziv = naziv;
-        this.sjednicaId = sjednicaId;
-        this.contentType = contentType;
-    }   
+//    public Prilog(Integer id, String naziv, Integer sjednicaId, String contentType) {
+//        this.id = id;
+//        this.naziv = naziv;
+//        this.sjednicaId = sjednicaId;
+//        this.contentType = contentType;
+//    }   
     
     @Id
     @SequenceGenerator(name = "generator", sequenceName = "PRILOG_SEQ", allocationSize = 1)
@@ -49,7 +50,9 @@ public class Prilog implements Serializable {
 
     @Column(name = "content_type")
     private String contentType;
-
+    
+    @Transient
+    @Lob
     @Column(name = "sadrzaj")    
     private byte[] sadrzaj;
 

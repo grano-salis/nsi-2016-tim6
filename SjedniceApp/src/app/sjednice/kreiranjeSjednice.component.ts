@@ -21,8 +21,6 @@ import { StatusUcesnika } from '../shared/models/statusUcesnika';
 import { StatusSjednice } from '../shared/models/statusSjednice';
 import { Prilog } from '../shared/models/prilog';
 
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-
 import { FileUploadComponent } from '../fileUpload.component';
 
 @Component({
@@ -37,8 +35,7 @@ export class KreiranjeSjedniceComponent implements OnInit {
     private selcetedUser: UserInfo = new UserInfo(); //u ovo se sprema selektovani user kod ododavanja učesnika    
     private tipoviUcesnika: TipUcesnika[];
     private selectedTipUcesnika: TipUcesnika = new TipUcesnika(1, "Učesnik");
-
-    private datumOd: NgbDateStruct; //u ovo se sprema vrijednost iz datepickera
+    
     private status: Status;
 
     private stavkaDr: StavkaDr = new StavkaDr(); //stavka koja se dodaje
@@ -76,8 +73,7 @@ export class KreiranjeSjedniceComponent implements OnInit {
 
         this.sjednica = sjednica;
 
-        this.date = new Date(this.sjednica.datumOdrzavanjaOd);
-        this.datumOd = { year: this.date.getUTCFullYear(), month: this.date.getUTCMonth() + 1, day: this.date.getUTCDay() };
+        this.date = new Date(this.sjednica.datumOdrzavanjaOd);        
 
         this.userInfoService.getList().subscribe(data => this.users = data);
 
@@ -119,6 +115,16 @@ export class KreiranjeSjedniceComponent implements OnInit {
         }
     }
 
+    deletePrilog(prilog: Prilog) {
+        this.prilogService.delete(prilog.id)
+            .subscribe(data => this.status = data);
+
+        var index = this.prilozi.indexOf(prilog, 0);
+        if (index > -1) {
+            this.prilozi.splice(index, 1);
+        }
+    }
+
     dodajStavkuDnevnogReda(stavka: StavkaDr) {
         this.stavkaDr.sjednicaId = this.sjednica.id;
         this.stavkaDr.statusStavkeDrId = 3; //nije obrađena       
@@ -148,12 +154,9 @@ export class KreiranjeSjedniceComponent implements OnInit {
         fromData.append("sadrzaj", this.prilog.sadrzaj, this.prilog.sadrzaj.name);
         fromData.append("naziv", this.prilog.naziv);
         fromData.append("sjednicaid", this.sjednica.id);
-        this.prilogService.makeFileRequest(fromData);
-        // this.prilog.sjednicaId = this.sjednica.id;  
-        // console.log(this.prilog.sadrzaj);  
-        // this.prilogService.createFile(this.prilog.sadrzaj).subscribe(s => this.prilozi.push(s));
-        //console.log(this.prilog.sadrzaj);        
-        //this.prilogService.create(this.prilog).subscribe(s => this.prilozi.push(s));
+        this.prilogService.createFormData(fromData).subscribe(s => {
+            this.prilogService.getListBySjednicaId(this.sjednica.id).subscribe(s => this.prilozi = s);
+        });
 
     }
 

@@ -1,7 +1,7 @@
-<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<button type="button" class="navbar-toggle collapsed" (click)="isCollapsedNavBar = !isCollapsedNavBar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -9,14 +9,14 @@
                 </button>
 
 		</div>
-		<div class="navbar-collapse collapse">
+		<div class="navbar-collapse collapse" [ngbCollapse]="isCollapsedNavBar">
 
-			<ul class="nav navbar-nav">
+			<ul [hidden]="user==null" class="nav navbar-nav">
 				<li><a routerLink='home'>Početna</a> </li>
-				<li><a routerLink='sjednice'>Sjednice</a> </li>				
+				<li><a routerLink='sjednice'>Sjednice</a> </li>
 
-				<li> <a (click) ="isCollapsed1 = !isCollapsed1">Šifrarnici <span class="caret"></span></a>
-					
+				<li> <a (click)="isCollapsed1 = !isCollapsed1">Šifrarnici <span class="caret"></span></a>
+
 					<ul [ngbCollapse]="isCollapsed1" (mouseleave)="isCollapsed1 = !isCollapsed1" class="dropdown-menu">
 						<li><a routerLink='sifarnici/statusSjednice'>Status sjednice</a></li>
 						<li><a routerLink='sifarnici/statusStavkeDR'>Status stavke dnevnog reda</a></li>
@@ -24,8 +24,17 @@
 						<li><a routerLink='sifarnici/tipUcesnika'>Tip učesnika</a></li>
 						<li><a routerLink='sifarnici/tipGlasa'>Tip glasa</a></li>
 					</ul>
-															
 
+
+				</li>
+						
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a class="pull-right" [hidden]="user!=null" href="http://do.mac.ba:88/sso/dist/">Prijava</a></li>
+				<li [hidden]="user==null"> <a (click)="isCollapsed2 = !isCollapsed2"> Prijavljen: {{user?.FirstName + " " + user?.LastName}} <span class="caret"></span></a>
+					<ul [ngbCollapse]="isCollapsed2" (mouseleave)="isCollapsed2 = !isCollapsed2" class="dropdown-menu">
+						<li><a href="" (click)="logout()">Odjava</a></li>
+					</ul>
 				</li>
 			</ul>
 
@@ -38,12 +47,14 @@
 
 
 
+
 <br />
 <br />
 <br />
 
 <div class="container body-content">
-
+	<spinner-component></spinner-component>
+	
 	<router-outlet></router-outlet>
 
 </div>

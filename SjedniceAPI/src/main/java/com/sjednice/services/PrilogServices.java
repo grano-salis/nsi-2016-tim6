@@ -29,6 +29,10 @@ public class PrilogServices implements IDataServices<Prilog> {
     public Prilog getEntityById(Integer id) throws Exception {
 		return dataDao.getEntityById(id);
     }
+    
+     public com.sjednice.dto.PrilogDto getEntityDtoById(Integer id) throws Exception {
+		return dataDao.getPrilogDtoById(id);
+    }
 
     @Override
     public List<Prilog> getEntityList() throws Exception {

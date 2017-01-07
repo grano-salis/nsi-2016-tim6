@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-//@CrossOrigin
+@CrossOrigin
 @RequestMapping("/prilog")
 public class PrilogController {
 
@@ -35,7 +35,7 @@ public class PrilogController {
     //@CrossOrigin
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public @ResponseBody
-    Prilog addPrilog(@RequestBody com.sjednice.dto.Prilog prilog) {
+    Prilog addPrilog(@RequestBody Prilog prilog) {
         try {
             
             //return new Status(1, "Employee added Successfully !");
@@ -74,6 +74,20 @@ public class PrilogController {
         }
         return prilog;
     }
+    
+    @ResponseBody
+     @RequestMapping(value = "/download/{id}", method = RequestMethod.GET)
+    public byte[] downloadPrilog(@PathVariable("id") Integer id) {
+        com.sjednice.dto.PrilogDto prilog = null;
+        try {
+            prilog = dataServices.getEntityDtoById(id);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return prilog.getSadrzaj();
+    }
+    
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public @ResponseBody

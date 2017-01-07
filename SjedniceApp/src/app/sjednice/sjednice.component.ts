@@ -4,32 +4,30 @@ import { StatusSjednice } from '../shared/models/statusSjednice';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'; // potrebno za rad modala
 import { SjedniceService } from '../shared/services/sjednice.service';
 import { StatusSjedniceService } from '../shared/services/statusSjednice.service';
-
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-
+import { SpinnerService } from '../shared/services/spinner.service';
 
 @Component({
     selector: 'app-sjednice',
     templateUrl: 'sjednice.component.html'
 })
 export class SjedniceComponent implements OnInit {
-    sjednice: Sjednica[] = [];
-    statusiSjednice: StatusSjednice[];
+    sjednice: Sjednica[] = [];    
 
-    sjednica: Sjednica = new Sjednica(); // u ovaj će se spremati kreirani model    
-
-    datumOd: NgbDateStruct;
-
+    sjednica: Sjednica = new Sjednica(); // u ovaj će se spremati kreirani model        
+    prikaziPoruku:boolean = false;
+    
     constructor(
         private service: SjedniceService,
         private statusSjedniceService: StatusSjedniceService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private spinner: SpinnerService
     ) { }
 
+
     ngOnInit() {
+        this.spinner.start();
         //subscribe služi da se pretplatimo na observable objekat koji se vraća iz servisa
-        this.service.getList().subscribe(data => this.sjednice = data);
-        this.statusSjedniceService.getList().subscribe(data => this.statusiSjednice = data);
+        this.service.getList().subscribe(data => { this.sjednice = data; this.spinner.stop(); });        
     }
 
     open(content: any) { // potrebno za rad modala
@@ -37,12 +35,10 @@ export class SjedniceComponent implements OnInit {
     }
 
     create(sjednica: Sjednica) {
-        sjednica.statusSjednice = new StatusSjednice(7, "U pripremi");     
-
-        sjednica.datumOdrzavanjaOd = new Date(this.datumOd.year, this.datumOd.month, this.datumOd.day);        
-
+        this.spinner.start();
+        sjednica.statusSjednice = new StatusSjednice(7, "U pripremi");
         this.service.create(sjednica)
-            .subscribe(data => this.sjednice.push(data));
+            .subscribe(data => { this.sjednice.push(data); this.spinner.stop(); this.prikaziPoruku = true; });
     }
 
 }

@@ -56,21 +56,26 @@ public class PrilogDao implements IDataDao<Prilog> {
 
     @Override
     public Prilog getEntityById(Integer id) throws Exception {
-        session = sessionFactory.openSession();
+       session = sessionFactory.openSession();
+        Prilog item;
+        item = (Prilog) session.get(Prilog.class, id);
+        tx = session.getTransaction();
         session.beginTransaction();
-        Criteria cr = session.createCriteria(Prilog.class)
-                .add(Restrictions.eq("id", id))
-                .setProjection(Projections.projectionList()
-                        .add(Projections.property("id"), "id")
-                        .add(Projections.property("naziv"), "naziv"))
-                .setResultTransformer(Transformers.aliasToBean(Prilog.class));
-
-        List<Prilog> model = cr.list();
         tx.commit();
-        session.close();
-        return model.get(0);
+        return item;
     }
-
+    
+    
+    public com.sjednice.dto.PrilogDto getPrilogDtoById(Integer id) throws Exception {
+        session = sessionFactory.openSession();
+        com.sjednice.dto.PrilogDto item;
+        item = (com.sjednice.dto.PrilogDto) session.get(com.sjednice.dto.PrilogDto.class, id);
+        tx = session.getTransaction();
+        session.beginTransaction();
+        tx.commit();
+        return item;
+    }
+    
     @SuppressWarnings("unchecked")
     @Override
     public List<Prilog> getEntityList() throws Exception {
@@ -92,15 +97,7 @@ public class PrilogDao implements IDataDao<Prilog> {
     public List<Prilog> getEntityListBySjednicaId(Integer sjednicaId) throws Exception {
         session = sessionFactory.openSession();
         tx = session.beginTransaction();
-        Criteria cr;
-        cr = session.createCriteria(Prilog.class)
-                .add(Restrictions.eq("sjednicaId", sjednicaId))
-                .setProjection(Projections.projectionList()
-                        .add(Projections.property("id"), "id")
-                        .add(Projections.property("naziv"), "naziv"))
-                .setResultTransformer(Transformers.aliasToBean(Prilog.class));
-
-        List<Prilog> model = (List<Prilog>) cr.list();
+        List<Prilog> model = session.createCriteria(Prilog.class).add(Restrictions.eq("sjednicaId", sjednicaId)).list();
         tx.commit();
         session.close();
         return model;
