@@ -3,6 +3,7 @@ import { StatusStavkeDR } from '../shared/models/statusStavkeDR';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'; // potrebno za rad modala
 import { StatusStavkeDnevnogRedaService } from '../shared/services/statusStavkeDR.service';
 import { Status } from '../shared/models/status';
+import { SpinnerService } from '../shared/services/spinner.service';
 
 @Component({
     selector: 'app-status-stavkeDR',

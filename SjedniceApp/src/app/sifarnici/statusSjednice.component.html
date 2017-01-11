@@ -13,6 +13,7 @@
 	<table class="table">
 		<thead>
 			<tr>
+				<th>#</th>
 				<th>Naziv</th>
 				<th></th>
 			</tr>
@@ -20,6 +21,7 @@
 		<tbody>
 			<tr>
 				<tr *ngFor="let status of statusiSjednice">
+					<td>{{status.id}}</td>
 					<td>{{status.naziv}}</td>
 					<td class="pull-right">
 						<!--<button class="btn btn-primary btn-sm">Uredi</button> |-->

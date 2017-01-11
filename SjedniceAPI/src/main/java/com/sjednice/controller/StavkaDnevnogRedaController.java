@@ -50,6 +50,19 @@ public class StavkaDnevnogRedaController {
         }
 
     }
+    
+    @CrossOrigin
+    @RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    StavkaDnevnogReda update(@RequestBody StavkaDnevnogReda model) {
+        try {
+            return dataServices.updateEntity(model);
+        } catch (Exception e) {
+            // e.printStackTrace();
+            return null;
+        }
+
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public @ResponseBody

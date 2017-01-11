@@ -13,6 +13,7 @@
 	<table class="table">
 		<thead>
 			<tr>
+				<th>#</th>
 				<th>Naziv</th>
 				<th></th>
 			</tr>
@@ -20,18 +21,14 @@
 		<tbody>
 			<tr>
 				<tr *ngFor="let status of statusiUcesnika">
+					<td>{{status.id}}</td>
 					<td>{{status.naziv}}</td>
 					<td class="pull-right">
 						<!--<button class="btn btn-primary btn-sm">Uredi</button> |-->
-						<button class="btn btn-danger btn-sm" 
-						mwlConfirmationPopover
-						message="Jeste li sigurni da želite obrisati ?"						
-						placement="left"
-						(confirm)="deleteEntity(status)"
-						(cancel)="isOpen = false"						
-						>Obriši</button>
+						<button class="btn btn-danger btn-sm" mwlConfirmationPopover message="Jeste li sigurni da želite obrisati ?" placement="left"
+							(confirm)="deleteEntity(status)" (cancel)="isOpen = false">Obriši</button>
 					</td>
-				</tr>				
+				</tr>
 		</tbody>
 	</table>
 </div>
@@ -45,12 +42,13 @@
 	</div>
 	<div class="modal-body">
 		<div class="form-group">
-			<input [(ngModel)]="statusUcesnika.naziv" class="form-control" placeholder="Unesite status učesnika" #naziv="ngModel" required />
+			<input [(ngModel)]="statusUcesnika.naziv" class="form-control" placeholder="Unesite status učesnika" #naziv="ngModel" required
+			/>
 			<div *ngIf="naziv.errors && (naziv.dirty || naziv.touched)" class="alert alert-danger">
-                    <div [hidden]="!naziv.errors.required">
-                        Unos naslova je obavezan!
-                    </div>
-            </div>
+				<div [hidden]="!naziv.errors.required">
+					Unos naslova je obavezan!
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="modal-footer">

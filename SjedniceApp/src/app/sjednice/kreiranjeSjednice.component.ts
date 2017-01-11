@@ -11,6 +11,8 @@ import { UcesnikService } from '../shared/services/ucesnik.service';
 import { StavkaDnevnogRedaService } from '../shared/services/stavkaDr.service';
 import { TipUcesnikaService } from '../shared/services/tipUcesnika.service';
 import { PrilogService } from '../shared/services/prilog.service';
+import { StatusStavkeDnevnogRedaService } from '../shared/services/statusStavkeDr.service';
+import { SpinnerService } from '../shared/services/spinner.service';
 
 import { Sjednica } from '../shared/models/sjednica';
 import { UserInfo } from '../shared/models/userInfo';
@@ -20,6 +22,7 @@ import { TipUcesnika } from '../shared/models/tipUcesnika';
 import { StatusUcesnika } from '../shared/models/statusUcesnika';
 import { StatusSjednice } from '../shared/models/statusSjednice';
 import { Prilog } from '../shared/models/prilog';
+import { StatusStavkeDR } from '../shared/models/statusStavkeDr';
 
 import { FileUploadComponent } from '../fileUpload.component';
 
@@ -35,7 +38,7 @@ export class KreiranjeSjedniceComponent implements OnInit {
     private selcetedUser: UserInfo = new UserInfo(); //u ovo se sprema selektovani user kod ododavanja učesnika    
     private tipoviUcesnika: TipUcesnika[];
     private selectedTipUcesnika: TipUcesnika = new TipUcesnika(1, "Učesnik");
-    
+
     private status: Status;
 
     private stavkaDr: StavkaDr = new StavkaDr(); //stavka koja se dodaje
@@ -44,6 +47,8 @@ export class KreiranjeSjedniceComponent implements OnInit {
     private fileUpload: File
     private prilog: Prilog = new Prilog();
     private prilozi: Prilog[] = [];
+
+    private statusiStavkeDr: StatusStavkeDR[] = [];
 
     constructor(
         private modalService: NgbModal, // potrebno za rad modala
@@ -54,7 +59,9 @@ export class KreiranjeSjedniceComponent implements OnInit {
         private stavkaDrService: StavkaDnevnogRedaService,
         private tipUcesnikaService: TipUcesnikaService,
         private prilogService: PrilogService,
-        private el: ElementRef
+        //private statusStavkeDrService: StatusStavkeDnevnogRedaService,
+        private el: ElementRef,
+        private spinner: SpinnerService
     ) { }
 
     open(content: any) { // potrebno za rad modala
@@ -63,6 +70,7 @@ export class KreiranjeSjedniceComponent implements OnInit {
 
 
     ngOnInit() {
+        this.spinner.start();
         this.route.params
             .switchMap((params: Params) => this.sjedniceService.get(+params['id']))
             .subscribe(sjednica => this.init(sjednica));
@@ -73,7 +81,7 @@ export class KreiranjeSjedniceComponent implements OnInit {
 
         this.sjednica = sjednica;
 
-        this.date = new Date(this.sjednica.datumOdrzavanjaOd);        
+        this.date = new Date(this.sjednica.datumOdrzavanjaOd);
 
         this.userInfoService.getList().subscribe(data => this.users = data);
 
@@ -84,6 +92,9 @@ export class KreiranjeSjedniceComponent implements OnInit {
         this.stavkaDrService.getListBySjednicaId(this.sjednica.id).subscribe(data => this.stavkeDr = data);
 
         this.prilogService.getListBySjednicaId(this.sjednica.id).subscribe(data => this.prilozi = data);
+
+        // this.statusStavkeDrService.getList().subscribe(data => this.statusiStavkeDr = data);
+        this.spinner.stop();
     }
 
     pokreniSjednicu() {
@@ -101,8 +112,9 @@ export class KreiranjeSjedniceComponent implements OnInit {
     }
 
     dodajUcesnika(selectedUser: UserInfo, selectedTipUcesnika: TipUcesnika) {
+        this.spinner.start();
         var ucesnik = new Ucesnik(selectedUser, this.sjednica.id, selectedTipUcesnika, new StatusUcesnika(4, "xxx"));
-        this.ucesnikService.create(ucesnik).subscribe(data => this.ucesnici.push(data));
+        this.ucesnikService.create(ucesnik).subscribe(data => { this.ucesnici.push(data); this.spinner.stop(); });
     }
 
     deleteUcesnik(ucesnik: Ucesnik) {
@@ -126,9 +138,14 @@ export class KreiranjeSjedniceComponent implements OnInit {
     }
 
     dodajStavkuDnevnogReda(stavka: StavkaDr) {
+        this.spinner.start();
         this.stavkaDr.sjednicaId = this.sjednica.id;
         this.stavkaDr.statusStavkeDrId = 3; //nije obrađena       
-        this.stavkaDrService.create(stavka).subscribe(data => this.stavkeDr.push(data));
+        this.stavkaDrService.create(stavka).subscribe(data => {
+            this.stavkeDr.push(data);
+            this.prikaziPoruku = true;
+            this.spinner.stop();
+        });
     }
 
     deleteStavkaDr(stavkaDr: StavkaDr) {
@@ -150,16 +167,30 @@ export class KreiranjeSjedniceComponent implements OnInit {
 
 
     dodajPrilog() {
+        this.spinner.start();
         let fromData = new FormData();
         fromData.append("sadrzaj", this.prilog.sadrzaj, this.prilog.sadrzaj.name);
         fromData.append("naziv", this.prilog.naziv);
         fromData.append("sjednicaid", this.sjednica.id);
         this.prilogService.createFormData(fromData).subscribe(s => {
-            this.prilogService.getListBySjednicaId(this.sjednica.id).subscribe(s => this.prilozi = s);
+            this.prilozi.push(this.prilog);
+            this.spinner.stop();
         });
 
     }
 
+    openModalForEditStavkaDr(content: any, id: number) { // potrebno za rad modala        
+        this.stavkaDr = this.stavkeDr.find(s => s.id == id);
+        this.modalService.open(content);
+    }
 
+    prikaziPoruku: boolean;
+    updateStavkaDr(stavkaDr: StavkaDr) {
+        this.spinner.start();
+        this.stavkaDrService.update(stavkaDr).subscribe(s => {
+            this.prikaziPoruku = true;
+            this.spinner.stop();
+        });
+    }
 
 }

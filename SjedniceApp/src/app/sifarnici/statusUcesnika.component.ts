@@ -3,6 +3,7 @@ import { StatusUcesnika } from '../shared/models/statusUcesnika';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'; // potrebno za rad modala
 import { StatusUcesnikaService } from '../shared/services/statusUcesnika.service';
 import { Status } from '../shared/models/status';
+import { SpinnerService } from '../shared/services/spinner.service';
 
 @Component({    
     selector: 'app-status-ucesnika',

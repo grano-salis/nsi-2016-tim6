@@ -17,19 +17,19 @@ export class AppComponent {
 
     constructor(private userInfoService:UserInfoService) {}
     ngOnInit() {
-        //  this.userInfoService.isAuth().subscribe(s => {
-        //     if(s == true) {
-        //         this.userInfoService.getUser().subscribe(s => this.user = s);
-        //     }
+         this.userInfoService.isAuth().subscribe(s => {
+            if(s == true) {
+                this.userInfoService.getUser().subscribe(s => this.user = s);
+            }
              
-        // });
+        });
 
-        this.user = new User();
-        this.user.Email ="fdzafic1@etf.unsa.ba";
-        this.user.FirstName = "Faris";
-        this.user.LastName = "Džafić";
-        this.user.UserId = 1;
-        this.user.UserId = 121;
+        // this.user = new User();
+        // this.user.Email ="agranulo1@etf.unsa.ba";
+        // this.user.FirstName = "Faris";
+        // this.user.LastName = "Džafić";
+        // this.user.UserId = 1;
+        // this.user.UserId = 121;
 
     }
 

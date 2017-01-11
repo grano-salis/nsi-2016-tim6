@@ -3,6 +3,7 @@ import { TipGlasa } from '../shared/models/tipGlasa';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'; // potrebno za rad modala
 import { TipGlasaService } from '../shared/services/tipGlasa.service';
 import { Status } from '../shared/models/status';
+import { SpinnerService } from '../shared/services/spinner.service';
 
 @Component({    
     selector: 'app-tip-glasa',

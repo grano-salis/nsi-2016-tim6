@@ -27,6 +27,14 @@ export class StavkaDnevnogRedaService implements iService<StavkaDr>{
             .map((response: Response) => response.json());
     }
 
+    
+    update(stavkaDr: StavkaDr): Observable<StavkaDr> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.put(this.url.stavkaDr + "/update", JSON.stringify(stavkaDr), options)
+            .map((response: Response) => response.json());
+    }
+
     create(ucesnik: StavkaDr): Observable<StavkaDr> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });

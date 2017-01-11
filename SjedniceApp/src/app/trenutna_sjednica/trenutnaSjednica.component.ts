@@ -12,6 +12,7 @@ import { GlasService } from '../shared/services/glas.service';
 import { ChatPorukaService } from '../shared/services/chatPoruka.service';
 import { StatusStavkeDnevnogRedaService } from '../shared/services/statusStavkeDr.service';
 import { PrilogService } from '../shared/services/prilog.service';
+import { SpinnerService } from '../shared/services/spinner.service';
 
 import { User } from '../shared/models/user';
 import { ChatPoruka } from '../shared/models/chatPoruka';
@@ -68,17 +69,18 @@ export class TrenutnaSjednicaComponent implements OnInit {
         private chatService: ChatPorukaService,
         private glasService: GlasService,
         private prilogService: PrilogService,
-        private userInfoService: UserInfoService
+        private userInfoService: UserInfoService,
+        private spinner: SpinnerService
     ) {
         this.connect();
     }
 
 
-    connect() {
+    connect() {        
         var that = this;
         var socket = new SockJS(this.url.webSocketUrlChat);
         this.stompClient = Stomp.over(socket);
-        this.stompClient.connect({}, function (frame) {
+        this.stompClient.connect({ 'Access-Control-Allow-Credentials': true }, function (frame) {
             console.log('Connected: ' + frame);
             that.stompClient.subscribe('/topic/messages', data => {
                 let message = JSON.parse(data.body) as ChatPoruka;
@@ -99,10 +101,15 @@ export class TrenutnaSjednicaComponent implements OnInit {
                 that.brojSuzdrzanAktivnu = that.glasovi.filter(s => s.tipGlasaId == 3 && s.stavkaDnevnogRedaId == that.aktivnaStavka.id).length;
             });
 
+            that.stompClient.subscribe('/topic/statusstavkedr', data => {
+                that.stavkeDr.find(st => st.id == data.body.id).statusStavkeDrId = data.body.statusStavkeDrId;
+            });
+
         });
     }
 
     ngOnInit() {
+        this.spinner.start();
         this.route.params
             .switchMap((params: Params) => this.sjedniceService.get(+params['id']))
             .subscribe(sjednica => this.init(sjednica));
@@ -137,10 +144,11 @@ export class TrenutnaSjednicaComponent implements OnInit {
                     this.messages = s;
                 });
             }
+            this.spinner.stop();
         });
 
 
-
+        
     }
 
 
@@ -156,12 +164,13 @@ export class TrenutnaSjednicaComponent implements OnInit {
     }
 
     postaviZaAktivnuStavku(stavkaDr: StavkaDr) {
+        this.spinner.start();
         this.stompClient.send('/app/sendaktivnastavkadr', {}, JSON.stringify(stavkaDr));
 
         this.brojZaAktivnu = this.glasovi.filter(s => s.tipGlasaId == 1 && s.stavkaDnevnogRedaId == stavkaDr.id).length;
         this.brojProtivAktivnu = this.glasovi.filter(s => s.tipGlasaId == 2 && s.stavkaDnevnogRedaId == stavkaDr.id).length;
         this.brojSuzdrzanAktivnu = this.glasovi.filter(s => s.tipGlasaId == 3 && s.stavkaDnevnogRedaId == stavkaDr.id).length;
-
+        this.spinner.stop();
     }
 
     omogucavanjeGlasanja(omoguciti: boolean) {
@@ -180,13 +189,18 @@ export class TrenutnaSjednicaComponent implements OnInit {
         let glas = new Glas();
         glas.stavkaDnevnogRedaId = this.aktivnaStavka.id;
         glas.tipGlasaId = tipGlasa;
-        glas.ucesnikId = this.ucesnik.id; //! kasnije treba promijeniti na pravog učesnika        
+        glas.ucesnikId = this.ucesnik.id;      
         this.stompClient.send('/app/sendglas', {}, JSON.stringify(glas));
     }
     svrsiSjednicu() {
         this.sjednica.statusSjednice = new StatusSjednice(3, "Završena"); // postavljanje sjednice na "U toku" i pozivanje update servisa
         this.sjednica.datumOdrzavanjaDo = new Date();
         this.sjedniceService.update(this.sjednica).subscribe(data => this.sjednica = data);
+    }
+
+    promijeniStatusStavkeDr(stavka: StavkaDr, status: number) {
+        stavka.statusStavkeDrId = status;
+        this.stompClient.send('/app/promijeniStatusStavkeDr', {}, JSON.stringify(stavka));
     }
 
     downloadPrilog(prilog: Prilog) {

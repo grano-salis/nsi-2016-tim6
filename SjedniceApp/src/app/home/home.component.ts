@@ -20,9 +20,9 @@ export class HomeComponent implements OnInit  {
     ) { }
 
     ngOnInit() {
-        // this.userInfoService.isAuth().subscribe(s => {
-        //     if(s == false)
-        //      this.loginMessage = 'Niste prijavljeni na sistem. Prijavu izvršite na ovom <a href="http://do.mac.ba:88/sso/dist/">linku</a>';
-        // });
+        this.userInfoService.isAuth().subscribe(s => {
+            if(s == false)
+             this.loginMessage = 'Niste prijavljeni na sistem. Prijavu izvršite na ovom <a href="http://do.mac.ba:88/sso/dist/">linku</a>';
+        });
     }
 }

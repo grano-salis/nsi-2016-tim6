@@ -3,7 +3,7 @@ import { StatusSjednice } from '../shared/models/statusSjednice';
 import { Status } from '../shared/models/status';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'; // potrebno za rad modala
 import { StatusSjedniceService } from '../shared/services/statusSjednice.service';
-
+import { SpinnerService } from '../shared/services/spinner.service';
 
 @Component({    
     selector: 'app-status-sjednice',

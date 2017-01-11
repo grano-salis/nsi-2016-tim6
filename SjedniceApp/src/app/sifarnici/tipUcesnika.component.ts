@@ -3,6 +3,7 @@ import { TipUcesnika } from '../shared/models/tipUcesnika';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'; // potrebno za rad modala
 import { TipUcesnikaService } from '../shared/services/tipUcesnika.service';
 import { Status } from '../shared/models/status';
+import { SpinnerService } from '../shared/services/spinner.service';
 
 @Component({    
     selector: 'app-tip-ucesnika',

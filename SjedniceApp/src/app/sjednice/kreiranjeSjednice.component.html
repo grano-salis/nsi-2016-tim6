@@ -91,7 +91,7 @@
             <tr *ngFor="let item of stavkeDr">
                 <td>{{ item.opis }}</td>
                 <td class="pull-right">
-                    <button class="btn btn-primary">Detalji</button> |
+                    <button class="btn btn-primary" (click)="openModalForEditStavkaDr(content, item.id)">Detalji</button> |
                     <button class="btn btn-danger btn-sm" mwlConfirmationPopover message="Jeste li sigurni da želite obrisati ?" placement="left"
                         (confirm)="deleteStavkaDr(item)" (cancel)="isOpen = false">Obriši</button>
                 </td>
@@ -196,9 +196,19 @@
         <h4 class="modal-title">Unos tačke dnevnog reda</h4>
     </div>
     <div class="modal-body">
+
+        
+        <div class="alert alert-success" [hidden]="!prikaziPoruku">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <strong *ngIf="stavkaDr.id == null">Stavka je kreirana!</strong> 
+            <strong *ngIf="stavkaDr.id != null">Izmejene su spremljene!</strong> 
+        </div>
+        
+
+
         <form #formCtrl="ngForm">
             <div class="form-group">
-                <input class="form-control" [(ngModel)]="stavkaDr.redniBroj" id="redniBroj" name="redniBroj" #redniBroj="ngModel" required
+                <input class="form-control" type="number" [(ngModel)]="stavkaDr.redniBroj" id="redniBroj" name="redniBroj" #redniBroj="ngModel" required
                     placeholder="Redni broj tačke dnevnog reda" />
                 <div *ngIf="redniBroj.errors && (redniBroj.dirty || redniBroj.touched)" class="alert alert-danger">
                     <div [hidden]="!redniBroj.errors.required">
@@ -223,10 +233,18 @@
                     </div>
                 </div>
             </div>
+
+             <!--<div *ngIf="stavkaDr.id != null" class="form-group">
+                <select style="height: 35px;" [(ngModel)]="stavkaDr.statusStavkeDrId" class="form-control">      
+                    <option selected>Status stavke dnevnog reda</option>              
+                    <option *ngFor="let tip of statusiStavkeDr" [ngValue]="tip.id" >{{ tip.naziv }}</option>                   
+                </select>
+            </div>-->
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="dodajStavkuDnevnogReda(stavkaDr)" [disabled]="!formCtrl.form.valid">Spremi</button>
+        <button *ngIf="stavkaDr.id == null" type="button" class="btn btn-primary" (click)="dodajStavkuDnevnogReda(stavkaDr)" [disabled]="!formCtrl.form.valid">Spremi</button>
+         <button *ngIf="stavkaDr.id != null" type="button" class="btn btn-primary" (click)="updateStavkaDr(stavkaDr)" [disabled]="!formCtrl.form.valid">Spremi izmjene</button>
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">Izađi</button>
     </div>
 </template>

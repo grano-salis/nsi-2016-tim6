@@ -4,6 +4,8 @@ const base2 = "http://esjedniceservis2.azurewebsites.net"
 
 const sso = "http://do.mac.ba:8888/BusinessLogic/Account.svc/json";
 
+const izvjestaj = "http://nsireports.azurewebsites.net/ReportTemplateEngine-v1/api/services/data/template/361/fill";
+
 export class UrlProvider {    
     public sjednice:string = base + "/sjednica";
     public statusSjednice:string = base + "/sifarnici/statussjednice";
@@ -21,5 +23,6 @@ export class UrlProvider {
     public glas:string = base + "/glas";
     public CheckAuth:string = sso + "/auth";
     public LogOut: string = sso + "/logout";
+    public izvjestaj: string = izvjestaj;
 }
 

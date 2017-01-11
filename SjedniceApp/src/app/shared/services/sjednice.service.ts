@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Http, Response, Headers, RequestOptions, ResponseContentType } from '@angular/http';
 import { UrlProvider } from '../../app.url';
 
 import { Observable } from 'rxjs/Observable';
@@ -9,6 +9,7 @@ import 'rxjs/add/operator/catch';
 
 import { Sjednica } from '../models/sjednica';
 import { Status } from '../models/status';
+import { Izvjestaj } from '../models/izvjestaj';
 
 import { iService } from '../services/iService';
 
@@ -50,5 +51,13 @@ export class SjedniceService implements iService<Sjednica>{
     delete(id: number): Observable<Status> {
         return this.http.delete(this.url.sjednice + "/delete/" + id.toString())
             .map((response: Response) => response.json());
+    }
+
+    getIzvjestaj(izvjestaj: Izvjestaj) : Observable<any> {        
+        let headers = new Headers({ 'Content-Type': "application/json" });                                  
+        let options = new RequestOptions({ headers: headers, responseType : ResponseContentType.Blob });
+        console.log(JSON.stringify(izvjestaj));
+        return this.http.post(this.url.izvjestaj, '{ "placeholders":' + JSON.stringify(izvjestaj) + ' }', options);
+            //.map((response: Response) => response.blob());
     }
 }
